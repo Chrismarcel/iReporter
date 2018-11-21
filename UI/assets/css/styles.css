@@ -292,7 +292,14 @@ section > .btn {
   margin-bottom: 20px;
 }
 
-.report-media {
+.report-user {
+  display: block;
+  font-size: 1.2em;
+  margin-bottom: 15px;
+}
+
+.report-media,
+.report-user {
   color: #0facf3;
   text-decoration: underline;
 }
@@ -300,6 +307,7 @@ section > .btn {
 .report-status {
   position: absolute;
   right: -10px;
+  top: -10px;
   background: #ef271b;
   color: #fffffa;
   padding: 4px 10px;
@@ -316,9 +324,9 @@ section > .btn {
   height: 15px;
   background: #ef271b;
   z-index: -1;
-  top: -8px;
+  top: 25px;
   right: 0px;
-  transform: skewY(45deg);
+  transform: skewY(-45deg);
 }
 
 /* Footer */
@@ -411,4 +419,18 @@ p.stat-value {
 tr > td:nth-child(4),
 tr > td:nth-child(5) {
   text-align: center;
+}
+
+/* User reports */
+.user-reports {
+  flex-basis: 73%;
+}
+
+.user-reports > .featured-cards {
+  justify-content: flex-start;
+}
+
+.user-reports > .featured-cards > .report-card {
+  flex-basis: 30%;
+  margin-right: 20px;
 }
