@@ -179,7 +179,7 @@ header {
 
 .navbar-link a {
   display: block;
-  padding: 26px 15px;
+  padding: 26px 14px;
   color: #0facf3;
   font-weight: 600;
 }
@@ -233,8 +233,11 @@ main {
 
 .hero-cta {
   display: flex;
-  width: 26%;
   justify-content: space-between;
+}
+
+.hero-cta > a:first-child {
+  margin-right: 20px;
 }
 
 /* Homepage Sections */
@@ -442,7 +445,7 @@ tr > td:nth-child(5) {
   margin-right: 20px;
 }
 
-/* For smaller devices - smartphones (<768px) */
+/* For smartphones (<768px) */
 @media screen and (max-width: 768px) {
   .navbar-menu {
     display: none;
@@ -473,6 +476,10 @@ tr > td:nth-child(5) {
 
   .hero-cta {
     width: 50%;
+  }
+
+  .hero-cta > a:first-child {
+    margin-right: 0;
   }
 
   .hero-cta,
@@ -521,5 +528,12 @@ tr > td:nth-child(5) {
 
   .user-reports > .featured-cards > .report-card {
     margin-right: 0;
+  }
+}
+
+/* Adjust container size for (width > 500 and width < 769px) */
+@media screen and (min-width: 500px) and (max-width: 768px) {
+  section {
+    padding: 20px 60px;
   }
 }
