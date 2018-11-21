@@ -56,6 +56,24 @@ button {
   border: 2px solid #fffffa;
 }
 
+.column {
+  display: flex;
+  justify-content: space-between;
+}
+
+.circle-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 60px;
+  background: #0facf3;
+  color: #fffffa;
+  display: block;
+  line-height: 60px;
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
 /* Navigation */
 header {
   box-shadow: rgba(31, 53, 78, 0.11) 0 1px;
@@ -142,4 +160,46 @@ main {
   display: flex;
   width: 26%;
   justify-content: space-between;
+}
+
+/* Homepage Sections */
+section {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+section > .btn {
+  align-self: center;
+}
+
+.steps {
+  display: flex;
+  justify-content: space-between;
+}
+
+.column.step {
+  flex-basis: 50%;
+  flex-direction: column;
+  padding: 20px 50px;
+}
+
+.column .circle-icon {
+  align-self: center;
+  margin-bottom: 20px;
+}
+
+.section-title,
+.section-text {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 60px;
+  border: 1.5px solid #0facf3;
 }
