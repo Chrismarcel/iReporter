@@ -111,9 +111,13 @@ button {
 }
 
 .container {
-  align-items: center;
   background: #f5f6f8;
   padding: 95px 40px;
+}
+
+.form-container > .section-title,
+.form-card {
+  align-self: center;
 }
 
 /* Navigation */
@@ -280,7 +284,7 @@ section > .btn {
 }
 
 .reports-container {
-  z-index: -1;
+  clip-path: polygon(0 0%, 100% 0, 100% 100%, 0% 100%);
 }
 
 .report-status::after {
@@ -317,6 +321,54 @@ footer {
 }
 
 /* Profile Card */
+.profile {
+  display: flex;
+}
+
 .profile-card {
   background: #fffffa;
+  display: flex;
+  flex-basis: 25%;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.profile-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.profile-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.profile-stats {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.stats {
+  position: relative;
+}
+
+.stats:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  height: 50px;
+  right: -25px;
+  top: 5px;
+  border-right: 2px solid #f5f6f8;
+}
+
+p.stat-value {
+  margin-bottom: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
 }
