@@ -514,4 +514,8 @@ tr > td:nth-child(5) {
     overflow-x: auto;
     width: 100%;
   }
+
+  .user-reports > .featured-cards > .report-card {
+    margin-right: 0;
+  }
 }
