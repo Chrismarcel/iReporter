@@ -34,6 +34,18 @@ select {
   -moz-appearance: none;
 }
 
+input,
+select,
+textarea {
+  height: 45px;
+  text-align: left;
+  border: 2px solid #0facf3;
+  border-radius: 7px;
+  margin-bottom: 20px;
+  padding: 0 10px;
+  background: transparent;
+}
+
 button {
   cursor: pointer;
 }
