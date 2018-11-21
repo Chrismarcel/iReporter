@@ -101,6 +101,12 @@ button {
   font-weight: 600;
 }
 
+.form-container {
+  align-items: center;
+  background: #f5f6f8;
+  padding: 95px 40px;
+}
+
 /* Navigation */
 header {
   box-shadow: rgba(31, 53, 78, 0.11) 0 1px;
@@ -285,4 +291,14 @@ footer {
 
 .credits {
   font-weight: 600;
+}
+
+/* Form Card */
+.form-card {
+  width: 45%;
+  background: #fffffa;
+  display: flex;
+  flex-direction: column;
+  padding: 50px 40px;
+  margin-top: 25px;
 }
