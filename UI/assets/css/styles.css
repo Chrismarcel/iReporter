@@ -448,6 +448,10 @@ tr > td:nth-child(5) {
     display: none;
   }
 
+  .container {
+    padding: 40px 0;
+  }
+
   .hero {
     padding: 25px;
     height: calc(100vh - 73px);
@@ -494,5 +498,10 @@ tr > td:nth-child(5) {
 
   .report-card:last-child {
     margin-bottom: 0;
+  }
+
+  .form-card {
+    width: 90%;
+    padding: 50px 25px;
   }
 }
