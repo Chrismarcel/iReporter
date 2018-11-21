@@ -449,7 +449,7 @@ tr > td:nth-child(5) {
   }
 
   .container {
-    padding: 40px 0;
+    padding: 40px 20px;
   }
 
   .hero {
@@ -473,7 +473,8 @@ tr > td:nth-child(5) {
 
   .hero-cta,
   .steps,
-  .featured-cards {
+  .featured-cards,
+  .profile {
     flex-direction: column;
   }
 
@@ -503,5 +504,14 @@ tr > td:nth-child(5) {
   .form-card {
     width: 90%;
     padding: 50px 25px;
+  }
+
+  .profile-card {
+    width: 100%;
+  }
+
+  .profile-table {
+    overflow-x: auto;
+    width: 100%;
   }
 }
