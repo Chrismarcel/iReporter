@@ -315,3 +315,8 @@ footer {
   padding: 50px 40px;
   margin-top: 25px;
 }
+
+/* Profile Card */
+.profile-card {
+  background: #fffffa;
+}
