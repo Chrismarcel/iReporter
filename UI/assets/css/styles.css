@@ -64,11 +64,17 @@ button {
   border-radius: 7px;
   font-weight: 600;
   display: inline-block;
+  min-width: 110px;
 }
 
 .btn-hollow {
   border: 2px solid #fffffa;
   color: #fffffa;
+}
+
+.btn-warning {
+  color: #fffffa;
+  background: #ef271b;
 }
 
 .btn-primary {
@@ -118,6 +124,22 @@ button {
 .form-container > .section-title,
 .form-card {
   align-self: center;
+}
+
+table {
+  background: transparent;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+tr {
+  border-left: 3px solid #0facf3;
+}
+
+td,
+th {
+  padding: 20px 10px;
+  border-bottom: 1px solid #dddddd;
 }
 
 /* Navigation */
@@ -278,7 +300,7 @@ section > .btn {
 .report-status {
   position: absolute;
   right: -10px;
-  background: #ab6b1b;
+  background: #ef271b;
   color: #fffffa;
   padding: 4px 10px;
 }
@@ -292,7 +314,7 @@ section > .btn {
   position: absolute;
   width: 15px;
   height: 15px;
-  background: #ab6b1b;
+  background: #ef271b;
   z-index: -1;
   top: -8px;
   right: 0px;
@@ -323,6 +345,8 @@ footer {
 /* Profile Card */
 .profile {
   display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .profile-card {
@@ -355,6 +379,7 @@ footer {
 
 .stats {
   position: relative;
+  margin-bottom: 20px;
 }
 
 .stats:not(:last-child)::after {
@@ -370,5 +395,20 @@ p.stat-value {
   margin-bottom: 0;
   font-size: 1.5rem;
   font-weight: 600;
+  text-align: center;
+}
+
+/* Reports Table */
+.stats-table {
+  margin-top: 20px;
+  background: #fffffa;
+}
+
+.profile-table {
+  flex-basis: 73%;
+}
+
+tr > td:nth-child(4),
+tr > td:nth-child(5) {
   text-align: center;
 }
