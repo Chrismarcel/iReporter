@@ -65,6 +65,8 @@ button {
   font-weight: 600;
   display: inline-block;
   min-width: 110px;
+  text-align: center;
+  margin-bottom: 15px;
 }
 
 .btn-hollow {
@@ -438,4 +440,59 @@ tr > td:nth-child(5) {
 .user-reports > .featured-cards > .report-card {
   flex-basis: 30%;
   margin-right: 20px;
+}
+
+/* For smaller devices - smartphones (<768px) */
+@media screen and (max-width: 768px) {
+  .navbar-menu {
+    display: none;
+  }
+
+  .hero {
+    padding: 25px;
+    height: calc(100vh - 73px);
+  }
+
+  .hero-title {
+    font-size: 2em;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  .hero-paragraph {
+    font-size: 1.3em;
+  }
+
+  .hero-cta {
+    width: 50%;
+  }
+
+  .hero-cta,
+  .steps,
+  .featured-cards {
+    flex-direction: column;
+  }
+
+  section {
+    padding: 20px;
+  }
+
+  .navbar-logo {
+    font-size: 1.5em;
+    padding: 20px;
+  }
+
+  .column.step {
+    padding: 20px;
+  }
+
+  .featured {
+    margin-top: -40px;
+    clip-path: polygon(0 8%, 100% 0, 100% 100%, 0% 100%);
+    padding-top: 150px;
+  }
+
+  .report-card:last-child {
+    margin-bottom: 0;
+  }
 }
