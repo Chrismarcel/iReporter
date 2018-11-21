@@ -37,39 +37,54 @@
       <section class="container form-container">
         <h2 class="section-title">Create Report</h2>
         <form class="form-card" action="" method="post">
+          <label for="title">Enter issue to be reported (Required)</label>
           <textarea
             name="title"
+            id="title"
             class="form-element"
-            placeholder="Enter a brief comment about the issue eg Blocked drainage system"
+            placeholder="Enter a brief comment about the issue eg 'Blocked drainage system'"
             col="10"
             required
           ></textarea>
-          <select type="text" name="issue-type" class="form-element" required>
+          <label for="issue-type">Select report type (Required)</label>
+          <select
+            type="text"
+            id="issue-type"
+            name="issue-type"
+            class="form-element"
+            required
+          >
             <option default>-- Select Report Type --</option>
             <option value="red-flag">Red Flag</option>
             <option value="intervention">Intervention</option>
           </select>
+          <label for="latitude">Enter Latitude (Required)</label>
           <input
             type="text"
-            name="othername"
-            class="form-element"
-            placeholder="Enter Other Name"
-          />
-          <input
-            type="text"
+            id="latitude"
             name="latitude"
             class="form-element"
             placeholder="Enter Latitude of location"
             required
           />
+          <label for="longitude">Enter Longitude (Required)</label>
           <input
             type="text"
+            id="longitude"
             name="longitude"
             class="form-element"
             placeholder="Enter Longitude of location"
             required
           />
-          <input type="file" name="attachment" class="form-element" />
+          <label for="attachment"
+            >Attach Media File - Image or Video (Optional)</label
+          >
+          <input
+            type="file"
+            id="attachment"
+            name="attachment"
+            class="form-element"
+          />
           <button type="submit" class="btn btn-primary">Create Report</button>
         </form>
       </section>
