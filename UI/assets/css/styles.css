@@ -34,11 +34,6 @@ select {
   -moz-appearance: none;
 }
 
-.btn-hollow {
-  border: 2px solid #fffffa;
-  color: #fffffa;
-}
-
 button {
   cursor: pointer;
 }
@@ -48,6 +43,11 @@ button {
   border-radius: 7px;
   font-weight: 600;
   display: inline-block;
+}
+
+.btn-hollow {
+  border: 2px solid #fffffa;
+  color: #fffffa;
 }
 
 .btn-white {
