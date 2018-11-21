@@ -32,7 +32,47 @@
       </nav>
     </header>
     <!-- End Header -->
-    <main></main>
+    <main>
+      <section class="form-container">
+        <h2 class="section-title">Create Report</h2>
+        <form class="form-card" action="" method="post">
+          <textarea
+            name="title"
+            class="form-element"
+            placeholder="Enter a brief comment about the issue eg Blocked drainage system"
+            col="10"
+            required
+          ></textarea>
+          <select type="text" name="issue-type" class="form-element" required>
+            <option default>-- Select Report Type --</option>
+            <option value="red-flag">Red Flag</option>
+            <option value="intervention">Intervention</option>
+          </select>
+          <input
+            type="text"
+            name="othername"
+            class="form-element"
+            placeholder="Enter Other Name"
+          />
+          <input
+            type="text"
+            name="latitude"
+            class="form-element"
+            placeholder="Enter Latitude of location"
+            required
+          />
+          <input
+            type="text"
+            name="longitude"
+            class="form-element"
+            placeholder="Enter Longitude of location"
+            required
+          />
+          <input type="file" name="attachment" class="form-element" />
+          <button type="submit" class="btn btn-primary">Create Report</button>
+        </form>
+      </section>
+    </main>
     <footer><p class="credits">iReporter | Copyright &copy; 2018</p></footer>
   </body>
 </html>

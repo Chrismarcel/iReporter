@@ -46,6 +46,15 @@ textarea {
   background: transparent;
 }
 
+input[type="file"] {
+  padding-top: 8px;
+}
+
+textarea {
+  padding: 10px;
+  height: 90px;
+}
+
 button {
   cursor: pointer;
 }
