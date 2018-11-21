@@ -50,10 +50,25 @@ button {
   color: #fffffa;
 }
 
+.btn-primary {
+  background: #0facf3;
+  color: #fffffa;
+}
+
 .btn-white {
   background: #fffffa;
   color: #0facf3;
   border: 2px solid #fffffa;
+}
+
+.card {
+  padding: 20px;
+  border-left: 3px solid #0facf3;
+  position: relative;
+}
+
+.card p {
+  margin-bottom: 15px;
 }
 
 .column {
@@ -202,4 +217,49 @@ section > .btn {
   left: 0;
   width: 60px;
   border: 1.5px solid #0facf3;
+}
+
+/* Featured Reports */
+.featured {
+  margin-top: -35px;
+  background: #f5f6f8;
+  clip-path: polygon(0 13%, 100% 0, 100% 100%, 0% 100%);
+  padding-top: 110px;
+}
+
+.featured-cards {
+  justify-content: space-between;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.featured-cards .report-card {
+  flex-basis: 23.5%;
+  background: #fffffa;
+  margin-bottom: 20px;
+}
+
+.report-media {
+  color: #0facf3;
+  text-decoration: underline;
+}
+
+.report-status {
+  position: absolute;
+  right: -10px;
+  background: #ab6b1b;
+  color: #fffffa;
+  padding: 4px 10px;
+}
+
+.report-status::after {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: #ab6b1b;
+  z-index: -1;
+  top: -8px;
+  right: 0px;
+  transform: skewY(45deg);
 }
