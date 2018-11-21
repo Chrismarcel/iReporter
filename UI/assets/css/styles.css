@@ -1,0 +1,276 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "PT Sans", sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+  background-color: #fffffa;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: #3c4859;
+}
+
+/* Global/Custom Components */
+a {
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  border: none;
+  font-family: "PT Sans", sans-serif;
+  font-size: 1em;
+  margin: 0;
+  text-decoration: none;
+  text-align: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+.btn {
+  padding: 12px 25px;
+  border-radius: 7px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.btn-hollow {
+  border: 2px solid #fffffa;
+  color: #fffffa;
+}
+
+.btn-primary {
+  background: #0facf3;
+  color: #fffffa;
+}
+
+.btn-white {
+  background: #fffffa;
+  color: #0facf3;
+  border: 2px solid #fffffa;
+}
+
+.card {
+  padding: 20px;
+  border-left: 3px solid #0facf3;
+  position: relative;
+}
+
+.card p {
+  margin-bottom: 15px;
+}
+
+.column {
+  display: flex;
+  justify-content: space-between;
+}
+
+.circle-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 60px;
+  background: #0facf3;
+  color: #fffffa;
+  display: block;
+  line-height: 60px;
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+/* Navigation */
+header {
+  box-shadow: rgba(31, 53, 78, 0.11) 0 1px;
+}
+
+.navbar {
+  display: flex;
+}
+
+.navbar-logo {
+  font-weight: 600;
+  font-size: 2em;
+  padding: 15px 40px;
+  text-decoration: none;
+  color: #0facf3;
+  letter-spacing: 0.07em;
+}
+
+.navbar-menu {
+  display: flex;
+  margin-left: auto;
+  padding: 0 40px;
+}
+
+.navbar-link {
+  display: inline;
+}
+
+.navbar-link a {
+  display: block;
+  padding: 26px 15px;
+  color: #0facf3;
+  font-weight: 600;
+}
+
+.navbar-link:first-child a {
+  background: #0facf3;
+  color: #fffffa;
+}
+
+.navbar-link a:hover {
+  color: #3c4859;
+}
+
+/* Main Section */
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hero Section */
+.hero {
+  align-items: center;
+  background-image: linear-gradient(
+      to right bottom,
+      rgba(11, 36, 162, 0.5),
+      rgba(40, 180, 133, 0.8)
+    ),
+    url(../img/crowd.jpg);
+  background-size: cover;
+  height: calc(100vh - 74px);
+  justify-content: center;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 80px;
+}
+
+.hero-title,
+.hero-paragraph {
+  margin-bottom: 40px;
+}
+
+.hero-title {
+  font-size: 3em;
+  text-transform: uppercase;
+}
+
+.hero-paragraph {
+  font-size: 1.5em;
+}
+
+.hero-cta {
+  display: flex;
+  width: 26%;
+  justify-content: space-between;
+}
+
+/* Homepage Sections */
+section {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+section > .btn {
+  align-self: center;
+}
+
+.steps {
+  display: flex;
+  justify-content: space-between;
+}
+
+.column.step {
+  flex-basis: 50%;
+  flex-direction: column;
+  padding: 20px 50px;
+}
+
+.column .circle-icon {
+  align-self: center;
+  margin-bottom: 20px;
+}
+
+.section-title,
+.section-text {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 60px;
+  border: 1.5px solid #0facf3;
+}
+
+/* Featured Reports */
+.featured {
+  margin-top: -35px;
+  background: #f5f6f8;
+  clip-path: polygon(0 13%, 100% 0, 100% 100%, 0% 100%);
+  padding-top: 110px;
+}
+
+.featured-cards {
+  justify-content: space-between;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.featured-cards .report-card {
+  flex-basis: 23.5%;
+  background: #fffffa;
+  margin-bottom: 20px;
+}
+
+.report-media {
+  color: #0facf3;
+  text-decoration: underline;
+}
+
+.report-status {
+  position: absolute;
+  right: -10px;
+  background: #ab6b1b;
+  color: #fffffa;
+  padding: 4px 10px;
+}
+
+.report-status::after {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: #ab6b1b;
+  z-index: -1;
+  top: -8px;
+  right: 0px;
+  transform: skewY(45deg);
+}
+
+/* Footer */
+footer {
+  display: flex;
+  padding: 20px;
+  justify-content: center;
+}
+
+.credits {
+  font-weight: 600;
+}
