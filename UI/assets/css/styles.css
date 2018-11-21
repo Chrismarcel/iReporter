@@ -1,0 +1,79 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "PT Sans", sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+  background-color: #fffffa;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: #3c4859;
+}
+
+/* Global/Custom Components */
+a {
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  border: none;
+  font-family: "PT Sans", sans-serif;
+  font-size: 1em;
+  margin: 0;
+  text-decoration: none;
+  text-align: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* Navigation */
+header {
+  box-shadow: rgba(31, 53, 78, 0.11) 0 1px;
+}
+
+.navbar {
+  display: flex;
+}
+
+.navbar-logo {
+  font-weight: 600;
+  font-size: 2em;
+  padding: 15px 40px;
+  text-decoration: none;
+  color: #0facf3;
+  letter-spacing: 0.07em;
+}
+
+.navbar-menu {
+  display: flex;
+  margin-left: auto;
+  padding: 0 40px;
+}
+
+.navbar-link {
+  display: inline;
+}
+
+.navbar-link a {
+  display: block;
+  padding: 26px 15px;
+  color: #0facf3;
+  font-weight: 600;
+}
+
+.navbar-link:first-child a {
+  background: #0facf3;
+  color: #fffffa;
+}
+
+.navbar-link a:hover {
+  color: #3c4859;
+}
