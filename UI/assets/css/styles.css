@@ -452,6 +452,10 @@ tr > td:nth-child(5) {
     padding: 40px 20px;
   }
 
+  .form-container {
+    padding: 40px 0;
+  }
+
   .hero {
     padding: 25px;
     height: calc(100vh - 73px);
