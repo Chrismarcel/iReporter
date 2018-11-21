@@ -34,6 +34,18 @@ select {
   -moz-appearance: none;
 }
 
+input,
+select,
+textarea {
+  height: 45px;
+  text-align: left;
+  border: 2px solid #0facf3;
+  border-radius: 7px;
+  margin-bottom: 20px;
+  padding: 0 10px;
+  background: transparent;
+}
+
 button {
   cursor: pointer;
 }
@@ -87,6 +99,12 @@ button {
   text-align: center;
   font-size: 1.5em;
   font-weight: 600;
+}
+
+.form-container {
+  align-items: center;
+  background: #f5f6f8;
+  padding: 95px 40px;
 }
 
 /* Navigation */
@@ -273,4 +291,14 @@ footer {
 
 .credits {
   font-weight: 600;
+}
+
+/* Form Card */
+.form-card {
+  width: 45%;
+  background: #fffffa;
+  display: flex;
+  flex-direction: column;
+  padding: 50px 40px;
+  margin-top: 25px;
 }
