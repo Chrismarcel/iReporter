@@ -263,3 +263,14 @@ section > .btn {
   right: 0px;
   transform: skewY(45deg);
 }
+
+/* Footer */
+footer {
+  display: flex;
+  padding: 20px;
+  justify-content: center;
+}
+
+.credits {
+  font-weight: 600;
+}
