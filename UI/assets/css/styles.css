@@ -447,6 +447,10 @@ tr > td:nth-child(5) {
   text-align: center;
 }
 
+tr > td:last-child {
+  text-align: center;
+}
+
 /* User reports */
 .user-reports {
   flex-basis: 73%;
