@@ -450,17 +450,24 @@ tr > td:nth-child(5) {
   .navbar-menu {
     flex-direction: column;
     position: absolute;
+    max-height: 0;
     top: 73px;
     left: 0;
     right: 0;
     padding: 0;
     width: 100%;
     background: #0facf3;
+    overflow: hidden;
+    transition: all 250ms ease-in;
+  }
+
+  .navbar-menu.menu-open {
+    max-height: 310px;
   }
 
   .navbar-link a {
     color: #fffffa;
-    padding: 20px 14px;
+    padding: 20px;
   }
 
   .hamburger-menu {
@@ -470,13 +477,31 @@ tr > td:nth-child(5) {
     background: transparent;
   }
 
+  .hamburger-menu.menu-open > .hamburger {
+    background: transparent;
+  }
+
+  .hamburger-menu.menu-open > .hamburger::after,
+  .hamburger-menu.menu-open > .hamburger::before {
+    top: 0;
+    width: 30px;
+  }
+
+  .hamburger-menu.menu-open > .hamburger::after {
+    transform: rotate(-45deg);
+  }
+
+  .hamburger-menu.menu-open > .hamburger::before {
+    transform: rotate(45deg);
+  }
+
   .hamburger {
     top: 36px;
     height: 2px;
     background: #0facf3;
     display: block;
     position: absolute;
-    width: 25px;
+    width: 30px;
     right: 20px;
   }
 
@@ -495,8 +520,9 @@ tr > td:nth-child(5) {
     background: #0facf3;
     display: block;
     position: absolute;
-    width: 25px;
+    width: 30px;
     right: 0px;
+    transition: all 250ms ease-in;
   }
 
   .container {
