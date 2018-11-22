@@ -2,6 +2,12 @@
 
 iReporter is an web platform that enables any/every citizen to bring any form of corruption to the notice of appropriate authorities and the general public and also report on things that needs government intervention.
 
+[![Github issues](https://img.shields.io/github/issues-raw/Chrismarcel/iReporter.svg?style=popout)](https://github.com/Chrismarcel/iReporter/issues)
+[![GitHub forks](https://img.shields.io/github/forks/Chrismarcel/iReporter.svg?style=popout)](https://github.com/Chrismarcel/iReporter/network)
+[![GitHub stars](https://img.shields.io/github/stars/Chrismarcel/iReporter.svg)](https://github.com/Chrismarcel/iReporter/stargazers)
+[![GitHub](https://img.shields.io/github/license/Chrismarcel/iReporter.svg?style=popout)](https://github.com/Chrismarcel/iReporter/blob/develop/LICENSE)
+[![Twitter](https://img.shields.io/twitter/url/https/github.com/Chrismarcel/iReporter.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2FChrismarcel%2FiReporter)
+
 ## Required Features
 
 - Users can sign up
