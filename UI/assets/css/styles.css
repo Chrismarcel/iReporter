@@ -356,7 +356,8 @@ footer {
 }
 
 /* Profile Card */
-.profile {
+.profile,
+.dashboard {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -419,6 +420,20 @@ p.stat-value {
 
 .profile-table {
   flex-basis: 73%;
+}
+
+.admin-table {
+  flex-basis: 100%;
+}
+
+.admin-table > .stats-table {
+  width: 100%;
+}
+
+td .report-user {
+  font-size: 1em;
+  text-align: center;
+  margin-bottom: 0;
 }
 
 tr > td:nth-child(4),
