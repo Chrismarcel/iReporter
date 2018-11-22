@@ -549,6 +549,7 @@ tr > td:nth-child(5) {
 
   .hero-cta > a:first-child {
     margin-right: 0;
+    margin-bottom: 10px;
   }
 
   .hero-cta,
