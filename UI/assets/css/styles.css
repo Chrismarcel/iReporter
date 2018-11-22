@@ -448,7 +448,55 @@ tr > td:nth-child(5) {
 /* For smartphones (<768px) */
 @media screen and (max-width: 768px) {
   .navbar-menu {
-    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 73px;
+    left: 0;
+    right: 0;
+    padding: 0;
+    width: 100%;
+    background: #0facf3;
+  }
+
+  .navbar-link a {
+    color: #fffffa;
+    padding: 20px 14px;
+  }
+
+  .hamburger-menu {
+    position: absolute;
+    padding: 37px;
+    right: 0;
+    background: transparent;
+  }
+
+  .hamburger {
+    top: 36px;
+    height: 2px;
+    background: #0facf3;
+    display: block;
+    position: absolute;
+    width: 25px;
+    right: 20px;
+  }
+
+  .hamburger::before {
+    top: 7px;
+  }
+
+  .hamburger::after {
+    bottom: 7px;
+  }
+
+  .hamburger::before,
+  .hamburger::after {
+    content: "";
+    height: 2px;
+    background: #0facf3;
+    display: block;
+    position: absolute;
+    width: 25px;
+    right: 0px;
   }
 
   .container {
