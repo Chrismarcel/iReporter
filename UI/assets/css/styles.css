@@ -448,7 +448,81 @@ tr > td:nth-child(5) {
 /* For smartphones (<768px) */
 @media screen and (max-width: 768px) {
   .navbar-menu {
-    display: none;
+    flex-direction: column;
+    position: absolute;
+    max-height: 0;
+    top: 73px;
+    left: 0;
+    right: 0;
+    padding: 0;
+    width: 100%;
+    background: #0facf3;
+    overflow: hidden;
+    transition: all 250ms ease-in;
+  }
+
+  .navbar-menu.menu-open {
+    max-height: 310px;
+  }
+
+  .navbar-link a {
+    color: #fffffa;
+    padding: 20px;
+  }
+
+  .hamburger-menu {
+    position: absolute;
+    padding: 37px;
+    right: 0;
+    background: transparent;
+  }
+
+  .hamburger-menu.menu-open > .hamburger {
+    background: transparent;
+  }
+
+  .hamburger-menu.menu-open > .hamburger::after,
+  .hamburger-menu.menu-open > .hamburger::before {
+    top: 0;
+    width: 30px;
+  }
+
+  .hamburger-menu.menu-open > .hamburger::after {
+    transform: rotate(-45deg);
+  }
+
+  .hamburger-menu.menu-open > .hamburger::before {
+    transform: rotate(45deg);
+  }
+
+  .hamburger {
+    top: 36px;
+    height: 2px;
+    background: #0facf3;
+    display: block;
+    position: absolute;
+    width: 30px;
+    right: 20px;
+  }
+
+  .hamburger::before {
+    top: 7px;
+  }
+
+  .hamburger::after {
+    bottom: 7px;
+  }
+
+  .hamburger::before,
+  .hamburger::after {
+    content: "";
+    height: 2px;
+    background: #0facf3;
+    display: block;
+    position: absolute;
+    width: 30px;
+    right: 0px;
+    transition: all 250ms ease-in;
   }
 
   .container {
