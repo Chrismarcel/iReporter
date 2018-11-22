@@ -141,6 +141,10 @@ tr {
   border-left: 3px solid #0facf3;
 }
 
+td .form-element {
+  margin-bottom: 0;
+}
+
 td,
 th {
   padding: 20px 10px;
@@ -450,7 +454,7 @@ tr > td:nth-child(5) {
   justify-content: flex-start;
 }
 
-.user-reports > .featured-cards > .report-card {
+.user-reports .report-card {
   flex-basis: 30%;
   margin-right: 20px;
 }
@@ -607,9 +611,18 @@ tr > td:nth-child(5) {
     width: 100%;
   }
 
-  .profile-table {
+  .profile-table,
+  .admin-table {
     overflow-x: auto;
     width: 100%;
+  }
+
+  td .report-user {
+    text-align: left;
+  }
+
+  td .form-element {
+    margin-bottom: 15px;
   }
 
   .user-reports > .featured-cards > .report-card {
