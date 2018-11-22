@@ -65,8 +65,6 @@ button {
   font-weight: 600;
   display: inline-block;
   min-width: 110px;
-  text-align: center;
-  margin-bottom: 15px;
 }
 
 .btn-hollow {
@@ -179,7 +177,7 @@ header {
 
 .navbar-link a {
   display: block;
-  padding: 26px 14px;
+  padding: 26px 15px;
   color: #0facf3;
   font-weight: 600;
 }
@@ -233,11 +231,8 @@ main {
 
 .hero-cta {
   display: flex;
+  width: 26%;
   justify-content: space-between;
-}
-
-.hero-cta > a:first-child {
-  margin-right: 20px;
 }
 
 /* Homepage Sections */
