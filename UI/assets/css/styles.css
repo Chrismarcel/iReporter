@@ -65,8 +65,6 @@ button {
   font-weight: 600;
   display: inline-block;
   min-width: 110px;
-  text-align: center;
-  margin-bottom: 15px;
 }
 
 .btn-hollow {
@@ -179,7 +177,7 @@ header {
 
 .navbar-link a {
   display: block;
-  padding: 26px 14px;
+  padding: 26px 15px;
   color: #0facf3;
   font-weight: 600;
 }
@@ -233,11 +231,8 @@ main {
 
 .hero-cta {
   display: flex;
+  width: 26%;
   justify-content: space-between;
-}
-
-.hero-cta > a:first-child {
-  margin-right: 20px;
 }
 
 /* Homepage Sections */
@@ -443,97 +438,4 @@ tr > td:nth-child(5) {
 .user-reports > .featured-cards > .report-card {
   flex-basis: 30%;
   margin-right: 20px;
-}
-
-/* For smartphones (<768px) */
-@media screen and (max-width: 768px) {
-  .navbar-menu {
-    display: none;
-  }
-
-  .container {
-    padding: 40px 20px;
-  }
-
-  .form-container {
-    padding: 40px 0;
-  }
-
-  .hero {
-    padding: 25px;
-    height: calc(100vh - 73px);
-  }
-
-  .hero-title {
-    font-size: 2em;
-    margin-bottom: 15px;
-    text-align: center;
-  }
-
-  .hero-paragraph {
-    font-size: 1.3em;
-  }
-
-  .hero-cta {
-    width: 50%;
-  }
-
-  .hero-cta > a:first-child {
-    margin-right: 0;
-  }
-
-  .hero-cta,
-  .steps,
-  .featured-cards,
-  .profile {
-    flex-direction: column;
-  }
-
-  section {
-    padding: 20px;
-  }
-
-  .navbar-logo {
-    font-size: 1.5em;
-    padding: 20px;
-  }
-
-  .column.step {
-    padding: 20px;
-  }
-
-  .featured {
-    margin-top: -40px;
-    clip-path: polygon(0 8%, 100% 0, 100% 100%, 0% 100%);
-    padding-top: 150px;
-  }
-
-  .report-card:last-child {
-    margin-bottom: 0;
-  }
-
-  .form-card {
-    width: 90%;
-    padding: 50px 25px;
-  }
-
-  .profile-card {
-    width: 100%;
-  }
-
-  .profile-table {
-    overflow-x: auto;
-    width: 100%;
-  }
-
-  .user-reports > .featured-cards > .report-card {
-    margin-right: 0;
-  }
-}
-
-/* Adjust container size for (width > 500 and width < 769px) */
-@media screen and (min-width: 500px) and (max-width: 768px) {
-  section {
-    padding: 20px 60px;
-  }
 }
