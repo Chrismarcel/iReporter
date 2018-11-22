@@ -63,6 +63,7 @@ button {
   font-weight: 600;
   display: inline-block;
   min-width: 110px;
+  text-align: center;
 }
 
 .btn-hollow {
@@ -90,6 +91,7 @@ button {
   padding: 20px;
   border-left: 3px solid #0facf3;
   position: relative;
+  box-shadow: 0 10px 15px #cecaca;
 }
 
 .card p {
@@ -133,6 +135,9 @@ table {
   background: transparent;
   border-spacing: 0;
   border-collapse: collapse;
+  border-top: 3px solid #dddddd;
+  border-right: 3px solid #dddddd;
+  border-bottom: 3px solid #dddddd;
 }
 
 tr {
@@ -556,13 +561,13 @@ tr > td:last-child {
   }
 
   .hero {
-    padding: 25px;
-    height: calc(100vh - 73px);
+    padding: 40px 25px;
+    height: auto;
   }
 
   .hero-title {
     font-size: 2em;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
     text-align: center;
   }
 
@@ -571,7 +576,7 @@ tr > td:last-child {
   }
 
   .hero-cta {
-    width: 50%;
+    width: 65%;
   }
 
   .hero-cta > a:first-child {
@@ -587,7 +592,7 @@ tr > td:last-child {
   }
 
   section {
-    padding: 20px;
+    padding: 40px 20px;
   }
 
   .navbar-logo {
