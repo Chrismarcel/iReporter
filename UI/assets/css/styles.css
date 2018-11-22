@@ -156,6 +156,10 @@ header {
   box-shadow: rgba(31, 53, 78, 0.11) 0 1px;
 }
 
+.hamburger-menu {
+  display: none;
+}
+
 .navbar {
   display: flex;
 }
