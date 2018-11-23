@@ -290,7 +290,7 @@ section > .btn {
 /* Featured Reports */
 .featured {
   margin-top: -35px;
-  background: #f5f6f8;
+  background: #dfe0e2;
   clip-path: polygon(0 13%, 100% 0, 100% 100%, 0% 100%);
   padding-top: 110px;
 }
