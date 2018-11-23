@@ -474,7 +474,7 @@ tr > td:last-child {
   .navbar-menu {
     flex-direction: column;
     position: absolute;
-    max-height: 0;
+    height: 0;
     top: 73px;
     left: 0;
     right: 0;
@@ -487,7 +487,7 @@ tr > td:last-child {
   }
 
   .navbar-menu.menu-open {
-    max-height: auto;
+    height: auto;
   }
 
   .navbar-link a {
