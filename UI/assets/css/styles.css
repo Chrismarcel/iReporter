@@ -483,11 +483,11 @@ tr > td:last-child {
     background: #0facf3;
     overflow: hidden;
     transition: all 250ms ease-in;
+    z-index: 1000;
   }
 
   .navbar-menu.menu-open {
     max-height: 310px;
-    z-index: 1000;
   }
 
   .navbar-link a {
