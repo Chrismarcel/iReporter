@@ -3,6 +3,7 @@
 iReporter is an web platform that enables any/every citizen to bring any form of corruption to the notice of appropriate authorities and the general public and also report on things that needs government intervention.
 
 [![Build Status](https://travis-ci.com/Chrismarcel/iReporter.svg?branch=develop)](https://travis-ci.com/Chrismarcel/iReporter)
+[![Coverage Status](https://coveralls.io/repos/github/Chrismarcel/iReporter/badge.svg?branch=develop)](https://coveralls.io/github/Chrismarcel/iReporter?branch=develop)
 [![Github issues](https://img.shields.io/github/issues-raw/Chrismarcel/iReporter.svg?style=popout)](https://github.com/Chrismarcel/iReporter/issues)
 [![GitHub forks](https://img.shields.io/github/forks/Chrismarcel/iReporter.svg?style=popout)](https://github.com/Chrismarcel/iReporter/network)
 [![GitHub stars](https://img.shields.io/github/stars/Chrismarcel/iReporter.svg)](https://github.com/Chrismarcel/iReporter/stargazers)
