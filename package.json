@@ -2,9 +2,11 @@
   "name": "ireporter",
   "version": "1.0.0",
   "description": "iReporter is an web platform that enables any/every citizen to bring any form of corruption to the notice of appropriate authorities and the general public and also report on things that needs government intervention.",
-  "main": "app.js",
+  "main": "./server/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint ./server --fix",
+    "start": "babel-node ./server/app.js",
+    "test": "mocha --require babel-polyfill --require babel-register ./server/test/ --timeout 15000 --exit"
   },
   "repository": {
     "type": "git",
@@ -28,5 +30,19 @@
   "bugs": {
     "url": "https://github.com/Chrismarcel/iReporter/issues"
   },
-  "homepage": "https://github.com/Chrismarcel/iReporter#readme"
+  "homepage": "https://github.com/Chrismarcel/iReporter#readme",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "express": "^4.16.4",
+    "mocha": "^5.2.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
+    "eslint": "^5.9.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0"
+  }
 }
