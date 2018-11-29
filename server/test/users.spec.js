@@ -27,7 +27,7 @@ describe('Handle incoming requests on routes', () => {
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body).to.be.an('object');
-        expect(res.body.message).to.be.equal('Welcome to iReporter API V1');
+        expect(res.body.message).to.be.equal('Welcome to iReporter API v1');
         done(err);
       });
   });

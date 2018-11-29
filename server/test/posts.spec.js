@@ -12,7 +12,8 @@ describe('POST red-flags requests', () => {
       .post('/api/v1/red-flags')
       .send({
         type: 'red-flag',
-        location: '6.5951139, 3.3429975',
+        latitude: '6.5951139',
+        longitude: '3.3429975',
         comment: 'Extortion at the embassy',
       })
       .end((err, res) => {
@@ -47,7 +48,8 @@ describe('POST red-flags requests', () => {
       .post('/api/v1/red-flags')
       .send({
         type: '',
-        location: '6.5951139, 3.3429975',
+        latitude: '6.5951139',
+        longitude: '3.3429975',
         comment: 'Extortion at the embassy',
       })
       .end((err, res) => {
@@ -60,14 +62,115 @@ describe('POST red-flags requests', () => {
       });
   });
 
-  it('should return an error if location is empty', (done) => {
+  it('should return an error if record type is not red-flag or intervention', (done) => {
+    chai
+      .request(app)
+      .post('/api/v1/red-flags')
+      .send({
+        type: 'gyhyr',
+        latitude: '6.5951139',
+        longitude: '3.3429975',
+        comment: 'Extortion at the embassy',
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(406);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error');
+        expect(res.body).to.have.property('status');
+        expect(res.body.status).to.equal(406);
+        done(err);
+      });
+  });
+
+  it('should return an error if latitude is empty', (done) => {
     chai
       .request(app)
       .post('/api/v1/red-flags')
       .send({
         type: 'red-flag',
-        location: '',
+        latitude: '',
+        longitude: '3.3429975',
         comment: 'Extortion at the embassy',
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(406);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error');
+        expect(res.body).to.have.property('status');
+        expect(res.body.status).to.equal(406);
+        done(err);
+      });
+  });
+
+  it('should return an error if latitude is invalid', (done) => {
+    chai
+      .request(app)
+      .post('/api/v1/red-flags')
+      .send({
+        type: 'red-flag',
+        latitude: '',
+        longitude: 'invalid',
+        comment: 'Extortion at the embassy',
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(406);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error');
+        expect(res.body).to.have.property('status');
+        expect(res.body.status).to.equal(406);
+        done(err);
+      });
+  });
+
+  it('should return an error if longitude is empty', (done) => {
+    chai
+      .request(app)
+      .post('/api/v1/red-flags')
+      .send({
+        type: 'red-flag',
+        latitude: '6.5951139',
+        longitude: '',
+        comment: 'Extortion at the embassy',
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(406);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error');
+        expect(res.body).to.have.property('status');
+        expect(res.body.status).to.equal(406);
+        done(err);
+      });
+  });
+
+  it('should return an error if longitude is invalid', (done) => {
+    chai
+      .request(app)
+      .post('/api/v1/red-flags')
+      .send({
+        type: 'red-flag',
+        latitude: '6.5951139',
+        longitude: 'ghjjs',
+        comment: 'Extortion at the embassy',
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(406);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error');
+        expect(res.body).to.have.property('status');
+        expect(res.body.status).to.equal(406);
+        done(err);
+      });
+  });
+
+  it('should return an error if comment is less than 20 characters', (done) => {
+    chai
+      .request(app)
+      .post('/api/v1/red-flags')
+      .send({
+        type: 'red-flag',
+        latitude: '6.5951139',
+        longitude: '3.3429975',
+        comment: 'A short comment',
       })
       .end((err, res) => {
         expect(res).to.have.status(406);
@@ -85,7 +188,8 @@ describe('POST red-flags requests', () => {
       .post('/api/v1/red-flags')
       .send({
         type: 'red-flag',
-        location: '6.5951139, 3.3429975',
+        latitude: '6.5951139',
+        longitude: '3.3429975',
         comment: '',
       })
       .end((err, res) => {

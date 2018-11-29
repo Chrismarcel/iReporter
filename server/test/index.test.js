@@ -1,2 +1,2 @@
-import './user.spec';
+import './users.spec';
 import './posts.spec';
