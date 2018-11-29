@@ -108,7 +108,7 @@ describe('POST red-flags requests', () => {
       .post('/api/v1/red-flags')
       .send({
         type: 'red-flag',
-        latitude: '',
+        latitude: 'ghyshh',
         longitude: 'invalid',
         comment: 'Extortion at the embassy',
       })
@@ -266,7 +266,7 @@ describe('PATCH red-flag requests', () => {
     chai
       .request(app)
       .patch('/api/v1/red-flags/3')
-      .send({ location: '6.5922139, 3.3427375' })
+      .send({ latitude: '6.5922139', longitude: '3.3427375' })
       .end((err, res) => {
         expect(res).to.has.status(200);
         expect(res.body).to.be.an('object');
@@ -278,11 +278,58 @@ describe('PATCH red-flag requests', () => {
       });
   });
 
-  it('should return an error if the location of the red flag resource is empty', (done) => {
+  it('should return an error if the longitude of the red flag resource is empty', (done) => {
     chai
       .request(app)
       .patch('/api/v1/red-flags/3')
-      .send({ location: '' })
+      .send({ latitude: '6.5922139', longitude: '' })
+      .end((err, res) => {
+        expect(res).to.has.status(406);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('status');
+        expect(res.body).to.have.property('data');
+        expect(res.body.data).to.be.an('array');
+        expect(res.body.data[0].id).to.be.equal(3);
+        done(err);
+      });
+  });
+
+  it('should return an error if the longitude of the red flag resource is invalid', (done) => {
+    chai
+      .request(app)
+      .patch('/api/v1/red-flags/3')
+      .send({ latitude: '6.5922139', longitude: 'gt6wgw' })
+      .end((err, res) => {
+        expect(res).to.has.status(406);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('status');
+        expect(res.body).to.have.property('data');
+        expect(res.body.data).to.be.an('array');
+        expect(res.body.data[0].id).to.be.equal(3);
+        done(err);
+      });
+  });
+
+  it('should return an error if the latitude of the red flag resource is empty', (done) => {
+    chai
+      .request(app)
+      .patch('/api/v1/red-flags/3')
+      .send({ latitude: '', longitude: '3.3427375' })
+      .end((err, res) => {
+        expect(res).to.have.status(406);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error');
+        expect(res.body).to.have.property('status');
+        expect(res.body.status).to.equal(406);
+        done(err);
+      });
+  });
+
+  it('should return an error if the latitude of the red flag resource is invalid', (done) => {
+    chai
+      .request(app)
+      .patch('/api/v1/red-flags/3')
+      .send({ latitide: 'gushs', longitude: '3.3427375' })
       .end((err, res) => {
         expect(res).to.have.status(406);
         expect(res.body).to.be.an('object');

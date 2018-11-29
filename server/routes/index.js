@@ -8,8 +8,9 @@ router.get('/', (req, res) => {
   res.status(200).json({ message: 'Welcome to iReporter API v1' });
 });
 
-router.post('/red-flags', ValidatePost.validatePostRecord, PostController.postRecord);
+router.post('/red-flags', ValidatePost.validatePostRequest, PostController.postRecord);
 
 router.get('/red-flags', PostController.getRecords);
+router.get('/red-flags/:id', ValidatePost.validateGetRequest, PostController.getARecord);
 
 export default router;

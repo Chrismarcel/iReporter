@@ -9,16 +9,17 @@ import postDb from '../models/posts';
  */
 
 class PostController {
-  /**
-   * @method getRecord : Retrieves all red-flags (resource) from the collection
-   */
   static getRecords(req, res) {
     res.status(200).json({ status: 200, data: [...postDb] });
   }
 
-  /**
-   * @method postRecord : Adds a new record (resource) to the collection
-   */
+  static getARecord(req, res) {
+    const data = postDb.filter(
+      recordObj => Number(req.params.id) === recordObj.id,
+    );
+    res.status(200).json({ status: 200, data });
+  }
+
   static postRecord(req, res) {
     const {
       type, comment, latitude, longitude,
