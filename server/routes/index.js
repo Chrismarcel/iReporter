@@ -20,4 +20,7 @@ router.get('/red-flags/:id', ValidatePost.validateGetRequest, PostController.get
 router.patch('/red-flags/:id/location', ValidatePost.validateLocation, PostController.updateLocation);
 router.patch('/red-flags/:id/comment', ValidatePost.validateComment, PostController.updateComment);
 
+// Handle Delete requests
+router.delete('/red-flags/:id', ValidatePost.validateDeleteRequest, PostController.deleteRecord);
+
 export default router;
