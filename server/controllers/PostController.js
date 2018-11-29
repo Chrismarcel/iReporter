@@ -14,9 +14,7 @@ class PostController {
   }
 
   static getARecord(req, res) {
-    const data = postDb.filter(
-      recordObj => Number(req.params.id) === recordObj.id,
-    );
+    const data = postDb.filter(recordObj => Number(req.params.id) === recordObj.id);
     res.status(200).json({ status: 200, data });
   }
 
@@ -38,11 +36,35 @@ class PostController {
       videos: [],
     };
 
-    postDb.push(recordData);
+    postDb.concat(recordData);
 
     res.status(201).json({
       status: 201,
       data: [{ id, message: `Created ${type} successfully` }],
+    });
+  }
+
+  static updateLocation(req, res) {
+    const record = postDb.filter(recordObj => recordObj.id === Number(req.params.id));
+    const { latitude, longitude } = req.body;
+    const id = Number(req.params.id);
+
+    Object.assign({}, record[0], { location: `${latitude}, ${longitude}` });
+
+    res.status(200).json({
+      status: 200, data: [{ id, message: 'Updated red-flag record\'s location' }],
+    });
+  }
+
+  static updateComment(req, res) {
+    const record = postDb.filter(recordObj => recordObj.id === Number(req.params.id));
+    const { comment } = req.body;
+    const id = Number(req.params.id);
+
+    Object.assign({}, record[0], { comment });
+
+    res.status(200).json({
+      status: 200, data: [{ id, message: 'Updated red-flag record\'s location' }],
     });
   }
 }
