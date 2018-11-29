@@ -60,6 +60,25 @@ describe('POST red-flags requests', () => {
       });
   });
 
+  it('should return an error if record type is not red-flag or intervention', (done) => {
+    chai
+      .request(app)
+      .post('/api/v1/red-flags')
+      .send({
+        type: 'gyhyr',
+        location: '6.5951139, 3.3429975',
+        comment: 'Extortion at the embassy',
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(406);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error');
+        expect(res.body).to.have.property('status');
+        expect(res.body.status).to.equal(406);
+        done(err);
+      });
+  });
+
   it('should return an error if location is empty', (done) => {
     chai
       .request(app)
