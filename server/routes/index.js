@@ -11,5 +11,6 @@ router.get('/', (req, res) => {
 router.post('/red-flags', ValidatePost.validatePostRecord, PostController.postRecord);
 
 router.get('/red-flags', PostController.getRecords);
+router.get('/red-flags/:id', PostController.getARecord);
 
 export default router;
