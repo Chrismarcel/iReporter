@@ -265,7 +265,7 @@ describe('PATCH red-flag requests', () => {
   it('should update the location of the red flag resource with the given id', (done) => {
     chai
       .request(app)
-      .patch('/api/v1/red-flags/3')
+      .patch('/api/v1/red-flags/3/location')
       .send({ latitude: '6.5922139', longitude: '3.3427375' })
       .end((err, res) => {
         expect(res).to.has.status(200);
@@ -278,18 +278,44 @@ describe('PATCH red-flag requests', () => {
       });
   });
 
+  it('should return an error if the id of the red flag resource is invalid', (done) => {
+    chai
+      .request(app)
+      .patch('/api/v1/red-flags/fghsys/location')
+      .send({ latitude: '6.5922139', longitude: '3.3427375' })
+      .end((err, res) => {
+        expect(res).to.has.status(406);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('status');
+        expect(res.body.status).to.be.equal(406);
+        done(err);
+      });
+  });
+
+  it('should return an error if the request body is empty', (done) => {
+    chai
+      .request(app)
+      .patch('/api/v1/red-flags/3/location')
+      .send({})
+      .end((err, res) => {
+        expect(res).to.has.status(406);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('status');
+        expect(res.body.status).to.be.equal(406);
+        done(err);
+      });
+  });
+
   it('should return an error if the longitude of the red flag resource is empty', (done) => {
     chai
       .request(app)
-      .patch('/api/v1/red-flags/3')
+      .patch('/api/v1/red-flags/3/location')
       .send({ latitude: '6.5922139', longitude: '' })
       .end((err, res) => {
         expect(res).to.has.status(406);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('status');
-        expect(res.body).to.have.property('data');
-        expect(res.body.data).to.be.an('array');
-        expect(res.body.data[0].id).to.be.equal(3);
+        expect(res.body.status).to.be.equal(406);
         done(err);
       });
   });
@@ -297,15 +323,13 @@ describe('PATCH red-flag requests', () => {
   it('should return an error if the longitude of the red flag resource is invalid', (done) => {
     chai
       .request(app)
-      .patch('/api/v1/red-flags/3')
+      .patch('/api/v1/red-flags/3/location')
       .send({ latitude: '6.5922139', longitude: 'gt6wgw' })
       .end((err, res) => {
         expect(res).to.has.status(406);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('status');
-        expect(res.body).to.have.property('data');
-        expect(res.body.data).to.be.an('array');
-        expect(res.body.data[0].id).to.be.equal(3);
+        expect(res.body.status).to.be.equal(406);
         done(err);
       });
   });
@@ -313,7 +337,7 @@ describe('PATCH red-flag requests', () => {
   it('should return an error if the latitude of the red flag resource is empty', (done) => {
     chai
       .request(app)
-      .patch('/api/v1/red-flags/3')
+      .patch('/api/v1/red-flags/3/location')
       .send({ latitude: '', longitude: '3.3427375' })
       .end((err, res) => {
         expect(res).to.have.status(406);
@@ -328,7 +352,7 @@ describe('PATCH red-flag requests', () => {
   it('should return an error if the latitude of the red flag resource is invalid', (done) => {
     chai
       .request(app)
-      .patch('/api/v1/red-flags/3')
+      .patch('/api/v1/red-flags/3/location')
       .send({ latitide: 'gushs', longitude: '3.3427375' })
       .end((err, res) => {
         expect(res).to.have.status(406);
@@ -360,21 +384,6 @@ describe('PATCH red-flag requests', () => {
     chai
       .request(app)
       .patch('/api/v1/red-flags/3/comment')
-      .send({ comment: '' })
-      .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body).to.be.an('object');
-        expect(res.body).to.have.property('error');
-        expect(res.body).to.have.property('status');
-        expect(res.body.status).to.equal(406);
-        done(err);
-      });
-  });
-
-  it('should return an error if the red flag id is invalid', (done) => {
-    chai
-      .request(app)
-      .patch('/api/v1/red-flags/ty')
       .send({ comment: '' })
       .end((err, res) => {
         expect(res).to.have.status(406);
