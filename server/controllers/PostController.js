@@ -10,6 +10,13 @@ import postDb from '../models/posts';
 
 class PostController {
   /**
+   * @method getRecord : Retrieves all red-flags (resource) from the collection
+   */
+  static getRecords(req, res) {
+    res.status(200).json({ status: 200, data: [...postDb] });
+  }
+
+  /**
    * @method postRecord : Adds a new record (resource) to the collection
    */
   static postRecord(req, res) {
