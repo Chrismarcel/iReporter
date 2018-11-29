@@ -192,7 +192,7 @@ describe('PATCH red-flag requests', () => {
   it('should update the comment of the red flag resource with the given id', (done) => {
     chai
       .request(app)
-      .patch('/api/v1/red-flags/3')
+      .patch('/api/v1/red-flags/3/location')
       .send({ comment: 'Bribery and extortion by the NPF' })
       .end((err, res) => {
         expect(res).to.has.status(200);
@@ -208,7 +208,7 @@ describe('PATCH red-flag requests', () => {
   it('should return an error if the comment of the red flag resource is empty', (done) => {
     chai
       .request(app)
-      .patch('/api/v1/red-flags/3')
+      .patch('/api/v1/red-flags/3/comment')
       .send({ comment: '' })
       .end((err, res) => {
         expect(res).to.have.status(406);
