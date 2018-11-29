@@ -446,6 +446,19 @@ describe('DELETE red-flags request', () => {
       });
   });
 
+  it('should return an error if the id of the red flag resource is invalid', (done) => {
+    chai
+      .request(app)
+      .delete('/api/v1/red-flags/fgtre')
+      .end((err, res) => {
+        expect(res).to.has.status(406);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('status');
+        expect(res.body.status).to.be.equal(406);
+        done(err);
+      });
+  });
+
   it('should return an error if the id of the red flag resource does not exist', (done) => {
     chai
       .request(app)
