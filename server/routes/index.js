@@ -17,6 +17,7 @@ router.get('/red-flags', PostController.getRecords);
 router.get('/red-flags/:id', ValidatePost.validateGetRequest, PostController.getARecord);
 
 // Handle all PATCH requests
-router.patch('/red-flags/:id/location', ValidatePost.validatePatchLocation, PostController.updateLocation);
+router.patch('/red-flags/:id/location', ValidatePost.validateLocation, PostController.updateLocation);
+router.patch('/red-flags/:id/comment', ValidatePost.validateComment, PostController.updateComment);
 
 export default router;

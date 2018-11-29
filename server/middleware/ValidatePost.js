@@ -61,7 +61,7 @@ class ValidatePost {
     return next();
   }
 
-  static validatePatchLocation(req, res, next) {
+  static validateLocation(req, res, next) {
     const { latitude, longitude } = req.body;
     const records = postDb.filter(recordObj => recordObj.id === Number(req.params.id));
 
@@ -91,6 +91,23 @@ class ValidatePost {
         .status(406)
         .json({ status: 406, error: 'Longitude must be in a valid format' });
     }
+    return next();
+  }
+
+  static validateComment(req, res, next) {
+    const { comment } = req.body;
+
+    if (!comment) {
+      return res
+        .status(406)
+        .json({ status: 406, error: 'A comment narrating the incident must be specified' });
+    }
+    if (comment.length < 20) {
+      return res
+        .status(406)
+        .json({ status: 406, error: 'Your comment/narration should be from 20 characters above' });
+    }
+
     return next();
   }
 }

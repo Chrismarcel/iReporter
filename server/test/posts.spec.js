@@ -278,7 +278,7 @@ describe('PATCH red-flag requests', () => {
       });
   });
 
-  it('should return an error if the id of the red flag resource is invalid', (done) => {
+  it('should return an error if the id format of the red flag resource is invalid', (done) => {
     chai
       .request(app)
       .patch('/api/v1/red-flags/fghsys/location')
@@ -288,6 +288,20 @@ describe('PATCH red-flag requests', () => {
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('status');
         expect(res.body.status).to.be.equal(406);
+        done(err);
+      });
+  });
+
+  it('should return an error if the id of the red flag resource does not exist', (done) => {
+    chai
+      .request(app)
+      .patch('/api/v1/red-flags/10/location')
+      .send({ latitude: '6.5922139', longitude: '3.3427375' })
+      .end((err, res) => {
+        expect(res).to.has.status(404);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('status');
+        expect(res.body.status).to.be.equal(404);
         done(err);
       });
   });
@@ -367,7 +381,7 @@ describe('PATCH red-flag requests', () => {
   it('should update the comment of the red flag resource with the given id', (done) => {
     chai
       .request(app)
-      .patch('/api/v1/red-flags/3/location')
+      .patch('/api/v1/red-flags/3/comment')
       .send({ comment: 'Bribery and extortion by the NPF' })
       .end((err, res) => {
         expect(res).to.has.status(200);
@@ -394,6 +408,26 @@ describe('PATCH red-flag requests', () => {
         done(err);
       });
   });
+
+  it('should return an error if comment is less than 20 characters', (done) => {
+    chai
+      .request(app)
+      .post('/api/v1/red-flags')
+      .send({
+        type: 'red-flag',
+        latitude: '6.5951139',
+        longitude: '3.3429975',
+        comment: 'A short comment',
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(406);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error');
+        expect(res.body).to.have.property('status');
+        expect(res.body.status).to.equal(406);
+        done(err);
+      });
+  });
 });
 
 describe('DELETE red-flags request', () => {
@@ -402,12 +436,25 @@ describe('DELETE red-flags request', () => {
       .request(app)
       .delete('/api/v1/red-flags/3')
       .end((err, res) => {
-        expect(res).to.have.status(204);
+        expect(res).to.have.status(200);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('status');
         expect(res.body).to.have.property('data');
         expect(res.body.data).to.be.an('array');
         expect(res.body.data[0].id).to.be.equal(3);
+        done(err);
+      });
+  });
+
+  it('should return an error if the id of the red flag resource does not exist', (done) => {
+    chai
+      .request(app)
+      .delete('/api/v1/red-flags/10')
+      .end((err, res) => {
+        expect(res).to.has.status(404);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('status');
+        expect(res.body.status).to.be.equal(404);
         done(err);
       });
   });
