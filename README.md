@@ -4,7 +4,7 @@ iReporter is an web platform that enables any/every citizen to bring any form of
 
 [![Build Status](https://travis-ci.com/Chrismarcel/iReporter.svg?branch=develop)](https://travis-ci.com/Chrismarcel/iReporter)
 [![Maintainability](https://api.codeclimate.com/v1/badges/579d83e8e360731ae057/maintainability)](https://codeclimate.com/github/Chrismarcel/iReporter/maintainability)
-[![Coverage Status](https://coveralls.io/repos/github/Chrismarcel/iReporter/badge.svg?branch=develop)](https://coveralls.io/github/Chrismarcel/iReporter?branch=develop)
+[![Coverage Status](https://img.shields.io/coveralls/github/Chrismarcel/iReporter.svg?style=popout)](https://coveralls.io/github/Chrismarcel/iReporter?branch=develop)
 [![Github issues](https://img.shields.io/github/issues-raw/Chrismarcel/iReporter.svg?style=popout)](https://github.com/Chrismarcel/iReporter/issues)
 [![GitHub forks](https://img.shields.io/github/forks/Chrismarcel/iReporter.svg?style=popout)](https://github.com/Chrismarcel/iReporter/network)
 [![GitHub stars](https://img.shields.io/github/stars/Chrismarcel/iReporter.svg)](https://github.com/Chrismarcel/iReporter/stargazers)
