@@ -49,6 +49,7 @@ class PostController {
     const { latitude, longitude } = req.body;
     const id = Number(req.params.id);
 
+    // Use Object.assign so as not to mutate existing records object
     Object.assign({}, record[0], { location: `${latitude}, ${longitude}` });
 
     res.status(200).json({
@@ -57,14 +58,26 @@ class PostController {
   }
 
   static updateComment(req, res) {
-    const record = postDb.filter(recordObj => recordObj.id === Number(req.params.id));
-    const { comment } = req.body;
     const id = Number(req.params.id);
+    const record = postDb.filter(recordObj => recordObj.id === Number(id));
+    const { comment } = req.body;
 
+    // Use Object.assign so as not to mutate existing records object
     Object.assign({}, record[0], { comment });
 
     res.status(200).json({
       status: 200, data: [{ id, message: 'Updated red-flag record\'s location' }],
+    });
+  }
+
+  static deleteRecord(req, res) {
+    const id = Number(req.params.id);
+
+    // Use filter so as not to mutate array
+    postDb.filter(recordObj => recordObj.id !== Number(id));
+
+    res.status(200).json({
+      status: 200, data: [{ id, message: 'red-flag record has been deleted' }],
     });
   }
 }
