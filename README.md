@@ -29,6 +29,23 @@ iReporter is an web platform that enables any/every citizen to bring any form of
 - Travis CI
 - Code Climate & Coveralls
 
+## Requirements and Installation
+To install and run this project you would need to have installed:
+- Node Js
+- Git
+
+To run:
+```
+$ git clone https://github.com/Chrismarcel/iReporter.git
+$ cd iReporter
+$ npm install
+$ npm start
+```
+## Testing
+```
+$ npm test
+```
+
 ## Pivotal Tracker stories
 [https://www.pivotaltracker.com/n/projects/2227345](https://www.pivotaltracker.com/n/projects/2227345)
 
