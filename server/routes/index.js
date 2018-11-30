@@ -10,17 +10,29 @@ router.get('/', (req, res) => {
 });
 
 // Handle POST requests
-router.post('/red-flags', ValidatePost.validatePostRequest, PostController.postRecord);
+router.post(
+  '/red-flags',
+  ValidatePost.validatePostType,
+  ValidatePost.validateCoordinates,
+  ValidatePost.validateComment,
+  PostController.postRecord,
+);
 
 // Handle all GET requests
 router.get('/red-flags', PostController.getRecords);
-router.get('/red-flags/:id', ValidatePost.validateGetRequest, PostController.getARecord);
+router.get(
+  '/red-flags/:id', ValidatePost.validatePostId, PostController.getARecord,
+);
 
 // Handle all PATCH requests
-router.patch('/red-flags/:id/location', ValidatePost.validateLocation, PostController.updateLocation);
-router.patch('/red-flags/:id/comment', ValidatePost.validateComment, PostController.updateComment);
+router.patch(
+  '/red-flags/:id/location', ValidatePost.validatePostId, ValidatePost.validateCoordinates, PostController.updateLocation,
+);
+router.patch(
+  '/red-flags/:id/comment', ValidatePost.validatePostId, ValidatePost.validateComment, PostController.updateComment,
+);
 
 // Handle Delete requests
-router.delete('/red-flags/:id', ValidatePost.validateDeleteRequest, PostController.deleteRecord);
+router.delete('/red-flags/:id', ValidatePost.validatePostId, PostController.deleteRecord);
 
 export default router;
