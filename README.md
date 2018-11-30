@@ -55,7 +55,7 @@ You can see a hosted version of the template at [https://chrismarcel.github.io/i
 
 ## API
 
-The API is currently in version 1 (v1) and is hosted at [https://ireporter-api.herokuapp.com](https://ireporter-api.herokuapp.com)
+The API is currently in version 1 (v1) and is hosted at [https://ireporter-api.herokuapp.com/api/v1](https://ireporter-api.herokuapp.com/api/v1)
 
 ## API Endpoints
 
