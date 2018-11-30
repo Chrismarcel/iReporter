@@ -66,7 +66,7 @@ class PostController {
     Object.assign({}, record[0], { comment });
 
     res.status(200).json({
-      status: 200, data: [{ id, message: 'Updated red-flag record\'s location' }],
+      status: 200, data: [{ id, message: 'Updated red-flag record\'s comment' }],
     });
   }
 
@@ -77,7 +77,7 @@ class PostController {
     postDb.filter(recordObj => recordObj.id !== Number(id));
 
     res.status(200).json({
-      status: 200, data: [{ id, message: 'red-flag record has been deleted' }],
+      status: 200, data: [{ id, message: 'Red-flag record has been deleted' }],
     });
   }
 }
