@@ -40,7 +40,7 @@ class PostController {
 
     res.status(201).json({
       status: 201,
-      data: [{ id, message: `Created ${type} successfully` }],
+      data: [{ id, message: `Created ${type} record` }],
     });
   }
 
@@ -66,7 +66,7 @@ class PostController {
     Object.assign({}, record[0], { comment });
 
     res.status(200).json({
-      status: 200, data: [{ id, message: 'Updated red-flag record\'s location' }],
+      status: 200, data: [{ id, message: 'Updated red-flag record\'s comment' }],
     });
   }
 
