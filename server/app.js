@@ -27,8 +27,6 @@ app.all('*', (req, res) => {
     .json({ message: 'Wrong endpoint. Such endpoint does not exist' });
 });
 
-app.listen(PORT, () => {
-  console.log(`App running on Port ${3000}`);
-});
+app.listen(PORT);
 
 export default app;
