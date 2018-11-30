@@ -40,7 +40,7 @@ class PostController {
 
     res.status(201).json({
       status: 201,
-      data: [{ id, message: `Created ${type} successfully` }],
+      data: [{ id, message: `Created ${type} record` }],
     });
   }
 
@@ -77,7 +77,7 @@ class PostController {
     postDb.filter(recordObj => recordObj.id !== Number(id));
 
     res.status(200).json({
-      status: 200, data: [{ id, message: 'Red-flag record has been deleted' }],
+      status: 200, data: [{ id, message: 'red-flag record has been deleted' }],
     });
   }
 }
