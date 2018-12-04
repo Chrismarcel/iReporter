@@ -71,15 +71,17 @@ class PostController {
    * @returns {object} JSON API Response
    */
   static updateLocation(req, res) {
-    const record = postDb.filter(recordObj => recordObj.id === Number(req.params.id));
     const { latitude, longitude } = req.body;
-    const id = Number(req.params.id);
+    const recordID = Number(req.params.id);
 
-    // Use Object.assign so as not to mutate existing records object
-    Object.assign({}, record[0], { location: `${latitude}, ${longitude}` });
+    postDb.forEach((record, recordIndex) => {
+      if (recordID === record.id) {
+        postDb[recordIndex].location = `${latitude}, ${longitude}`;
+      }
+    });
 
     res.status(200).json({
-      status: 200, data: [{ id, message: 'Updated red-flag record\'s location' }],
+      status: 200, data: [{ id: recordID, message: 'Updated red-flag record\'s location' }],
     });
   }
 
@@ -91,15 +93,17 @@ class PostController {
    * @returns {object} JSON API Response
    */
   static updateComment(req, res) {
-    const id = Number(req.params.id);
-    const record = postDb.filter(recordObj => recordObj.id === Number(id));
+    const recordID = Number(req.params.id);
     const { comment } = req.body;
 
-    // Use Object.assign so as not to mutate existing records object
-    Object.assign({}, record[0], { comment });
+    postDb.forEach((record, recordIndex) => {
+      if (recordID === record.id) {
+        postDb[recordIndex].comment = `${comment}`;
+      }
+    });
 
     res.status(200).json({
-      status: 200, data: [{ id, message: 'Updated red-flag record\'s comment' }],
+      status: 200, data: [{ id: recordID, message: 'Updated red-flag record\'s comment' }],
     });
   }
 
@@ -111,13 +115,16 @@ class PostController {
    * @returns {object} JSON API Response
    */
   static deleteRecord(req, res) {
-    const id = Number(req.params.id);
+    const recordID = Number(req.params.id);
 
-    // Use filter so as not to mutate array
-    postDb.filter(recordObj => recordObj.id !== Number(id));
+    postDb.forEach((record, recordIndex) => {
+      if (recordID === record.id) {
+        postDb.splice(recordIndex, 1);
+      }
+    });
 
     res.status(200).json({
-      status: 200, data: [{ id, message: 'red-flag record has been deleted' }],
+      status: 200, data: [{ id: recordID, message: 'red-flag record has been deleted' }],
     });
   }
 }
