@@ -19,21 +19,23 @@ class ValidatePost {
     let error = '';
     const { latitude, longitude } = req.body;
 
-    if (!latitude) {
-      error = 'Latitude of the incident location must be specified';
+    if (!validate.location.test(longitude)) {
+      error = 'Longitude must be in a valid format';
+    }
+    if (!longitude || longitude === undefined) {
+      error = 'Longitude of the incident location must be specified';
     }
     if (!validate.location.test(latitude)) {
       error = 'Latitude must be in a valid format';
     }
-    if (!longitude) {
-      error = 'Longitude of the incident location must be specified';
-    }
-    if (!validate.location.test(longitude)) {
-      error = 'Longitude must be in a valid format';
+    if (!latitude || latitude === undefined) {
+      error = 'Latitude of the incident location must be specified';
     }
 
     if (error) {
-      return res.status(406).json({ status: 406, error });
+      return res.status(406).json({
+        status: 406, error, isLatitude: latitude, isLongitude: longitude,
+      });
     }
 
     return next();
@@ -41,7 +43,7 @@ class ValidatePost {
 
   /**
    * @method validatePostId
-   * @description Validates the specific IDpassed in the request body exists in the database
+   * @description Validates the specific ID passed in the request body exists in the database
    * @param {object} req - The Request Object
    * @param {object} res - The Response Object
    * @returns {object} JSON API Response
@@ -61,7 +63,7 @@ class ValidatePost {
 
   /**
    * @method validateComment
-   * @description Ensures comment is not empty or has character length of <20
+   * @description Ensures comment is not empty or has character length of >= 20
    * @param {object} req - The Request Object
    * @param {object} res - The Response Object
    * @returns {object} JSON API Response
@@ -72,8 +74,7 @@ class ValidatePost {
 
     if (!comment) {
       error = 'A comment narrating the incident must be specified';
-    }
-    if (comment.length < 20) {
+    } else if (comment.length < 20) {
       error = 'Your comment/narration should be from 20 characters above';
     }
 
@@ -97,9 +98,8 @@ class ValidatePost {
 
     if (!type) {
       error = 'A record type of either red-flag or intervention must be specified';
-    }
-    if (type !== 'red-flag' && type !== 'intervention') {
-      error = 'A valid record type of either must be specified';
+    } else if (type !== 'red-flag' && type !== 'intervention') {
+      error = 'A valid record type of either red-flag or intervention must be specified';
     }
 
     if (error) {
