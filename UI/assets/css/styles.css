@@ -192,7 +192,7 @@ header {
   font-weight: 600;
 }
 
-.navbar-link:first-child a {
+.active a {
   background: #0facf3;
   color: #fffffa;
 }
@@ -495,6 +495,11 @@ tr > td:last-child {
     padding: 20px;
   }
 
+  .active a {
+    color: #0facf3;
+    background: #fffffa;
+  }
+
   .hamburger-menu {
     position: absolute;
     padding: 37px;
@@ -556,7 +561,7 @@ tr > td:last-child {
   }
 
   .form-container {
-    padding: 40px 0;
+    padding: 40px 0 65px;
   }
 
   .hero {
