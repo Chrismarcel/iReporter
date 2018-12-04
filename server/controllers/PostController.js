@@ -4,15 +4,26 @@ import postDb from '../models/posts';
  * @class PostController
  * @description Specifies which method handles a given request for a specific endpoint
  * @exports PostController
- * @param {req} : The request object sent in the body
- * @param {res} : The reponse object sent by the server to the user
  */
 
 class PostController {
+  /**
+   * @method getRecords
+   * @description Retrieves a list of records
+   * @param {object} req - The Request Object
+   * @param {object} res - The Response Object
+   * @returns {object} JSON API Response
+   */
   static getRecords(req, res) {
     res.status(200).json({ status: 200, data: [...postDb] });
   }
 
+  /**
+   * @description Retrieves a specific record
+   * @param {object} req - The Request Object
+   * @param {object} res - The Response Object
+   * @returns {object} JSON API Response
+   */
   static getARecord(req, res) {
     const data = postDb.filter(recordObj => Number(req.params.id) === recordObj.id);
     res.status(200).json({ status: 200, data });
@@ -44,6 +55,12 @@ class PostController {
     });
   }
 
+  /**
+   * @description Updates the location of a given record
+   * @param {object} req - The Request Object
+   * @param {object} res - The Response Object
+   * @returns {object} JSON API Response
+   */
   static updateLocation(req, res) {
     const record = postDb.filter(recordObj => recordObj.id === Number(req.params.id));
     const { latitude, longitude } = req.body;
@@ -57,6 +74,12 @@ class PostController {
     });
   }
 
+  /**
+   * @description Updates the cooment associated with a specific record
+   * @param {object} req - The Request Object
+   * @param {object} res - The Response Object
+   * @returns {object} JSON API Response
+   */
   static updateComment(req, res) {
     const id = Number(req.params.id);
     const record = postDb.filter(recordObj => recordObj.id === Number(id));
@@ -70,6 +93,12 @@ class PostController {
     });
   }
 
+  /**
+   * @description Deletes a specific record
+   * @param {object} req - The Request Object
+   * @param {object} res - The Response Object
+   * @returns {object} JSON API Response
+   */
   static deleteRecord(req, res) {
     const id = Number(req.params.id);
 
