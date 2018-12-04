@@ -106,7 +106,6 @@ class ValidatePost {
       return res.status(406).json({ status: 406, error });
     }
 
-
     return next();
   }
 }
