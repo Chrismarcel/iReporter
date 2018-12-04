@@ -19,7 +19,8 @@ class PostController {
   }
 
   /**
-   * @description Retrieves a specific record
+   * @method getARecord
+   * @description Retrieves a specific record with a given iID
    * @param {object} req - The Request Object
    * @param {object} res - The Response Object
    * @returns {object} JSON API Response
@@ -29,6 +30,13 @@ class PostController {
     res.status(200).json({ status: 200, data });
   }
 
+  /**
+   * @method postRecord
+   * @description Posts the given record to the database
+   * @param {object} req - The Request Object
+   * @param {object} res - The Response Object
+   * @returns {object} JSON API Response
+   */
   static postRecord(req, res) {
     const {
       type, comment, latitude, longitude,
@@ -56,7 +64,8 @@ class PostController {
   }
 
   /**
-   * @description Updates the location of a given record
+   * @method updateLocation
+   * @description Updates the location of a specific record with a given ID
    * @param {object} req - The Request Object
    * @param {object} res - The Response Object
    * @returns {object} JSON API Response
@@ -75,7 +84,8 @@ class PostController {
   }
 
   /**
-   * @description Updates the cooment associated with a specific record
+   * @method updateComment
+   * @description Updates the comment associated with a specific record
    * @param {object} req - The Request Object
    * @param {object} res - The Response Object
    * @returns {object} JSON API Response
@@ -94,6 +104,7 @@ class PostController {
   }
 
   /**
+   * @method deleteRecord
    * @description Deletes a specific record
    * @param {object} req - The Request Object
    * @param {object} res - The Response Object

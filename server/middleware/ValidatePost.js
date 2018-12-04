@@ -5,11 +5,16 @@ import postDb from '../models/posts';
  * @class ValidatePost
  * @description Specifies which method handles a given request for a specific endpoint
  * @exports ValidatePost
- * @param {req} : The request object sent in the body
- * @param {res} : The reponse object sent by the server to the user
  */
 
 class ValidatePost {
+  /**
+  * @method validateCoordinates
+  * @description Validates the set of co-ordinates passed in the request body
+  * @param {object} req - The Request Object
+  * @param {object} res - The Response Object
+  * @returns {object} JSON API Response
+  */
   static validateCoordinates(req, res, next) {
     let error = '';
     const { latitude, longitude } = req.body;
@@ -34,6 +39,13 @@ class ValidatePost {
     return next();
   }
 
+  /**
+   * @method validatePostId
+   * @description Validates the specific IDpassed in the request body exists in the database
+   * @param {object} req - The Request Object
+   * @param {object} res - The Response Object
+   * @returns {object} JSON API Response
+   */
   static validatePostId(req, res, next) {
     const records = postDb.filter(recordObj => recordObj.id === Number(req.params.id));
 
@@ -47,6 +59,13 @@ class ValidatePost {
     return next();
   }
 
+  /**
+   * @method validateComment
+   * @description Ensures comment is not empty or has character length of <20
+   * @param {object} req - The Request Object
+   * @param {object} res - The Response Object
+   * @returns {object} JSON API Response
+   */
   static validateComment(req, res, next) {
     let error = '';
     const { comment } = req.body;
@@ -65,6 +84,13 @@ class ValidatePost {
     return next();
   }
 
+  /**
+   * @method validatePostType
+   * @description Validates the specified post type is either an intervention or red-flag record
+   * @param {object} req - The Request Object
+   * @param {object} res - The Response Object
+   * @returns {object} JSON API Response
+   */
   static validatePostType(req, res, next) {
     let error = '';
     const { type } = req.body;
