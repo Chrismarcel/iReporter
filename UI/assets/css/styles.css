@@ -131,6 +131,11 @@ label {
   font-weight: 600;
 }
 
+label span {
+  color: #ef271b;
+  font-size: 18px;
+}
+
 table {
   background: transparent;
   border-spacing: 0;

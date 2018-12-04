@@ -1,97 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>
-      iReporter - Report Corruption and Seek Government Intervention
-    </title>
-    <link rel="stylesheet" href="./assets/css/styles.css" />
-    <link
-      href="https://fonts.googleapis.com/css?family=PT+Sans"
-      rel="stylesheet"
-    />
-  </head>
 
-  <body>
-    <!-- Begin Header -->
-    <header>
-      <nav class="navbar">
-        <a href="./" class="navbar-logo">iReporter</a
-        ><button class="hamburger-menu"><a class="hamburger"></a></button>
-        <ul class="navbar-menu">
-          <li class="navbar-link">
-            <a href="./create-report.html">Create Report</a>
-          </li>
-          <li class="navbar-link"><a href="./profile.html">Profile</a></li>
-          <li class="navbar-link"><a href="./login.html">Login</a></li>
-          <li class="navbar-link"><a href="./signup.html">Sign Up</a></li>
-          <li class="navbar-link">
-            <a href="./view-reports.html">View Reports</a>
-          </li>
-          <li class="navbar-link"><a href="./admin.html">Admin</a></li>
-        </ul>
-      </nav>
-    </header>
-    <!-- End Header -->
-    <main>
-      <section class="container form-container">
-        <h2 class="section-title">Create Report</h2>
-        <form class="form-card" action="" method="post">
-          <label for="title">Enter issue to be reported (Required)</label>
-          <textarea
-            name="title"
-            id="title"
-            class="form-element"
-            placeholder="Enter a brief comment about the issue eg 'Blocked drainage system'"
-            col="10"
-            required
-          ></textarea>
-          <label for="issue-type">Select report type (Required)</label>
-          <select
-            type="text"
-            id="issue-type"
-            name="issue-type"
-            class="form-element"
-            required
-          >
-            <option default>-- Select Report Type --</option>
-            <option value="red-flag">Red Flag</option>
-            <option value="intervention">Intervention</option>
-          </select>
-          <label for="latitude">Enter Latitude (Required)</label>
-          <input
-            type="text"
-            id="latitude"
-            name="latitude"
-            class="form-element"
-            placeholder="Enter Latitude of location"
-            required
-          />
-          <label for="longitude">Enter Longitude (Required)</label>
-          <input
-            type="text"
-            id="longitude"
-            name="longitude"
-            class="form-element"
-            placeholder="Enter Longitude of location"
-            required
-          />
-          <label for="attachment"
-            >Attach Media File - Image or Video (Optional)</label
-          >
-          <input
-            type="file"
-            id="attachment"
-            name="attachment"
-            class="form-element"
-          />
-          <button type="submit" class="btn btn-primary">Create Report</button>
-        </form>
-      </section>
-    </main>
-    <footer><p class="credits">iReporter | Copyright &copy; 2018</p></footer>
-  </body>
-  <script src="./assets/js/script.js"></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>
+    iReporter - Report Corruption and Seek Government Intervention
+  </title>
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- Begin Header -->
+  <header>
+    <nav class="navbar">
+      <a href="./" class="navbar-logo">iReporter</a><button class="hamburger-menu"><a
+          class="hamburger"></a></button>
+      <ul class="navbar-menu">
+        <li class="navbar-link">
+          <a href="./create-report.html">Create Report</a>
+        </li>
+        <li class="navbar-link"><a href="./profile.html">Profile</a></li>
+        <li class="navbar-link"><a href="./login.html">Login</a></li>
+        <li class="navbar-link"><a href="./signup.html">Sign Up</a></li>
+        <li class="navbar-link">
+          <a href="./view-reports.html">View Reports</a>
+        </li>
+        <li class="navbar-link"><a href="./admin.html">Admin</a></li>
+      </ul>
+    </nav>
+  </header>
+  <!-- End Header -->
+  <main>
+    <section class="container form-container">
+      <h2 class="section-title">Create Report</h2>
+      <form class="form-card" action="" method="post">
+        <label for="title">Enter issue to be reported <span>*</span></label>
+        <textarea name="title" id="title" class="form-element" placeholder="Enter a brief comment about the issue eg 'Blocked drainage system'"
+          col="10" required></textarea>
+        <label for="issue-type">Select report type <span>*</span></label>
+        <select type="text" id="issue-type" name="issue-type" class="form-element"
+          required>
+          <option default>-- Select Report Type --</option>
+          <option value="red-flag">Red Flag</option>
+          <option value="intervention">Intervention</option>
+        </select>
+        <label for="latitude">Enter Latitude <span>*</span></label>
+        <input type="number" id="latitude" name="latitude" class="form-element"
+          placeholder="Enter Latitude of location" required />
+        <label for="longitude">Enter Longitude <span>*</span></label>
+        <input type="number" id="longitude" name="longitude" class="form-element"
+          placeholder="Enter Longitude of location" required />
+        <label for="attachment">Attach Media File - Image or Video (Optional)</label>
+        <input type="file" id="attachment" name="attachment" class="form-element" />
+        <button type="submit" class="btn btn-primary">Create Report</button>
+      </form>
+    </section>
+  </main>
+  <footer>
+    <p class="credits">iReporter | Copyright &copy; 2018</p>
+  </footer>
+</body>
+<script src="./assets/js/script.js"></script>
+
 </html>
