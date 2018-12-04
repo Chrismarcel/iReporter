@@ -192,7 +192,7 @@ header {
   font-weight: 600;
 }
 
-.navbar-link:first-child a {
+.active a {
   background: #0facf3;
   color: #fffffa;
 }
@@ -493,6 +493,11 @@ tr > td:last-child {
   .navbar-link a {
     color: #fffffa;
     padding: 20px;
+  }
+
+  .active a {
+    color: #0facf3;
+    background: #fffffa;
   }
 
   .hamburger-menu {
