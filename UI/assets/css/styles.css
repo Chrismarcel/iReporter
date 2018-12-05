@@ -15,6 +15,10 @@ body {
   color: #3c4859;
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
 /* Global/Custom Components */
 a {
   text-decoration: none;
@@ -119,6 +123,7 @@ button {
 .container {
   background: #dfe0e2;
   padding: 95px 40px;
+  position: relative;
 }
 
 .form-container > .section-title,
@@ -370,6 +375,74 @@ footer {
   margin-top: 25px;
 }
 
+/* Modals */
+.modal {
+  background: #fffffa;
+  position: absolute;
+  width: 500px;
+  padding: 10px 25px 20px;
+  bottom: 50%;
+  right: 50%;
+  transform: translate(50%, 50%);
+  z-index: 0;
+  opacity: 0;
+  transition: opacity .5s ease-in;
+}
+
+.modal-toggle.modal-open {
+  background: rgba(50, 41, 47, 0.76);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 170;
+}
+
+.modal.modal-open {
+  opacity: 1;
+  position: fixed;
+  z-index: 200;
+}
+
+.modal-title {
+  display: inline-block;
+}
+
+.modal-header {
+  font-weight: 600;
+  font-size: 1.5em;
+  border-bottom: 2px solid #0facf3;
+  margin: 0 -25px;
+  padding: 10px 25px;
+}
+
+.modal-body {
+  margin-top: 20px;
+}
+
+.modal-message {
+  font-size: 1.2em;
+  text-align: center;
+}
+
+.modal-group {
+  margin: 25px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.modal-close {
+  float: right;
+  cursor: pointer;
+}
+
+.message-box {
+  font-size: 1.2em;
+  margin-top: 20px;
+  text-align: center;
+}
+
 /* Profile Card */
 .profile,
 .dashboard {
@@ -417,7 +490,7 @@ footer {
   height: 50px;
   right: -25px;
   top: 5px;
-  border-right: 2px solid #f5f6f8;
+  border-right: 2px solid rgba(173, 176, 183, 0.7);
 }
 
 p.stat-value {
@@ -434,6 +507,7 @@ p.stat-value {
 }
 
 .profile-table {
+  z-index: 100;
   flex-basis: 73%;
 }
 
@@ -648,6 +722,16 @@ tr > td:last-child {
 
   .user-reports > .featured-cards > .report-card {
     margin-right: 0;
+  }
+
+  .modal {
+    width: 90%;
+    padding: 10px 15px 20px;
+  }
+
+  .modal-header {
+    padding: 10px 25px;
+    margin: 0 -15px;
   }
 }
 
