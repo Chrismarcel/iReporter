@@ -13,6 +13,7 @@
 </head>
 
 <body>
+  <div class="modal-toggle"></div>
   <!-- Begin Header -->
   <header>
     <nav class="navbar">
@@ -79,7 +80,7 @@
                 <td>6.5951139, 3.3429975</td>
                 <td>Resolved</td>
                 <td><button class="btn btn-primary">Edit</button></td>
-                <td><button class="btn btn-warning">Delete</button></td>
+                <td><button class="btn btn-warning delete-report">Delete</button></td>
               </tr>
               <tr>
                 <td>2</td>
@@ -88,7 +89,7 @@
                 <td>6.5922139, 3.3427375</td>
                 <td>Investigated</td>
                 <td><button class="btn btn-primary">Edit</button></td>
-                <td><button class="btn btn-warning">Delete</button></td>
+                <td><button class="btn btn-warning delete-report">Delete</button></td>
               </tr>
               <tr>
                 <td>3</td>
@@ -97,7 +98,7 @@
                 <td>6.5951139, 3.3408975</td>
                 <td>Rejected</td>
                 <td><button class="btn btn-primary">Edit</button></td>
-                <td><button class="btn btn-warning">Delete</button></td>
+                <td><button class="btn btn-warning delete-report">Delete</button></td>
               </tr>
               <tr>
                 <td>4</td>
@@ -106,7 +107,7 @@
                 <td>6.5977139, 3.3329975</td>
                 <td>Drafted</td>
                 <td><button class="btn btn-primary">Edit</button></td>
-                <td><button class="btn btn-warning">Delete</button></td>
+                <td><button class="btn btn-warning delete-report">Delete</button></td>
               </tr>
               <tr>
                 <td>5</td>
@@ -115,7 +116,7 @@
                 <td>6.5955639, 3.3429775</td>
                 <td>Resolved</td>
                 <td><button class="btn btn-primary">Edit</button></td>
-                <td><button class="btn btn-warning">Delete</button></td>
+                <td><button class="btn btn-warning delete-report">Delete</button></td>
               </tr>
               <tr>
                 <td>6</td>
@@ -124,7 +125,7 @@
                 <td>6.7822139, 3.3727375</td>
                 <td>Investigated</td>
                 <td><button class="btn btn-primary">Edit</button></td>
-                <td><button class="btn btn-warning">Delete</button></td>
+                <td><button class="btn btn-warning delete-report">Delete</button></td>
               </tr>
               <tr>
                 <td>7</td>
@@ -133,7 +134,7 @@
                 <td>6.5954769, 3.3675975</td>
                 <td>Resolved</td>
                 <td><button class="btn btn-primary">Edit</button></td>
-                <td><button class="btn btn-warning">Delete</button></td>
+                <td><button class="btn btn-warning delete-report">Delete</button></td>
               </tr>
               <tr>
                 <td>8</td>
@@ -142,10 +143,23 @@
                 <td>6.5977220, 3.3329076</td>
                 <td>Resolved</td>
                 <td><button class="btn btn-primary">Edit</button></td>
-                <td><button class="btn btn-warning">Delete</button></td>
+                <td><button class="btn btn-warning delete-report">Delete</button></td>
               </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+      <div class="modal">
+        <div class="modal-header">
+          <p class="modal-title">Delete Report</p>
+          <span class="modal-close">X</span>
+        </div>
+        <div class="modal-body">
+          <p class="modal-message">Are you sure you want to delete report?</p>
+          <div class="modal-group">
+            <button class="btn btn-primary modal-btn" id="cancel">Cancel</button>
+            <button class="btn btn-warning modal-btn" id="delete">Delete</button>
+          </div>
         </div>
       </div>
     </section>
