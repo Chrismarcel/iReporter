@@ -35,9 +35,13 @@ modalActionBtns.forEach(modalActionBtn => modalActionBtn.addEventListener('click
 
 const updateStatusBtns = Array.from(document.querySelectorAll('.update-record'));
 if (updateStatusBtns) {
+  const toast = document.querySelector('.toast');
   updateStatusBtns.forEach(updateStatusBtn => updateStatusBtn.addEventListener('click', (evt) => {
-    const toast = document.querySelector('.toast');
-    toast.classList.toggle('.toast-show');
+    evt.preventDefault();
+    toast.classList.toggle('toast-show');
+    setTimeout(() => {
+      toast.classList.toggle('toast-show');
+    }, 3000);
   }));
 }
 
