@@ -39,7 +39,7 @@
   <main>
     <section class="container form-container">
       <h2 class="section-title">Sign Up</h2>
-      <form class="form-card" action="" method="post">
+      <form class="form-card" onsubmit="return submitForm()" method="post">
         <label for="firstname">Enter First Name <span>*</span></label>
         <input type="text" id="firstname" name="firstname" class="form-element"
           placeholder="Enter First Name" required />
@@ -58,7 +58,7 @@
         <label for="password">Enter Password <span>*</span></label>
         <input type="password" id="password" name="password" class="form-element"
           placeholder="Enter Password" required />
-        <a href="./profile.html" class="btn btn-primary">Sign Up</a>
+        <button type="submit" class="btn btn-primary">Sign Up</button>
       </form>
     </section>
   </main>

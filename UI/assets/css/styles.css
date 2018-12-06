@@ -42,7 +42,7 @@ textarea {
   height: 45px;
   text-align: left;
   border: 2px solid #0facf3;
-  border-radius: 7px;
+  border-radius: 4px;
   margin-bottom: 20px;
   padding: 0 10px;
   background: transparent;
@@ -63,7 +63,7 @@ button {
 
 .btn {
   padding: 12px 25px;
-  border-radius: 7px;
+  border-radius: 4px;
   display: inline-block;
   min-width: 110px;
   text-align: center;
@@ -332,9 +332,20 @@ section > .btn {
   position: absolute;
   right: -10px;
   top: -10px;
-  background: #ef271b;
   color: #fffffa;
   padding: 4px 10px;
+}
+
+.rejected {
+  background: #ef271b;
+}
+
+.investigating {
+  background: #0facf3;
+}
+
+.resolved {
+  background: #6cbf1b;
 }
 
 .reports-container {
@@ -346,11 +357,22 @@ section > .btn {
   position: absolute;
   width: 15px;
   height: 15px;
-  background: #ef271b;
   z-index: -1;
   top: 25px;
   right: 0px;
   transform: skewY(-45deg);
+}
+
+.rejected::after {
+  background: #ef271b;
+}
+
+.investigating::after {
+  background: #0facf3;
+}
+
+.resolved::after {
+  background: #6cbf1b;
 }
 
 /* Footer */
@@ -383,7 +405,7 @@ footer {
   bottom: 50%;
   right: 50%;
   transform: translate(50%, 50%);
-  z-index: 0;
+  z-index: -20;
   opacity: 0;
   transition: opacity .5s ease-in;
 }

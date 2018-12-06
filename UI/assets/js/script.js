@@ -67,3 +67,10 @@ if (submitBtn) {
     document.querySelector('.message-box').textContent = message;
   });
 }
+
+function submitForm() {
+  window.location.href = './profile.html';
+  return false;
+}
+
+// submitForm();
