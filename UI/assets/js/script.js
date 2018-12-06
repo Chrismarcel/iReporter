@@ -7,7 +7,8 @@ hamburgerBtn.addEventListener('click', function toggleMenu() {
 });
 
 // Handle modal toggle events for report deletion
-const toggleModal = () => {
+const toggleModal = (evt) => {
+  evt.preventDefault();
   const modalToggle = document.querySelector('.modal-toggle');
   const modal = document.querySelector('.modal');
   document.body.classList.toggle('modal-open');
@@ -16,8 +17,8 @@ const toggleModal = () => {
 };
 
 const deleteReportBtns = Array.from(document.querySelectorAll('.delete-report'));
-deleteReportBtns.forEach(deleteReportBtn => deleteReportBtn.addEventListener('click', () => {
-  toggleModal();
+deleteReportBtns.forEach(deleteReportBtn => deleteReportBtn.addEventListener('click', (evt) => {
+  toggleModal(evt);
 }));
 
 const modalActionBtns = Array.from(document.querySelectorAll('.modal-btn'));
@@ -28,7 +29,7 @@ modalActionBtns.forEach(modalActionBtn => modalActionBtn.addEventListener('click
     modalMessage.textContent = 'Report Deleted Successfully';
     document.querySelector('.modal-group').remove();
   } else {
-    toggleModal();
+    toggleModal(evt);
   }
 }));
 
@@ -36,14 +37,14 @@ const updateStatusBtns = Array.from(document.querySelectorAll('.update-record'))
 if (updateStatusBtns) {
   updateStatusBtns.forEach(updateStatusBtn => updateStatusBtn.addEventListener('click', (evt) => {
     evt.preventDefault();
-    toggleModal();
+    toggleModal(evt);
   }));
 }
 
 const closeModal = document.querySelector('.modal-close');
 if (closeModal) {
-  closeModal.addEventListener('click', () => {
-    toggleModal();
+  closeModal.addEventListener('click', (evt) => {
+    toggleModal(evt);
   });
 }
 

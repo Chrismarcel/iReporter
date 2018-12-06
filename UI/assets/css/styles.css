@@ -64,7 +64,6 @@ button {
 .btn {
   padding: 12px 25px;
   border-radius: 7px;
-  font-weight: 600;
   display: inline-block;
   min-width: 110px;
   text-align: center;
@@ -379,7 +378,7 @@ footer {
 .modal {
   background: #fffffa;
   position: absolute;
-  width: 500px;
+  width: 520px;
   padding: 10px 25px 20px;
   bottom: 50%;
   right: 50%;
@@ -430,6 +429,10 @@ footer {
   margin: 25px;
   display: flex;
   justify-content: space-evenly;
+}
+
+.modal-images {
+  display: inline-block;
 }
 
 .modal-close {
@@ -546,6 +549,11 @@ tr > td:last-child {
 .user-reports .report-card {
   flex-basis: 30%;
   margin-right: 20px;
+}
+
+.report-img {
+  width: 200px;
+  height: auto;
 }
 
 /* For smartphones (<768px) */
@@ -732,6 +740,10 @@ tr > td:last-child {
   .modal-header {
     padding: 10px 25px;
     margin: 0 -15px;
+  }
+
+  .modal-images {
+    display: block;
   }
 }
 
