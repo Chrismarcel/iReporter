@@ -4,20 +4,39 @@ import postDb from '../models/posts';
  * @class PostController
  * @description Specifies which method handles a given request for a specific endpoint
  * @exports PostController
- * @param {req} : The request object sent in the body
- * @param {res} : The reponse object sent by the server to the user
  */
 
 class PostController {
+  /**
+   * @method getRecords
+   * @description Retrieves a list of records
+   * @param {object} req - The Request Object
+   * @param {object} res - The Response Object
+   * @returns {object} JSON API Response
+   */
   static getRecords(req, res) {
     res.status(200).json({ status: 200, data: [...postDb] });
   }
 
+  /**
+   * @method getARecord
+   * @description Retrieves a specific record with a given iID
+   * @param {object} req - The Request Object
+   * @param {object} res - The Response Object
+   * @returns {object} JSON API Response
+   */
   static getARecord(req, res) {
     const data = postDb.filter(recordObj => Number(req.params.id) === recordObj.id);
     res.status(200).json({ status: 200, data });
   }
 
+  /**
+   * @method postRecord
+   * @description Posts the given record to the database
+   * @param {object} req - The Request Object
+   * @param {object} res - The Response Object
+   * @returns {object} JSON API Response
+   */
   static postRecord(req, res) {
     const {
       type, comment, latitude, longitude,
@@ -44,40 +63,68 @@ class PostController {
     });
   }
 
+  /**
+   * @method updateLocation
+   * @description Updates the location of a specific record with a given ID
+   * @param {object} req - The Request Object
+   * @param {object} res - The Response Object
+   * @returns {object} JSON API Response
+   */
   static updateLocation(req, res) {
-    const record = postDb.filter(recordObj => recordObj.id === Number(req.params.id));
     const { latitude, longitude } = req.body;
-    const id = Number(req.params.id);
+    const recordID = Number(req.params.id);
 
-    // Use Object.assign so as not to mutate existing records object
-    Object.assign({}, record[0], { location: `${latitude}, ${longitude}` });
+    postDb.forEach((record, recordIndex) => {
+      if (recordID === record.id) {
+        postDb[recordIndex].location = `${latitude}, ${longitude}`;
+      }
+    });
 
     res.status(200).json({
-      status: 200, data: [{ id, message: 'Updated red-flag record\'s location' }],
+      status: 200, data: [{ id: recordID, message: 'Updated red-flag record\'s location' }],
     });
   }
 
+  /**
+   * @method updateComment
+   * @description Updates the comment associated with a specific record
+   * @param {object} req - The Request Object
+   * @param {object} res - The Response Object
+   * @returns {object} JSON API Response
+   */
   static updateComment(req, res) {
-    const id = Number(req.params.id);
-    const record = postDb.filter(recordObj => recordObj.id === Number(id));
+    const recordID = Number(req.params.id);
     const { comment } = req.body;
 
-    // Use Object.assign so as not to mutate existing records object
-    Object.assign({}, record[0], { comment });
+    postDb.forEach((record, recordIndex) => {
+      if (recordID === record.id) {
+        postDb[recordIndex].comment = `${comment}`;
+      }
+    });
 
     res.status(200).json({
-      status: 200, data: [{ id, message: 'Updated red-flag record\'s comment' }],
+      status: 200, data: [{ id: recordID, message: 'Updated red-flag record\'s comment' }],
     });
   }
 
+  /**
+   * @method deleteRecord
+   * @description Deletes a specific record
+   * @param {object} req - The Request Object
+   * @param {object} res - The Response Object
+   * @returns {object} JSON API Response
+   */
   static deleteRecord(req, res) {
-    const id = Number(req.params.id);
+    const recordID = Number(req.params.id);
 
-    // Use filter so as not to mutate array
-    postDb.filter(recordObj => recordObj.id !== Number(id));
+    postDb.forEach((record, recordIndex) => {
+      if (recordID === record.id) {
+        postDb.splice(recordIndex, 1);
+      }
+    });
 
     res.status(200).json({
-      status: 200, data: [{ id, message: 'red-flag record has been deleted' }],
+      status: 200, data: [{ id: recordID, message: 'red-flag record has been deleted' }],
     });
   }
 }
