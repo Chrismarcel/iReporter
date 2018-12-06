@@ -22,6 +22,7 @@ deleteReportBtns.forEach(deleteReportBtn => deleteReportBtn.addEventListener('cl
 
 const modalActionBtns = Array.from(document.querySelectorAll('.modal-btn'));
 modalActionBtns.forEach(modalActionBtn => modalActionBtn.addEventListener('click', (evt) => {
+  evt.preventDefault();
   if (evt.target.id === 'delete') {
     const modalMessage = document.querySelector('.modal-message');
     modalMessage.textContent = 'Report Deleted Successfully';
@@ -31,6 +32,14 @@ modalActionBtns.forEach(modalActionBtn => modalActionBtn.addEventListener('click
   }
 }));
 
+const updateStatusBtns = Array.from(document.querySelectorAll('.update-record'));
+if (updateStatusBtns) {
+  updateStatusBtns.forEach(updateStatusBtn => updateStatusBtn.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    toggleModal();
+  }));
+}
+
 const closeModal = document.querySelector('.modal-close');
 if (closeModal) {
   closeModal.addEventListener('click', () => {
@@ -38,14 +47,18 @@ if (closeModal) {
   });
 }
 
-const submitBtns = Array.from(document.querySelectorAll('.update'));
-submitBtns.forEach(submitBtn => submitBtn.addEventListener('click', (evt) => {
-  evt.preventDefault();
-  let message = 'Profile Updated Successfully';
+const submitBtn = document.querySelector('.update');
+if (submitBtn) {
+  submitBtn.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    let message = '';
 
-  if (evt.target.id === 'record') {
-    message = 'Record Updated Successfully';
-  }
+    if (evt.target.id === 'record') {
+      message = 'Record Updated Successfully';
+    } else if (evt.target.id === 'profile') {
+      message = 'Profile Updated Successfully';
+    }
 
-  document.querySelector('.message-box').textContent = message;
-}));
+    document.querySelector('.message-box').textContent = message;
+  });
+}
