@@ -68,9 +68,14 @@ if (submitBtn) {
   });
 }
 
+const mediaLinks = document.querySelectorAll('.report-media');
+mediaLinks.forEach((mediaLink) => {
+  mediaLink.addEventListener('click', (evt) => {
+    toggleModal(evt);
+  });
+});
+
 function submitForm() {
   window.location.href = './profile.html';
   return false;
 }
-
-// submitForm();
