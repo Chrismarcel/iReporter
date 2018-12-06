@@ -40,9 +40,18 @@ if (updateStatusBtns) {
     evt.preventDefault();
     toast.classList.toggle('toast-show');
     setTimeout(() => {
-      toast.classList.toggle('toast-show');
+      toast.classList.remove('toast-show');
     }, 3000);
   }));
+}
+
+const toastHide = document.querySelector('.toast-hide');
+if (toastHide) {
+  const toast = document.querySelector('.toast');
+  toastHide.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    toast.classList.toggle('toast-show');
+  });
 }
 
 const closeModal = document.querySelector('.modal-close');

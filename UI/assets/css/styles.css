@@ -121,7 +121,7 @@ button {
 
 .container {
   background: #dfe0e2;
-  padding: 95px 40px;
+  padding: 50px 40px 90px;
   position: relative;
 }
 
@@ -572,6 +572,27 @@ p.stat-value {
   width: 100%;
 }
 
+.admin-report {
+  display: flex;
+  justify-content: space-between;
+  background: #fffffa;
+  padding: 25px;
+  margin-top: 20px;
+  border-left: 3px solid #0facf3;
+}
+
+.report-stat {
+  text-align: center;
+}
+
+.report-stat > p {
+  font-size: 3em;
+}
+
+.report-stat > span {
+  font-weight: 600;
+}
+
 td .report-user {
   font-size: 1em;
   text-align: center;
@@ -794,6 +815,14 @@ tr > td:last-child {
 
   .modal-images {
     display: block;
+  }
+
+  .admin-report {
+    flex-direction: column;
+  }
+
+  .report-stat {
+    margin-bottom: 15px;
   }
 }
 
