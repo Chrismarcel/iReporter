@@ -162,6 +162,10 @@ th {
   border-bottom: 1px solid #dddddd;
 }
 
+td.issue {
+  width: 30px;
+}
+
 /* Navigation */
 header {
   box-shadow: rgba(31, 53, 78, 0.11) 0 1px;

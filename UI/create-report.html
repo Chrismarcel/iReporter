@@ -23,13 +23,13 @@
           <a href="./">Home</a>
         </li>
         <li class="navbar-link active">
-          <a href="./create-report.html">Create Report</a>
+          <a href="./create-report.html">Create Record</a>
         </li>
         <li class="navbar-link"><a href="./profile.html">Profile</a></li>
         <li class="navbar-link"><a href="./login.html">Login</a></li>
         <li class="navbar-link"><a href="./signup.html">Sign Up</a></li>
         <li class="navbar-link">
-          <a href="./view-reports.html">View Reports</a>
+          <a href="./view-reports.html">View Records</a>
         </li>
         <li class="navbar-link"><a href="./admin.html">Admin</a></li>
       </ul>
@@ -38,15 +38,15 @@
   <!-- End Header -->
   <main>
     <section class="container form-container">
-      <h2 class="section-title">Create Report</h2>
+      <h2 class="section-title">Create Record</h2>
       <form class="form-card" onsubmit="return submitForm()" method="post">
         <label for="title">Enter issue to be reported <span>*</span></label>
         <textarea name="title" id="title" class="form-element" placeholder="Enter a brief comment about the issue eg 'Blocked drainage system'"
           col="10" required></textarea>
-        <label for="issue-type">Select report type <span>*</span></label>
+        <label for="issue-type">Select Recorded type <span>*</span></label>
         <select type="text" id="issue-type" name="issue-type" class="form-element"
           required>
-          <option default>-- Select Report Type --</option>
+          <option default>-- Select Record Type --</option>
           <option value="red-flag">Red Flag</option>
           <option value="intervention">Intervention</option>
         </select>
@@ -59,8 +59,9 @@
           class="form-element" placeholder="Enter Longitude of location"
           required />
         <label for="attachment">Attach Media File - Image or Video</label>
-        <input type="file" id="attachment" name="attachment" class="form-element" />
-        <button type="submit" class="btn btn-primary">Create Report</button>
+        <input type="file" accept="image/*, video/mp4" id="attachment" name="attachment"
+          class="form-element" />
+        <button type="submit" class="btn btn-primary">Create Record</button>
       </form>
     </section>
   </main>
