@@ -26,10 +26,10 @@ router.get(
 
 // Handle all PATCH requests
 router.patch(
-  '/red-flags/:id/location', ValidatePost.validatePostId, ValidatePost.validateCoordinates, PostController.updateLocation,
+  '/red-flags/:id/location', ValidatePost.validatePostId, ValidatePost.validateCoordinates, PostController.updateReport,
 );
 router.patch(
-  '/red-flags/:id/comment', ValidatePost.validatePostId, ValidatePost.validateComment, PostController.updateComment,
+  '/red-flags/:id/comment', ValidatePost.validatePostId, ValidatePost.validateComment, PostController.updateReport,
 );
 
 // Handle Delete requests

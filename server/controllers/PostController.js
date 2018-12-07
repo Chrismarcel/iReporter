@@ -64,46 +64,31 @@ class PostController {
   }
 
   /**
-   * @method updateLocation
-   * @description Updates the location of a specific record with a given ID
+   * @method updateReport
+   * @description Updates a specific report based on the given parameters
    * @param {object} req - The Request Object
    * @param {object} res - The Response Object
    * @returns {object} JSON API Response
    */
-  static updateLocation(req, res) {
-    const { latitude, longitude } = req.body;
+  static updateReport(req, res) {
+    const { latitude, longitude, comment } = req.body;
     const recordID = Number(req.params.id);
+    let message = '';
 
     postDb.forEach((record, recordIndex) => {
       if (recordID === record.id) {
-        postDb[recordIndex].location = `${latitude}, ${longitude}`;
+        if (comment) {
+          postDb[recordIndex].comment = `${comment}`;
+          message = 'Red-flag record comment has been updated succesfully';
+        } else {
+          postDb[recordIndex].location = `${latitude}, ${longitude}`;
+          message = 'Updated red-flag record\'s location';
+        }
       }
     });
 
     res.status(200).json({
-      status: 200, data: [{ id: recordID, message: 'Updated red-flag record\'s location' }],
-    });
-  }
-
-  /**
-   * @method updateComment
-   * @description Updates the comment associated with a specific record
-   * @param {object} req - The Request Object
-   * @param {object} res - The Response Object
-   * @returns {object} JSON API Response
-   */
-  static updateComment(req, res) {
-    const recordID = Number(req.params.id);
-    const { comment } = req.body;
-
-    postDb.forEach((record, recordIndex) => {
-      if (recordID === record.id) {
-        postDb[recordIndex].comment = `${comment}`;
-      }
-    });
-
-    res.status(200).json({
-      status: 200, data: [{ id: recordID, message: 'Updated red-flag record\'s comment' }],
+      status: 200, data: [{ id: recordID, message }],
     });
   }
 

@@ -34,7 +34,7 @@ class ValidatePost {
 
     if (error) {
       return res.status(406).json({
-        status: 406, error, isLatitude: latitude, isLongitude: longitude,
+        status: 406, error,
       });
     }
 
