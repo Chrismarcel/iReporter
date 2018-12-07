@@ -1,12 +1,12 @@
 import postDb from '../models/posts';
 
 /**
- * @class PostController
+ * @class IncidentController
  * @description Specifies which method handles a given request for a specific endpoint
- * @exports PostController
+ * @exports IncidentController
  */
 
-class PostController {
+class IncidentController {
   /**
    * @method getRecords
    * @description Retrieves a list of records
@@ -26,7 +26,8 @@ class PostController {
    * @returns {object} JSON API Response
    */
   static getARecord(req, res) {
-    const data = postDb.filter(recordObj => Number(req.params.id) === recordObj.id);
+    const recordIndex = postDb.findIndex(record => record.id === Number(req.params.id));
+    const data = [postDb[recordIndex]];
     res.status(200).json({ status: 200, data });
   }
 
@@ -75,17 +76,15 @@ class PostController {
     const recordID = Number(req.params.id);
     let message = '';
 
-    postDb.forEach((record, recordIndex) => {
-      if (recordID === record.id) {
-        if (comment) {
-          postDb[recordIndex].comment = `${comment}`;
-          message = 'Red-flag record comment has been updated succesfully';
-        } else {
-          postDb[recordIndex].location = `${latitude}, ${longitude}`;
-          message = 'Updated red-flag record\'s location';
-        }
-      }
-    });
+    const recordIndex = postDb.findIndex(record => record.id === recordID);
+
+    if (comment) {
+      postDb[recordIndex].comment = `${comment}`;
+      message = 'Red-flag record comment has been updated succesfully';
+    } else {
+      postDb[recordIndex].location = `${latitude}, ${longitude}`;
+      message = 'Updated red-flag record\'s location';
+    }
 
     res.status(200).json({
       status: 200, data: [{ id: recordID, message }],
@@ -102,11 +101,8 @@ class PostController {
   static deleteRecord(req, res) {
     const recordID = Number(req.params.id);
 
-    postDb.forEach((record, recordIndex) => {
-      if (recordID === record.id) {
-        postDb.splice(recordIndex, 1);
-      }
-    });
+    const recordIndex = postDb.findIndex(record => record.id === recordID);
+    postDb.splice(recordIndex, 1);
 
     res.status(200).json({
       status: 200, data: [{ id: recordID, message: 'red-flag record has been deleted' }],
@@ -114,4 +110,4 @@ class PostController {
   }
 }
 
-export default PostController;
+export default IncidentController;

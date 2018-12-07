@@ -1,7 +1,7 @@
 const postDb = [
   {
     id: 1,
-    createdOn: new Date(),
+    createdOn: '2018-12-07T14:15:20.828Z',
     createdBy: 1,
     type: 'red-flag',
     location: '6.5951139, 3.3429975',
@@ -12,7 +12,7 @@ const postDb = [
   },
   {
     id: 2,
-    createdOn: new Date(),
+    createdOn: '2018-12-07T14:15:20.828Z',
     createdBy: 3,
     type: 'red-flag',
     location: '6.5922139, 3.3427375',
@@ -23,7 +23,7 @@ const postDb = [
   },
   {
     id: 3,
-    createdOn: new Date(),
+    createdOn: '2018-12-07T14:15:20.828Z',
     createdBy: 2,
     type: 'red-flag',
     location: '6.5951139, 3.3408975',
@@ -34,7 +34,7 @@ const postDb = [
   },
   {
     id: 4,
-    createdOn: new Date(),
+    createdOn: '2018-12-07T14:15:20.828Z',
     createdBy: 8,
     type: 'red-flag',
     location: '6.5955639, 3.3429775',
@@ -45,7 +45,7 @@ const postDb = [
   },
   {
     id: 5,
-    createdOn: new Date(),
+    createdOn: '2018-12-07T14:15:20.828Z',
     createdBy: 6,
     type: 'red-flag',
     location: '6.5977139, 3.3329975',
@@ -56,7 +56,7 @@ const postDb = [
   },
   {
     id: 6,
-    createdOn: new Date(),
+    createdOn: '2018-12-07T14:15:20.828Z',
     createdBy: 5,
     type: 'red-flag',
     location: '6.5954769, 3.3675975',
@@ -67,7 +67,7 @@ const postDb = [
   },
   {
     id: 7,
-    createdOn: new Date(),
+    createdOn: '2018-12-07T14:15:20.828Z',
     createdBy: 7,
     type: 'red-flag',
     location: '6.5977220, 3.3329076',
@@ -78,7 +78,7 @@ const postDb = [
   },
   {
     id: 8,
-    createdOn: new Date(),
+    createdOn: '2018-12-07T14:15:20.828Z',
     createdBy: 4,
     type: 'red-flag',
     location: '6.5955639, 3.3429775',

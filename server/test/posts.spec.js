@@ -1,6 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../app';
+import postDb from '../models/posts';
 
 chai.use(chaiHttp);
 const { expect } = chai;
@@ -20,11 +21,10 @@ describe('POST red-flags requests', () => {
         expect(res).to.have.status(201);
         expect(res.body.status).to.be.equal(201);
         expect(res.body).to.be.an('object');
-        expect(res.body.data).to.be.an('array');
+        expect(res.body.data).to.deep.equal([{ id: 9, message: `Created red-flag record` }]);
         done(err);
       });
   });
-
   it('should return an error if record type is empty', (done) => {
     chai
       .request(app)
@@ -36,8 +36,8 @@ describe('POST red-flags requests', () => {
         comment: 'Extortion at the embassy',
       })
       .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.status).to.equal(406);
+        expect(res).to.have.status(400);
+        expect(res.body.status).to.equal(400);
         expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal('A record type of either red-flag or intervention must be specified');
         done(err);
@@ -55,8 +55,8 @@ describe('POST red-flags requests', () => {
         comment: 'Extortion at the embassy',
       })
       .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.status).to.equal(406);
+        expect(res).to.have.status(400);
+        expect(res.body.status).to.equal(400);
         expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal('A valid record type of either red-flag or intervention must be specified');
         done(err);
@@ -74,8 +74,8 @@ describe('POST red-flags requests', () => {
         comment: 'Extortion at the embassy',
       })
       .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.status).to.equal(406);
+        expect(res).to.have.status(400);
+        expect(res.body.status).to.equal(400);
         expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal('Latitude of the incident location must be specified');
         done(err);
@@ -93,8 +93,8 @@ describe('POST red-flags requests', () => {
         comment: 'Extortion at the embassy',
       })
       .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.status).to.equal(406);
+        expect(res).to.have.status(400);
+        expect(res.body.status).to.equal(400);
         expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal('Latitude must be in a valid format');
         done(err);
@@ -112,8 +112,8 @@ describe('POST red-flags requests', () => {
         comment: 'Extortion at the embassy',
       })
       .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.status).to.equal(406);
+        expect(res).to.have.status(400);
+        expect(res.body.status).to.equal(400);
         expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal('Longitude of the incident location must be specified');
         done(err);
@@ -131,8 +131,8 @@ describe('POST red-flags requests', () => {
         comment: 'Extortion at the embassy',
       })
       .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.status).to.equal(406);
+        expect(res).to.have.status(400);
+        expect(res.body.status).to.equal(400);
         expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal('Longitude must be in a valid format');
         done(err);
@@ -150,8 +150,8 @@ describe('POST red-flags requests', () => {
         comment: 'A short comment',
       })
       .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.status).to.equal(406);
+        expect(res).to.have.status(400);
+        expect(res.body.status).to.equal(400);
         expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal('Your comment/narration should be from 20 characters above');
         done(err);
@@ -169,8 +169,8 @@ describe('POST red-flags requests', () => {
         comment: '',
       })
       .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.status).to.equal(406);
+        expect(res).to.have.status(400);
+        expect(res.body.status).to.equal(400);
         expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal('A comment narrating the incident must be specified');
         done(err);
@@ -187,7 +187,7 @@ describe('GET red-flag requests', () => {
         expect(res).to.have.status(200);
         expect(res.body.status).to.equal(200);
         expect(res.body).to.be.an('object');
-        expect(res.body.data).to.be.an('array');
+        expect(res.body.data).to.deep.equal(postDb);
         done(err);
       });
   });
@@ -200,7 +200,7 @@ describe('GET red-flag requests', () => {
         expect(res).to.have.status(200);
         expect(res.body.status).to.equal(200);
         expect(res.body).to.be.an('object');
-        expect(res.body.data).to.be.an('array');
+        expect(res.body.data).to.eql([postDb[0]]);
         done(err);
       });
   });
@@ -223,8 +223,8 @@ describe('GET red-flag requests', () => {
       .request(app)
       .get('/api/v1/red-flags/ty')
       .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.status).to.equal(406);
+        expect(res).to.have.status(400);
+        expect(res.body.status).to.equal(400);
         expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal('The id parameter must be a number');
         done(err);
@@ -242,7 +242,12 @@ describe('PATCH red-flag requests', () => {
         expect(res).to.has.status(200);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('status');
-        expect(res.body.data).to.be.an('array');
+        expect(res.body.data).to.eql([
+          {
+            "id": 3,
+            "message": "Updated red-flag record's location"
+          }
+        ]);
         expect(res.body.data[0].id).to.be.equal(3);
         done(err);
       });
@@ -254,8 +259,8 @@ describe('PATCH red-flag requests', () => {
       .patch('/api/v1/red-flags/fghsys/location')
       .send({ latitude: '6.5922139', longitude: '3.3427375' })
       .end((err, res) => {
-        expect(res).to.has.status(406);
-        expect(res.body.status).to.be.equal(406);
+        expect(res).to.has.status(400);
+        expect(res.body.status).to.be.equal(400);
         expect(res.body).to.be.an('object');
         expect(res.body.error).to.be.equal('The id parameter must be a number');
         done(err);
@@ -282,8 +287,8 @@ describe('PATCH red-flag requests', () => {
       .patch('/api/v1/red-flags/3/location')
       .send({ latitude: '6.5922139', longitude: '' })
       .end((err, res) => {
-        expect(res).to.has.status(406);
-        expect(res.body.status).to.be.equal(406);
+        expect(res).to.has.status(400);
+        expect(res.body.status).to.be.equal(400);
         expect(res.body).to.be.an('object');
         expect(res.body.error).to.be.equal('Longitude of the incident location must be specified');
         done(err);
@@ -296,8 +301,8 @@ describe('PATCH red-flag requests', () => {
       .patch('/api/v1/red-flags/3/location')
       .send({ latitude: '6.5922139', longitude: 'gt6wgw' })
       .end((err, res) => {
-        expect(res).to.has.status(406);
-        expect(res.body.status).to.be.equal(406);
+        expect(res).to.has.status(400);
+        expect(res.body.status).to.be.equal(400);
         expect(res.body).to.be.an('object');
         expect(res.body.error).to.be.equal('Longitude must be in a valid format');
         done(err);
@@ -310,8 +315,8 @@ describe('PATCH red-flag requests', () => {
       .patch('/api/v1/red-flags/3/location')
       .send({ latitude: '', longitude: '3.3427375' })
       .end((err, res) => {
-        expect(res).to.has.status(406);
-        expect(res.body.status).to.be.equal(406);
+        expect(res).to.has.status(400);
+        expect(res.body.status).to.be.equal(400);
         expect(res.body).to.be.an('object');
         expect(res.body.error).to.be.equal('Latitude of the incident location must be specified');
         done(err);
@@ -324,8 +329,8 @@ describe('PATCH red-flag requests', () => {
       .patch('/api/v1/red-flags/3/location')
       .send({ latitude: 'gushs', longitude: '3.3427375' })
       .end((err, res) => {
-        expect(res).to.has.status(406);
-        expect(res.body.status).to.be.equal(406);
+        expect(res).to.has.status(400);
+        expect(res.body.status).to.be.equal(400);
         expect(res.body).to.be.an('object');
         expect(res.body.error).to.be.equal('Latitude must be in a valid format');
         done(err);
@@ -334,13 +339,20 @@ describe('PATCH red-flag requests', () => {
 
   it('should update the comment of the red flag resource with the given id', (done) => {
     chai
+    chai
       .request(app)
       .patch('/api/v1/red-flags/3/comment')
-      .send({ comment: 'Bribery and extortion by the NPF' })
+      .send({ comment: 'Modifying the existing comment with a longer comment' })
       .end((err, res) => {
         expect(res).to.has.status(200);
         expect(res.body).to.be.an('object');
-        expect(res.body.data).to.be.an('array');
+        expect(res.body).to.have.property('status');
+        expect(res.body.data).to.eql([
+          {
+            "id": 3,
+            "message": "Red-flag record comment has been updated succesfully"
+          }
+        ]);
         expect(res.body.data[0].id).to.be.equal(3);
         done(err);
       });
@@ -352,8 +364,8 @@ describe('PATCH red-flag requests', () => {
       .patch('/api/v1/red-flags/3/comment')
       .send({ comment: '' })
       .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.status).to.equal(406);
+        expect(res).to.have.status(400);
+        expect(res.body.status).to.equal(400);
         expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal('A comment narrating the incident must be specified');
         done(err);
@@ -371,8 +383,8 @@ describe('PATCH red-flag requests', () => {
         comment: 'A short comment',
       })
       .end((err, res) => {
-        expect(res).to.have.status(406);
-        expect(res.body.status).to.equal(406);
+        expect(res).to.have.status(400);
+        expect(res.body.status).to.equal(400);
         expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal('Your comment/narration should be from 20 characters above');
         done(err);
@@ -388,7 +400,12 @@ describe('DELETE red-flags request', () => {
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body).to.be.an('object');
-        expect(res.body.data).to.be.an('array');
+        expect(res.body.data).to.deep.equal([
+          {
+            "id": 3,
+            "message": "red-flag record has been deleted"
+          }
+        ]);
         expect(res.body.data[0].id).to.be.equal(3);
         done(err);
       });
@@ -399,8 +416,8 @@ describe('DELETE red-flags request', () => {
       .request(app)
       .delete('/api/v1/red-flags/fgtre')
       .end((err, res) => {
-        expect(res).to.has.status(406);
-        expect(res.body.status).to.be.equal(406);
+        expect(res).to.has.status(400);
+        expect(res.body.status).to.be.equal(400);
         expect(res.body).to.be.an('object');
         expect(res.body.error).to.be.equal('The id parameter must be a number');
         done(err);

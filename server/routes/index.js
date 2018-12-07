@@ -1,6 +1,6 @@
 import express from 'express';
 import ValidatePost from '../middleware/ValidatePost';
-import PostController from '../controllers/PostController';
+import IncidentController from '../controllers/IncidentController';
 
 const router = express.Router();
 
@@ -15,24 +15,24 @@ router.post(
   ValidatePost.validatePostType,
   ValidatePost.validateCoordinates,
   ValidatePost.validateComment,
-  PostController.postRecord,
+  IncidentController.postRecord,
 );
 
 // Handle all GET requests
-router.get('/red-flags', PostController.getRecords);
+router.get('/red-flags', IncidentController.getRecords);
 router.get(
-  '/red-flags/:id', ValidatePost.validatePostId, PostController.getARecord,
+  '/red-flags/:id', ValidatePost.validatePostId, IncidentController.getARecord,
 );
 
 // Handle all PATCH requests
 router.patch(
-  '/red-flags/:id/location', ValidatePost.validatePostId, ValidatePost.validateCoordinates, PostController.updateReport,
+  '/red-flags/:id/location', ValidatePost.validatePostId, ValidatePost.validateCoordinates, IncidentController.updateReport,
 );
 router.patch(
-  '/red-flags/:id/comment', ValidatePost.validatePostId, ValidatePost.validateComment, PostController.updateReport,
+  '/red-flags/:id/comment', ValidatePost.validatePostId, ValidatePost.validateComment, IncidentController.updateReport,
 );
 
 // Handle Delete requests
-router.delete('/red-flags/:id', ValidatePost.validatePostId, PostController.deleteRecord);
+router.delete('/red-flags/:id', ValidatePost.validatePostId, IncidentController.deleteRecord);
 
 export default router;

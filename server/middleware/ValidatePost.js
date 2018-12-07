@@ -33,8 +33,8 @@ class ValidatePost {
     }
 
     if (error) {
-      return res.status(406).json({
-        status: 406, error,
+      return res.status(400).json({
+        status: 400, error,
       });
     }
 
@@ -49,12 +49,13 @@ class ValidatePost {
    * @returns {object} JSON API Response
    */
   static validatePostId(req, res, next) {
-    const records = postDb.filter(recordObj => recordObj.id === Number(req.params.id));
 
     if (Number.isNaN(Number(req.params.id))) {
-      return res.status(406).json({ status: 406, error: 'The id parameter must be a number' });
+      return res.status(400).json({ status: 400, error: 'The id parameter must be a number' });
     }
-    if (!records.length) {
+
+    const recordIndex = postDb.findIndex(record => record.id === Number(req.params.id));
+    if (recordIndex === -1) {
       return res.status(404).json({ status: 404, error: 'Sorry, no record with such id exists' });
     }
 
@@ -79,7 +80,7 @@ class ValidatePost {
     }
 
     if (error) {
-      return res.status(406).json({ status: 406, error });
+      return res.status(400).json({ status: 400, error });
     }
 
     return next();
@@ -103,7 +104,7 @@ class ValidatePost {
     }
 
     if (error) {
-      return res.status(406).json({ status: 406, error });
+      return res.status(400).json({ status: 400, error });
     }
 
     return next();
