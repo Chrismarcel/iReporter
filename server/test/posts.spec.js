@@ -21,7 +21,7 @@ describe('POST red-flags requests', () => {
         expect(res).to.have.status(201);
         expect(res.body.status).to.be.equal(201);
         expect(res.body).to.be.an('object');
-        expect(res.body.data).to.deep.equal([{ id: 9, message: `Created red-flag record` }]);
+        expect(res.body.data).to.deep.equal([{ id: 9, message: 'Created red-flag record' }]);
         done(err);
       });
   });
@@ -240,13 +240,14 @@ describe('PATCH red-flag requests', () => {
       .send({ latitude: '6.5922139', longitude: '3.3427375' })
       .end((err, res) => {
         expect(res).to.has.status(200);
+        expect(res.body.status).to.be.equal(200);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('status');
         expect(res.body.data).to.eql([
           {
-            "id": 3,
-            "message": "Updated red-flag record's location"
-          }
+            id: 3,
+            message: "Updated red-flag record's location",
+          },
         ]);
         expect(res.body.data[0].id).to.be.equal(3);
         done(err);
@@ -339,19 +340,19 @@ describe('PATCH red-flag requests', () => {
 
   it('should update the comment of the red flag resource with the given id', (done) => {
     chai
-    chai
       .request(app)
       .patch('/api/v1/red-flags/3/comment')
       .send({ comment: 'Modifying the existing comment with a longer comment' })
       .end((err, res) => {
         expect(res).to.has.status(200);
+        expect(res.body.status).to.be.equal(200);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('status');
         expect(res.body.data).to.eql([
           {
-            "id": 3,
-            "message": "Red-flag record comment has been updated succesfully"
-          }
+            id: 3,
+            message: 'Red-flag record comment has been updated succesfully',
+          },
         ]);
         expect(res.body.data[0].id).to.be.equal(3);
         done(err);
@@ -399,12 +400,13 @@ describe('DELETE red-flags request', () => {
       .delete('/api/v1/red-flags/3')
       .end((err, res) => {
         expect(res).to.have.status(200);
+        expect(res.body.status).to.be.equal(200);
         expect(res.body).to.be.an('object');
         expect(res.body.data).to.deep.equal([
           {
-            "id": 3,
-            "message": "red-flag record has been deleted"
-          }
+            id: 3,
+            message: 'red-flag record has been deleted',
+          },
         ]);
         expect(res.body.data[0].id).to.be.equal(3);
         done(err);

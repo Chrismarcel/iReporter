@@ -3,7 +3,7 @@ import postDb from '../models/posts';
 
 /**
  * @class ValidateRecord
- * @description Specifies which method handles a given request for a specific endpoint
+ * @description Intercepts and validates a given request for record endpoints
  * @exports ValidateRecord
  */
 

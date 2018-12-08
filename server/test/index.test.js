@@ -2,6 +2,7 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../app';
 import './posts.spec';
+import './users.spec';
 
 chai.use(chaiHttp);
 

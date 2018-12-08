@@ -1,6 +1,8 @@
 import express from 'express';
 import ValidateRecord from '../middleware/ValidateRecord';
+import ValidateUser from '../middleware/ValidateUser';
 import IncidentController from '../controllers/IncidentController';
+import UserController from '../controllers/UserController';
 
 const router = express.Router();
 
@@ -17,22 +19,45 @@ router.post(
   ValidateRecord.validateComment,
   IncidentController.postRecord,
 );
+router.post(
+  '/auth/register',
+  ValidateUser.validateProfileDetails,
+  ValidateUser.validateLoginDetails,
+  UserController.registerUser,
+);
+router.post(
+  '/auth/login',
+  ValidateUser.validateLoginDetails,
+  UserController.loginUser,
+);
 
 // Handle all GET requests
 router.get('/red-flags', IncidentController.getRecords);
 router.get(
-  '/red-flags/:id', ValidateRecord.validateRecordId, IncidentController.getARecord,
+  '/red-flags/:id',
+  ValidateRecord.validateRecordId,
+  IncidentController.getARecord,
 );
 
 // Handle all PATCH requests
 router.patch(
-  '/red-flags/:id/location', ValidateRecord.validateRecordId, ValidateRecord.validateCoordinates, IncidentController.updateReport,
+  '/red-flags/:id/location',
+  ValidateRecord.validateRecordId,
+  ValidateRecord.validateCoordinates,
+  IncidentController.updateReport,
 );
 router.patch(
-  '/red-flags/:id/comment', ValidateRecord.validateRecordId, ValidateRecord.validateComment, IncidentController.updateReport,
+  '/red-flags/:id/comment',
+  ValidateRecord.validateRecordId,
+  ValidateRecord.validateComment,
+  IncidentController.updateReport,
 );
 
 // Handle Delete requests
-router.delete('/red-flags/:id', ValidateRecord.validateRecordId, IncidentController.deleteRecord);
+router.delete(
+  '/red-flags/:id',
+  ValidateRecord.validateRecordId,
+  IncidentController.deleteRecord,
+);
 
 export default router;
