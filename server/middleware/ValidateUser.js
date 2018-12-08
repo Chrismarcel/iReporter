@@ -9,6 +9,10 @@ import userDb from '../models/users';
 class ValidateUser {
   /**
    * @method validateProfile
+   * @description Validates profile details of the user upon registration
+   * @param {object} req - The Request Object
+   * @param {object} res - The Response Object
+   * @returns {object} JSON API Response
    */
   static validateProfileDetails(req, res, next) {
     const {
@@ -35,6 +39,13 @@ class ValidateUser {
     return next();
   }
 
+  /**
+   * @method validateProfile
+   * @description Validates login details (email and password) of a user upon login/registration
+   * @param {object} req - The Request Object
+   * @param {object} res - The Response Object
+   * @returns {object} JSON API Response
+   */
   static validateLoginDetails(req, res, next) {
     const { email, password } = req.body;
     let error = '';

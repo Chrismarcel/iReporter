@@ -20,7 +20,7 @@ class IncidentController {
 
   /**
    * @method getARecord
-   * @description Retrieves a specific record with a given iID
+   * @description Retrieves a specific record with a given ID
    * @param {object} req - The Request Object
    * @param {object} res - The Response Object
    * @returns {object} JSON API Response
