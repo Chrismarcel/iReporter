@@ -1,5 +1,3 @@
-import bcrypt from 'bcrypt';
-
 class HelperUtils {
   static validate() {
     return {
@@ -9,11 +7,6 @@ class HelperUtils {
       location: /^([0-9]+)[.]([0-9]+)$/,
       username: /^([0-9]|[A-z]|[.\-_])+$/,
     };
-  }
-
-  static hashPassword(str) {
-    const hashPassword = bcrypt;
-    return hashPassword(str);
   }
 }
 

@@ -20,6 +20,50 @@ describe('POST red-flags requests', () => {
       });
   });
 
+  it('should return an error if there is no authorization token was specified', (done) => {
+    chai
+      .request(app)
+      .post('/api/v1/red-flags')
+      .set('authorization', '')
+      .send({
+        type: 'red-flag',
+        latitude: '6.5951139',
+        longitude: '3.3429975',
+        comment: 'Extortion at the embassy',
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res.body.status).to.be.equal(401);
+        expect(res.body).to.be.an('object');
+        expect(res.body.error).to.equal(
+          'You need to provide a token to make a request on this endpoint',
+        );
+        done(err);
+      });
+  });
+
+  it('should return an error if the token cannot tbe authenticated', (done) => {
+    chai
+      .request(app)
+      .post('/api/v1/red-flags')
+      .set('authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNlbmlzdWx5bWFuQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiMTIzNDU2NzgiLCJpYXQiOjE1NDQzMjA0NzIsImV4cCI6MTU0NDMyMDUzMn0.H-NOWf3zSzwgdyVJ7o7GRrLHpUTjBTPOhvGpKvkl5TQ')
+      .send({
+        type: 'red-flag',
+        latitude: '6.5951139',
+        longitude: '3.3429975',
+        comment: 'Extortion at the embassy',
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res.body.status).to.be.equal(401);
+        expect(res.body).to.be.an('object');
+        expect(res.body.error).to.equal(
+          'Sorry, the provided token cannot be authenticated.',
+        );
+        done(err);
+      });
+  });
+
   it('should add a new record if details are correct', (done) => {
     chai
       .request(app)
@@ -228,6 +272,38 @@ describe('GET red-flag requests', () => {
       });
   });
 
+  it('should return an error if there is no authorization token was specified', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/red-flags')
+      .set('authorization', '')
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res.body.status).to.be.equal(401);
+        expect(res.body).to.be.an('object');
+        expect(res.body.error).to.equal(
+          'You need to provide a token to make a request on this endpoint',
+        );
+        done(err);
+      });
+  });
+
+  it('should return an error if the token cannot tbe authenticated', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/red-flags')
+      .set('authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNlbmlzdWx5bWFuQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiMTIzNDU2NzgiLCJpYXQiOjE1NDQzMjA0NzIsImV4cCI6MTU0NDMyMDUzMn0.H-NOWf3zSzwgdyVJ7o7GRrLHpUTjBTPOhvGpKvkl5TQ')
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res.body.status).to.be.equal(401);
+        expect(res.body).to.be.an('object');
+        expect(res.body.error).to.equal(
+          'Sorry, the provided token cannot be authenticated.',
+        );
+        done(err);
+      });
+  });
+
   it('should retrieve the list of all the red-flags', (done) => {
     chai
       .request(app)
@@ -293,6 +369,40 @@ describe('PATCH red-flag requests', () => {
       .send({ email: 'senisulyman@gmail.com', password: 12345678 })
       .end((err, res) => {
         currentToken = res.body.data[0].token;
+        done(err);
+      });
+  });
+
+  it('should return an error if there is no authorization token was specified', (done) => {
+    chai
+      .request(app)
+      .patch('/api/v1/red-flags/3/location')
+      .set('authorization', '')
+      .send({ latitude: '6.5922139', longitude: '3.3427375' })
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res.body.status).to.be.equal(401);
+        expect(res.body).to.be.an('object');
+        expect(res.body.error).to.equal(
+          'You need to provide a token to make a request on this endpoint',
+        );
+        done(err);
+      });
+  });
+
+  it('should return an error if the token cannot tbe authenticated', (done) => {
+    chai
+      .request(app)
+      .patch('/api/v1/red-flags/3/location')
+      .set('authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNlbmlzdWx5bWFuQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiMTIzNDU2NzgiLCJpYXQiOjE1NDQzMjA0NzIsImV4cCI6MTU0NDMyMDUzMn0.H-NOWf3zSzwgdyVJ7o7GRrLHpUTjBTPOhvGpKvkl5TQ')
+      .send({ latitude: '6.5922139', longitude: '3.3427375' })
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res.body.status).to.be.equal(401);
+        expect(res.body).to.be.an('object');
+        expect(res.body.error).to.equal(
+          'Sorry, the provided token cannot be authenticated.',
+        );
         done(err);
       });
   });
@@ -484,6 +594,40 @@ describe('DELETE red-flags request', () => {
       .send({ email: 'senisulyman@gmail.com', password: 12345678 })
       .end((err, res) => {
         currentToken = res.body.data[0].token;
+        done(err);
+      });
+  });
+
+  it('should return an error if there is no authorization token was specified', (done) => {
+    chai
+      .request(app)
+      .delete('/api/v1/red-flags/3')
+      .set('authorization', '')
+      .send({ latitude: '6.5922139', longitude: '3.3427375' })
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res.body.status).to.be.equal(401);
+        expect(res.body).to.be.an('object');
+        expect(res.body.error).to.equal(
+          'You need to provide a token to make a request on this endpoint',
+        );
+        done(err);
+      });
+  });
+
+  it('should return an error if the token cannot tbe authenticated', (done) => {
+    chai
+      .request(app)
+      .delete('/api/v1/red-flags/3/')
+      .set('authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNlbmlzdWx5bWFuQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiMTIzNDU2NzgiLCJpYXQiOjE1NDQzMjA0NzIsImV4cCI6MTU0NDMyMDUzMn0.H-NOWf3zSzwgdyVJ7o7GRrLHpUTjBTPOhvGpKvkl5TQ')
+      .send({ latitude: '6.5922139', longitude: '3.3427375' })
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res.body.status).to.be.equal(401);
+        expect(res.body).to.be.an('object');
+        expect(res.body.error).to.equal(
+          'Sorry, the provided token cannot be authenticated.',
+        );
         done(err);
       });
   });

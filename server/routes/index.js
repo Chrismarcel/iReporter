@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 
 // Handle POST requests
 router.post(
-  '/red-flags',
+  '/:type',
   ValidateIncident.validateIncidentType,
   ValidateIncident.validateCoordinates,
   ValidateIncident.validateComment,
@@ -36,9 +36,9 @@ router.post(
 );
 
 // Handle all GET requests
-router.get('/red-flags', AuthenticateUser.verifyToken, IncidentController.getRecords);
+router.get('/:type', AuthenticateUser.verifyToken, IncidentController.getRecords);
 router.get(
-  '/red-flags/:id',
+  '/:type/:id',
   AuthenticateUser.verifyToken,
   ValidateIncident.validateIncidentId,
   IncidentController.getARecord,
@@ -46,14 +46,14 @@ router.get(
 
 // Handle all PATCH requests
 router.patch(
-  '/red-flags/:id/location',
+  '/:type/:id/location',
   AuthenticateUser.verifyToken,
   ValidateIncident.validateIncidentId,
   ValidateIncident.validateCoordinates,
   IncidentController.updateReport,
 );
 router.patch(
-  '/red-flags/:id/comment',
+  '/:type/:id/comment',
   AuthenticateUser.verifyToken,
   ValidateIncident.validateIncidentId,
   ValidateIncident.validateComment,
@@ -62,7 +62,7 @@ router.patch(
 
 // Handle Delete requests
 router.delete(
-  '/red-flags/:id',
+  '/:type/:id',
   AuthenticateUser.verifyToken,
   ValidateIncident.validateIncidentId,
   IncidentController.deleteRecord,
