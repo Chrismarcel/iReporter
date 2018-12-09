@@ -1,4 +1,4 @@
-import validate from '../utils/validationHelper';
+import HelperUtils from '../utils/HelperUtils';
 import userDb from '../models/users';
 
 /**
@@ -15,6 +15,7 @@ class ValidateUser {
    * @returns {object} JSON API Response
    */
   static validateProfileDetails(req, res, next) {
+    const validate = HelperUtils.validate();
     const {
       firstname, lastname, othername, phonenumber, username,
     } = req.body;
@@ -40,13 +41,14 @@ class ValidateUser {
   }
 
   /**
-   * @method validateProfile
+   * @method validateLoginDetails
    * @description Validates login details (email and password) of a user upon login/registration
    * @param {object} req - The Request Object
    * @param {object} res - The Response Object
    * @returns {object} JSON API Response
    */
   static validateLoginDetails(req, res, next) {
+    const validate = HelperUtils.validate();
     const { email, password } = req.body;
     let error = '';
     let status;
@@ -68,7 +70,7 @@ class ValidateUser {
       error = 'Sorry, such account does not exist';
     }
 
-    if (status === 400 || status === 404) {
+    if (status >= 400) {
       return res.status(status).json({ status, error });
     }
 

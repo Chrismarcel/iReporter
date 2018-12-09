@@ -1,13 +1,13 @@
-import validate from '../utils/validationHelper';
+import HelperUtils from '../utils/HelperUtils';
 import postDb from '../models/posts';
 
 /**
- * @class ValidateRecord
+ * @class ValidateIncident
  * @description Intercepts and validates a given request for record endpoints
- * @exports ValidateRecord
+ * @exports ValidateIncident
  */
 
-class ValidateRecord {
+class ValidateIncident {
   /**
   * @method validateCoordinates
   * @description Validates the set of co-ordinates passed in the request body
@@ -16,6 +16,7 @@ class ValidateRecord {
   * @returns {object} JSON API Response
   */
   static validateCoordinates(req, res, next) {
+    const validate = HelperUtils.validate();
     let error = '';
     const { latitude, longitude } = req.body;
 
@@ -42,13 +43,13 @@ class ValidateRecord {
   }
 
   /**
-   * @method validateRecordId
+   * @method validateIncidentId
    * @description Validates the specific ID passed in the request body exists in the database
    * @param {object} req - The Request Object
    * @param {object} res - The Response Object
    * @returns {object} JSON API Response
    */
-  static validateRecordId(req, res, next) {
+  static validateIncidentId(req, res, next) {
     if (Number.isNaN(Number(req.params.id))) {
       return res.status(400).json({ status: 400, error: 'The id parameter must be a number' });
     }
@@ -86,13 +87,13 @@ class ValidateRecord {
   }
 
   /**
-   * @method validateRecordType
+   * @method validateIncidentType
    * @description Validates the specified post type is either an intervention or red-flag record
    * @param {object} req - The Request Object
    * @param {object} res - The Response Object
    * @returns {object} JSON API Response
    */
-  static validateRecordType(req, res, next) {
+  static validateIncidentType(req, res, next) {
     let error = '';
     const { type } = req.body;
 
@@ -110,4 +111,4 @@ class ValidateRecord {
   }
 }
 
-export default ValidateRecord;
+export default ValidateIncident;

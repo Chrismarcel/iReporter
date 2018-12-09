@@ -1,6 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../app';
+import HelperUtils from '../utils/HelperUtils';
 
 chai.use(chaiHttp);
 

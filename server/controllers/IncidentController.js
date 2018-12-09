@@ -26,7 +26,9 @@ class IncidentController {
    * @returns {object} JSON API Response
    */
   static getARecord(req, res) {
-    const recordIndex = postDb.findIndex(record => record.id === Number(req.params.id));
+    const recordIndex = postDb.findIndex(
+      record => record.id === Number(req.params.id),
+    );
     const data = [postDb[recordIndex]];
     res.status(200).json({ status: 200, data });
   }
@@ -83,11 +85,12 @@ class IncidentController {
       message = 'Red-flag record comment has been updated succesfully';
     } else {
       postDb[recordIndex].location = `${latitude}, ${longitude}`;
-      message = 'Updated red-flag record\'s location';
+      message = "Updated red-flag record's location";
     }
 
     res.status(200).json({
-      status: 200, data: [{ id: recordID, message }],
+      status: 200,
+      data: [{ id: recordID, message }],
     });
   }
 
@@ -105,7 +108,8 @@ class IncidentController {
     postDb.splice(recordIndex, 1);
 
     res.status(200).json({
-      status: 200, data: [{ id: recordID, message: 'red-flag record has been deleted' }],
+      status: 200,
+      data: [{ id: recordID, message: 'red-flag record has been deleted' }],
     });
   }
 }
