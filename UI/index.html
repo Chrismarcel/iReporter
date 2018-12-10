@@ -1,156 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>
-      iReporter - Report Corruption and Seek Government Intervention
-    </title>
-    <link rel="stylesheet" href="./assets/css/styles.css" />
-    <link
-      href="https://fonts.googleapis.com/css?family=PT+Sans"
-      rel="stylesheet"
-    />
-  </head>
 
-  <body>
-    <!-- Begin Header -->
-    <header>
-      <nav class="navbar">
-        <a href="./" class="navbar-logo">iReporter</a>
-        <button class="hamburger-menu"><a class="hamburger"></a></button>
-        <ul class="navbar-menu">
-          <li class="navbar-link">
-            <a href="./create-report.html">Create Report</a>
-          </li>
-          <li class="navbar-link"><a href="./profile.html">Profile</a></li>
-          <li class="navbar-link"><a href="./login.html">Login</a></li>
-          <li class="navbar-link"><a href="./signup.html">Sign Up</a></li>
-          <li class="navbar-link">
-            <a href="./view-reports.html">View Reports</a>
-          </li>
-          <li class="navbar-link"><a href="./admin.html">Admin</a></li>
-        </ul>
-      </nav>
-    </header>
-    <!-- End Header -->
-    <main>
-      <!-- Begin Hero Section -->
-      <section class="hero">
-        <h2 class="hero-title">Make your voice count</h2>
-        <p class="hero-paragraph">
-          iReporter is a platform that enables citizens report cases of
-          corruption to appropriate authorities and also report issues that need
-          government intervention. As a user of the platform, you can also view
-          reports and interventions created by other users.
-        </p>
-        <div class="hero-cta">
-          <a href="./create-report.html" class="btn btn-white">Create Report</a>
-          <a href="./view-reports.html" class="btn btn-hollow">View Reports</a>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>
+    iReporter - Report Corruption and Seek Government Intervention
+  </title>
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="modal-toggle"></div>
+  <!-- Begin Header -->
+  <header>
+    <nav class="navbar">
+      <a href="./" class="navbar-logo">iReporter</a>
+      <button class="hamburger-menu"><a class="hamburger"></a></button>
+      <ul class="navbar-menu">
+        <li class="navbar-link active">
+          <a href="./">Home</a>
+        </li>
+        <li class="navbar-link">
+          <a href="./create-report.html">Create Record</a>
+        </li>
+        <li class="navbar-link"><a href="./profile.html">Profile</a></li>
+        <li class="navbar-link"><a href="./login.html">Login</a></li>
+        <li class="navbar-link"><a href="./signup.html">Sign Up</a></li>
+        <li class="navbar-link">
+          <a href="./view-reports.html">View Records</a>
+        </li>
+        <li class="navbar-link"><a href="./admin.html">Admin</a></li>
+      </ul>
+    </nav>
+  </header>
+  <!-- End Header -->
+  <main>
+    <!-- Begin Hero Section -->
+    <section class="hero">
+      <h2 class="hero-title">Make your voice count</h2>
+      <p class="hero-paragraph">
+        iReporter is a platform that enables citizens report cases of
+        corruption to appropriate authorities and also report issues that need
+        government intervention. As a user of the platform, you can also view
+        reports and interventions created by other users.
+      </p>
+      <div class="hero-cta">
+        <a href="./create-report.html" class="btn btn-white">Create Records</a>
+        <a href="./view-reports.html" class="btn btn-hollow">View Records</a>
+      </div>
+    </section>
+    <!-- End Hero Section -->
+    <!-- Begin How It Works Section -->
+    <section class="how-to">
+      <h2 class="section-title">How it works</h2>
+      <p class="section-text">
+        In 3 easy steps you can easily report corruption cases and seek
+        government intervention.
+      </p>
+      <div class="steps">
+        <div class="column step">
+          <span class="circle-icon">1</span>
+          <p class="section-text">
+            Create and submit a red flag or intervention record. Set a title,
+            attach images/videos and input your location.
+          </p>
         </div>
-      </section>
-      <!-- End Hero Section -->
-      <!-- Begin How It Works Section -->
-      <section class="how-to">
-        <h2 class="section-title">How it works</h2>
-        <p class="section-text">
-          In 3 easy steps you can easily report corruption cases and seek
-          government intervention.
-        </p>
-        <div class="steps">
-          <div class="column step">
-            <span class="circle-icon">1</span>
-            <p class="section-text">
-              Create and submit a red flag or intervention report. Set a title,
-              attach images/videos and input your location.
-            </p>
-          </div>
-          <div class="column step">
-            <span class="circle-icon">2</span>
-            <p class="section-text">
-              Your report gets submitted to the appropriate authority and
-              process is put in place start reviewing your report.
-            </p>
-          </div>
-          <div class="column step">
-            <span class="circle-icon">3</span>
-            <p class="section-text">
-              Your report gets reviewed and you get a real time email feedback
-              upon completion of the reviews.
-            </p>
-          </div>
+        <div class="column step">
+          <span class="circle-icon">2</span>
+          <p class="section-text">
+            Your record gets submitted to the appropriate authority and
+            process is put in place to start reviewing your record.
+          </p>
         </div>
-      </section>
-      <!-- End How It Works Section -->
-      <!-- Begin Featured Reports Section -->
-      <section class="featured">
-        <h2 class="section-title">Featured reports</h2>
-        <div class="column featured-cards">
-          <div class="card report-card">
-            <div class="report-status">Resolved</div>
-            <a href="./user-reports.html" class="report-user"
-              ><strong>Seni</strong></a
-            >
-            <strong>Report date: </strong>
-            <p class="report-time">21st Nov. 2018 10:00 am</p>
-            <strong>Issue:</strong>
-            <p class="report-title">Poor waste management and disposal</p>
-            <strong>Location:</strong>
-            <p class="report-location">6.5951139, 3.3429975</p>
-            <a href="#" class="report-media">0 Media</a>
-          </div>
-          <div class="card report-card">
-            <div class="report-status">Resolved</div>
-            <a href="./user-reports.html" class="report-user"
-              ><strong>Christina</strong></a
-            >
-            <strong>Report date: </strong>
-            <p class="report-time">21st Nov. 2018 10:00 am</p>
-            <strong>Issue:</strong>
-            <p class="report-title">Collapse of bridge</p>
-            <strong>Location:</strong>
-            <p class="report-location">Location: 6.5922139, 3.3427375</p>
-            <a href="#" class="report-media">1 Media</a>
-          </div>
-          <div class="card report-card">
-            <div class="report-status">Investigated</div>
-            <a href="./user-reports.html" class="report-user"
-              ><strong>Nadayar</strong></a
-            >
-            <strong>Report date: </strong>
-            <p class="report-time">24th Nov. 2018 10:00 am</p>
-            <strong>Issue:</strong>
-            <p class="report-title">
-              Containers parked on the highway causing traffic gridlock
-            </p>
-            <strong>Location:</strong>
-            <p class="report-location">Location: 6.5951139, 3.3408975</p>
-            <a href="#" class="report-media">0 Media</a>
-          </div>
-          <div class="card report-card">
-            <div class="report-status">Resolved</div>
-            <a href="./user-reports.html" class="report-user"
-              ><strong>Jeremy</strong></a
-            >
-            <strong>Report date: </strong>
-            <p class="report-time">23rd Nov. 2018 10:00 am</p>
-            <strong>Issue:</strong>
-            <p class="report-title">Blocked drainage systems</p>
-            <strong>Location:</strong>
-            <p class="report-location">Location: 6.5977139, 3.3329975</p>
-            <a href="#" class="report-media">2 Media</a>
-          </div>
+        <div class="column step">
+          <span class="circle-icon">3</span>
+          <p class="section-text">
+            Your record gets reviewed and you get a real time email feedback
+            upon completion of the reviews.
+          </p>
         </div>
-        <a href="./view-reports.html" class="btn btn-primary"
-          >View More Reports</a
-        >
-      </section>
-      <!-- End Featured Reports Section -->
-    </main>
-    <!-- Begin Footer -->
-    <footer><p class="credits">iReporter | Copyright &copy; 2018</p></footer>
-    <!-- End Footer -->
-  </body>
-  <script src="./assets/js/script.js"></script>
+      </div>
+    </section>
+    <!-- End How It Works Section -->
+    <!-- Begin Featured Reports Section -->
+    <section class="featured">
+      <h2 class="section-title">Featured records</h2>
+      <div class="column featured-cards">
+        <div class="card report-card">
+          <div class="report-status resolved">Resolved</div>
+          <a href="./user-reports.html" class="report-user"><strong>Seni</strong></a>
+          <strong>Report date: </strong>
+          <p class="report-time">21st Nov. 2018 10:00 am</p>
+          <strong>Issue:</strong>
+          <p class="report-title">Poor waste management and disposal</p>
+          <strong>Location:</strong>
+          <p class="report-location">3 Chris Street, Surulere</p>
+          <a href="#" class="report-media">2 Media</a>
+        </div>
+        <div class="card report-card">
+          <div class="report-status resolved">Resolved</div>
+          <a href="./user-reports.html" class="report-user"><strong>Christina</strong></a>
+          <strong>Report date: </strong>
+          <p class="report-time">21st Nov. 2018 10:00 am</p>
+          <strong>Issue:</strong>
+          <p class="report-title">Collapse of bridge</p>
+          <strong>Location:</strong>
+          <p class="report-location">18 Adekunle Street, Berger</p>
+          <a href="#" class="report-media">1 Media</a>
+        </div>
+        <div class="card report-card">
+          <div class="report-status investigating">Investigating</div>
+          <a href="./user-reports.html" class="report-user"><strong>Nadayar</strong></a>
+          <strong>Report date: </strong>
+          <p class="report-time">24th Nov. 2018 10:00 am</p>
+          <strong>Issue:</strong>
+          <p class="report-title">
+            Containers parked on the highway causing traffic gridlock
+          </p>
+          <strong>Location:</strong>
+          <p class="report-location">23 John Street, Yaba</p>
+          <a href="#" class="report-media">2 Media</a>
+        </div>
+        <div class="card report-card">
+          <div class="report-status rejected">Rejected</div>
+          <a href="./user-reports.html" class="report-user"><strong>Jeremy</strong></a>
+          <strong>Report date: </strong>
+          <p class="report-time">23rd Nov. 2018 10:00 am</p>
+          <strong>Issue:</strong>
+          <p class="report-title">Blocked drainage systems</p>
+          <strong>Location:</strong>
+          <p class="report-location">23 James Street, Surulere</p>
+        </div>
+      </div>
+      <a href="./view-reports.html" class="btn btn-primary">View More Reports</a>
+    </section>
+    <div class="modal">
+      <div class="modal-header">
+        <p class="modal-title">Report media</p>
+        <span class="modal-close">X</span>
+      </div>
+      <div class="modal-body">
+        <div class="modal-group modal-images">
+          <img src="./assets/img/demo-image1.jpg" alt="Police brutalizing a citizen"
+            class="report-img">
+          <img src="./assets/img/demo-image2.jpg" alt="A case of corporate bribery"
+            class="report-img">
+        </div>
+      </div>
+    </div>
+    <!-- End Featured Reports Section -->
+  </main>
+  <!-- Begin Footer -->
+  <footer>
+    <p class="credits">iReporter | Copyright &copy; 2018</p>
+  </footer>
+  <!-- End Footer -->
+</body>
+<script src="./assets/js/script.js"></script>
+
 </html>
