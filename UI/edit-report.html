@@ -23,13 +23,13 @@
                     <a href="./">Home</a>
                 </li>
                 <li class="navbar-link">
-                    <a href="./create-report.html">Create Report</a>
+                    <a href="./create-report.html">Create Record</a>
                 </li>
                 <li class="navbar-link"><a href="./profile.html">Profile</a></li>
                 <li class="navbar-link"><a href="./login.html">Login</a></li>
                 <li class="navbar-link active"><a href="./signup.html">Sign Up</a></li>
                 <li class="navbar-link">
-                    <a href="./view-reports.html">View Reports</a>
+                    <a href="./view-reports.html">View Records</a>
                 </li>
                 <li class="navbar-link"><a href="./admin.html">Admin</a></li>
             </ul>
@@ -38,28 +38,27 @@
     <!-- End Header -->
     <main>
         <section class="container form-container">
-            <h2 class="section-title">Edit Report</h2>
+            <h2 class="section-title">Edit Record</h2>
             <form class="form-card" action="" method="post">
-                <label for="title">Update report title</label>
+                <label for="title">Update record comment</label>
                 <textarea name="title" id="title" class="form-element"
                     placeholder="Enter a brief comment about the issue eg 'Blocked drainage system'"
-                    col="10" required></textarea>
-                <label for="issue-type">Change report type</label>
+                    col="10" required>Poor traffic management at Iyana-Oworo bus-stop</textarea>
+                <label for="issue-type">Change Record type</label>
                 <select type="text" id="issue-type" name="issue-type" class="form-element"
                     required>
-                    <option default>-- Select Report Type --</option>
-                    <option value="red-flag">Red Flag</option>
+                    <option default>-- Select Record Type --</option>
+                    <option selected="selected" value="red-flag">Red Flag</option>
                     <option value="intervention">Intervention</option>
                 </select>
-                <label for="latitude">Update Latitude</label>
-                <input type="number" id="latitude" name="latitude" class="form-element"
-                    placeholder="Enter Latitude of location" required />
-                <label for="longitude">Update Longitude</label>
-                <input type="number" id="longitude" name="longitude" class="form-element"
-                    placeholder="Enter Longitude of location" required />
+                <label for="location">Update Location</label>
+                <input type="text" class="form-element" name="location" id="location">
                 <label for="attachment">Update media attachment</label>
-                <input type="file" id="attachment" name="attachment" class="form-element" />
-                <button type="submit" class="btn btn-primary">Update Report</button>
+                <input type="file" accept="image/*, video/mp4" id="attachment"
+                    name="attachment" class="form-element" />
+                <button type="submit" id="record" class="btn btn-primary update">Update
+                    Record</button>
+                <div class="message-box"></div>
             </form>
         </section>
     </main>

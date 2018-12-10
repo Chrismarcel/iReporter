@@ -1,13 +1,13 @@
-import validate from '../utils/validationHelper';
+import HelperUtils from '../utils/HelperUtils';
 import postDb from '../models/posts';
 
 /**
- * @class ValidatePost
- * @description Specifies which method handles a given request for a specific endpoint
- * @exports ValidatePost
+ * @class ValidateIncident
+ * @description Intercepts and validates a given request for record endpoints
+ * @exports ValidateIncident
  */
 
-class ValidatePost {
+class ValidateIncident {
   /**
   * @method validateCoordinates
   * @description Validates the set of co-ordinates passed in the request body
@@ -16,6 +16,7 @@ class ValidatePost {
   * @returns {object} JSON API Response
   */
   static validateCoordinates(req, res, next) {
+    const validate = HelperUtils.validate();
     let error = '';
     const { latitude, longitude } = req.body;
 
@@ -33,8 +34,8 @@ class ValidatePost {
     }
 
     if (error) {
-      return res.status(406).json({
-        status: 406, error, isLatitude: latitude, isLongitude: longitude,
+      return res.status(400).json({
+        status: 400, error,
       });
     }
 
@@ -42,19 +43,19 @@ class ValidatePost {
   }
 
   /**
-   * @method validatePostId
+   * @method validateIncidentId
    * @description Validates the specific ID passed in the request body exists in the database
    * @param {object} req - The Request Object
    * @param {object} res - The Response Object
    * @returns {object} JSON API Response
    */
-  static validatePostId(req, res, next) {
-    const records = postDb.filter(recordObj => recordObj.id === Number(req.params.id));
-
+  static validateIncidentId(req, res, next) {
     if (Number.isNaN(Number(req.params.id))) {
-      return res.status(406).json({ status: 406, error: 'The id parameter must be a number' });
+      return res.status(400).json({ status: 400, error: 'The id parameter must be a number' });
     }
-    if (!records.length) {
+
+    const recordIndex = postDb.findIndex(record => record.id === Number(req.params.id));
+    if (recordIndex === -1) {
       return res.status(404).json({ status: 404, error: 'Sorry, no record with such id exists' });
     }
 
@@ -79,20 +80,20 @@ class ValidatePost {
     }
 
     if (error) {
-      return res.status(406).json({ status: 406, error });
+      return res.status(400).json({ status: 400, error });
     }
 
     return next();
   }
 
   /**
-   * @method validatePostType
+   * @method validateIncidentType
    * @description Validates the specified post type is either an intervention or red-flag record
    * @param {object} req - The Request Object
    * @param {object} res - The Response Object
    * @returns {object} JSON API Response
    */
-  static validatePostType(req, res, next) {
+  static validateIncidentType(req, res, next) {
     let error = '';
     const { type } = req.body;
 
@@ -103,11 +104,11 @@ class ValidatePost {
     }
 
     if (error) {
-      return res.status(406).json({ status: 406, error });
+      return res.status(400).json({ status: 400, error });
     }
 
     return next();
   }
 }
 
-export default ValidatePost;
+export default ValidateIncident;

@@ -1,6 +1,9 @@
 import express from 'express';
-import ValidatePost from '../middleware/ValidatePost';
-import PostController from '../controllers/PostController';
+import ValidateIncident from '../middleware/ValidateIncident';
+import ValidateUser from '../middleware/ValidateUser';
+import AuthenticateUser from '../middleware/AuthenticateUser';
+import IncidentController from '../controllers/IncidentController';
+import UserController from '../controllers/UserController';
 
 const router = express.Router();
 
@@ -11,28 +14,58 @@ router.get('/', (req, res) => {
 
 // Handle POST requests
 router.post(
-  '/red-flags',
-  ValidatePost.validatePostType,
-  ValidatePost.validateCoordinates,
-  ValidatePost.validateComment,
-  PostController.postRecord,
+  '/:type',
+  ValidateIncident.validateIncidentType,
+  ValidateIncident.validateCoordinates,
+  ValidateIncident.validateComment,
+  AuthenticateUser.verifyToken,
+  IncidentController.postRecord,
+);
+router.post(
+  '/auth/register',
+  ValidateUser.validateLoginDetails,
+  ValidateUser.validateProfileDetails,
+  AuthenticateUser.generateToken,
+  UserController.registerUser,
+);
+router.post(
+  '/auth/login',
+  ValidateUser.validateLoginDetails,
+  AuthenticateUser.generateToken,
+  UserController.loginUser,
 );
 
 // Handle all GET requests
-router.get('/red-flags', PostController.getRecords);
+router.get('/:type', AuthenticateUser.verifyToken, IncidentController.getRecords);
 router.get(
-  '/red-flags/:id', ValidatePost.validatePostId, PostController.getARecord,
+  '/:type/:id',
+  AuthenticateUser.verifyToken,
+  ValidateIncident.validateIncidentId,
+  IncidentController.getARecord,
 );
 
 // Handle all PATCH requests
 router.patch(
-  '/red-flags/:id/location', ValidatePost.validatePostId, ValidatePost.validateCoordinates, PostController.updateLocation,
+  '/:type/:id/location',
+  AuthenticateUser.verifyToken,
+  ValidateIncident.validateIncidentId,
+  ValidateIncident.validateCoordinates,
+  IncidentController.updateReport,
 );
 router.patch(
-  '/red-flags/:id/comment', ValidatePost.validatePostId, ValidatePost.validateComment, PostController.updateComment,
+  '/:type/:id/comment',
+  AuthenticateUser.verifyToken,
+  ValidateIncident.validateIncidentId,
+  ValidateIncident.validateComment,
+  IncidentController.updateReport,
 );
 
 // Handle Delete requests
-router.delete('/red-flags/:id', ValidatePost.validatePostId, PostController.deleteRecord);
+router.delete(
+  '/:type/:id',
+  AuthenticateUser.verifyToken,
+  ValidateIncident.validateIncidentId,
+  IncidentController.deleteRecord,
+);
 
 export default router;

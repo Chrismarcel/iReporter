@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "stable"
+  - "8.12.0"
 env:
   global: CC_TEST_REPORTER_ID=8a5dfcfcbaf8818a8cd7648edb5ee7717a793f629fc8c7f4cfc46a3b959958ff
 before_script:
