@@ -46,7 +46,7 @@ describe('POST red-flags requests', () => {
     chai
       .request(app)
       .post('/api/v1/red-flags')
-      .set('authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNlbmlzdWx5bWFuQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiMTIzNDU2NzgiLCJpYXQiOjE1NDQzMjA0NzIsImV4cCI6MTU0NDMyMDUzMn0.H-NOWf3zSzwgdyVJ7o7GRrLHpUTjBTPOhvGpKvkl5TQ')
+      .set('authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9')
       .send({
         type: 'red-flag',
         latitude: '6.5951139',

@@ -4,10 +4,10 @@ const createUsersTable = `
     firstname VARCHAR (40) NOT NULL,
     lastname VARCHAR (40) NOT NULL,
     othername VARCHAR(40),
-    email VARCHAR(30) NOT NULL,
+    email VARCHAR(30) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
-    phone_number VARCHAR(14) NOT NULL,
-    username VARCHAR (40),
+    phonenumber VARCHAR(14) UNIQUE NOT NULL,
+    username VARCHAR (40) UNIQUE NOT NULL,
     role INTEGER DEFAULT 0,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
     updated TIMESTAMP WITH TIME ZONE DEFAULT now()

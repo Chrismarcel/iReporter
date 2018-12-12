@@ -1,4 +1,5 @@
 import HelperUtils from '../utils/HelperUtils';
+import pool from '../models/dbconnection';
 import userDb from '../models/users';
 
 /**
@@ -75,6 +76,31 @@ class ValidateUser {
     }
 
     return next();
+  }
+
+  static validateExistingUser(req, res, next) {
+    const { email, username, phonenumber } = req.body;
+
+    const query = `SELECT email, 
+                    username, 
+                    phonenumber 
+                    FROM 
+                    users 
+                    WHERE email = $1 
+                    OR username = $2 
+                    OR phonenumber = $3`;
+
+    pool.query(query, [email, username, phonenumber], (err, dbRes) => {
+      if (dbRes.rowCount >= 1) {
+        const rows = dbRes.rows[0];
+        const errorMsg = Object.keys(rows).join(', ');
+        return res.status(409).json({
+          status: 409,
+          error: `A user with the given ${errorMsg} already exists`,
+        });
+      }
+      return next();
+    });
   }
 }
 
