@@ -1,3 +1,5 @@
+import HelperUtils from '../utils/HelperUtils';
+
 /**
  * @class UserController
  * @description Specifies which method handles a given request for a specific endpoint
@@ -13,7 +15,7 @@ class UserController {
   * @returns {object} JSON API Response
   */
   static registerUser(req, res) {
-    const { token } = req;
+    const token = HelperUtils.generateToken(req.body);
     res.status(201).json({ status: 201, data: [{ message: 'Registration Successful!', token }] });
   }
 
@@ -25,7 +27,7 @@ class UserController {
    * @returns {object} JSON API Response
    */
   static loginUser(req, res) {
-    const { token } = req;
+    const token = HelperUtils.generateToken(req.body);
     res.status(200).json({ status: 200, data: [{ message: 'Login Successful!', token }] });
   }
 }

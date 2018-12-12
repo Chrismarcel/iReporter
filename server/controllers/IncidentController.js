@@ -1,4 +1,5 @@
 import postDb from '../models/posts';
+import userDb from '../models/users';
 
 /**
  * @class IncidentController
@@ -83,12 +84,23 @@ class IncidentController {
     if (comment) {
       postDb[recordIndex].comment = `${comment}`;
       message = 'Red-flag record comment has been updated succesfully';
-    } else {
+    } else if (latitude && longitude) {
       postDb[recordIndex].location = `${latitude}, ${longitude}`;
       message = "Updated red-flag record's location";
     }
 
-    res.status(200).json({
+    if (req.params.status) {
+      const { email } = req.payload;
+      const userID = userDb.findIndex(user => user.email === email);
+      if (userID === -1) {
+        return res.status(401).json({
+          status: 401,
+          error: 'Sorry, you are not permitted to access this endpoint',
+        });
+      }
+    }
+
+    return res.status(200).json({
       status: 200,
       data: [{ id: recordID, message }],
     });
