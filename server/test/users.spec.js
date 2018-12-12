@@ -11,10 +11,8 @@ const { expect } = chai;
 
 describe('POST Sign Up Authentication', () => {
   before((done) => {
-    const queries = `${dropQuery}${createQuery}`;
-    pool.query(queries, () => {
-    });
-    done();
+    const query = `${createQuery}`;
+    pool.query(query, err => done(err));
   });
 
   it('should register a new user if details are correct', (done) => {
@@ -345,6 +343,11 @@ describe('POST Sign Up Authentication', () => {
         expect(res.body.error).to.be.equal('You need to include a valid username');
         done(err);
       });
+  });
+
+  after((done) => {
+    const query = `${dropQuery}`;
+    pool.query(query, err => done(err));
   });
 });
 
