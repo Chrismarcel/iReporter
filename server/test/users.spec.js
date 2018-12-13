@@ -1,20 +1,12 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../app';
-import pool from '../models/dbconnection';
-import dropQuery from '../models/dropTables';
-import createQuery from '../models/createTables';
 
 chai.use(chaiHttp);
 
 const { expect } = chai;
 
 describe('POST Sign Up Authentication', () => {
-  before((done) => {
-    const query = `${createQuery}`;
-    pool.query(query, err => done(err));
-  });
-
   it('should register a new user if details are correct', (done) => {
     chai
       .request(app)
@@ -344,19 +336,14 @@ describe('POST Sign Up Authentication', () => {
         done(err);
       });
   });
-
-  after((done) => {
-    const query = `${dropQuery}`;
-    pool.query(query, err => done(err));
-  });
 });
 
 describe('POST Login Authentication', () => {
-  it('should log user in when details are correct', (done) => {
+  it('should log user in if details are correct', (done) => {
     chai
       .request(app)
       .post('/api/v1/auth/login')
-      .send({ email: 'senisulyman@gmail.com', password: '#123456#' })
+      .send({ email: 'demouser@email.com', password: '12345678' })
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body.status).to.be.equal(200);
@@ -417,7 +404,7 @@ describe('POST Login Authentication', () => {
         expect(res).to.have.status(404);
         expect(res.body.status).to.be.equal(404);
         expect(res.body).to.be.an('object');
-        expect(res.body.error).to.be.equal('Sorry, such account does not exist');
+        expect(res.body.error).to.be.equal('Sorry, the email account you provided does not exist');
         done(err);
       });
   });

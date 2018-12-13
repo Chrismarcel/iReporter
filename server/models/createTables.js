@@ -5,7 +5,7 @@ const createUsersTable = `
     lastname VARCHAR (40) NOT NULL,
     othername VARCHAR(40),
     email VARCHAR(30) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL,
+    password VARCHAR(65) NOT NULL,
     phonenumber VARCHAR(14) UNIQUE NOT NULL,
     username VARCHAR (40) UNIQUE NOT NULL,
     role INTEGER DEFAULT 0,
