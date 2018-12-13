@@ -1,3 +1,10 @@
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const secretKey = process.env.SECRET_KEY;
+
 class HelperUtils {
   static validate() {
     return {
@@ -7,6 +14,20 @@ class HelperUtils {
       location: /^([0-9]+)[.]([0-9]+)$/,
       username: /^([0-9]|[A-z]|[.\-_])+$/,
     };
+  }
+
+  static generateToken(payload) {
+    const token = jwt.sign(payload, secretKey, { expiresIn: '2 minutes' });
+    return token;
+  }
+
+  static verifyToken(token) {
+    try {
+      const payload = jwt.verify(token, secretKey);
+      return payload;
+    } catch (error) {
+      return false;
+    }
   }
 }
 

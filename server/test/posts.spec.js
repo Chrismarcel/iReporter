@@ -20,7 +20,7 @@ describe('POST red-flags requests', () => {
       });
   });
 
-  it('should return an error if there is no authorization token was specified', (done) => {
+  it('should return an error if no authorization token was specified', (done) => {
     chai
       .request(app)
       .post('/api/v1/red-flags')
@@ -36,13 +36,13 @@ describe('POST red-flags requests', () => {
         expect(res.body.status).to.be.equal(401);
         expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal(
-          'You need to provide a token to make a request on this endpoint',
+          'No authorization header was specified',
         );
         done(err);
       });
   });
 
-  it('should return an error if the token cannot tbe authenticated', (done) => {
+  it('should return an error if the token cannot be authenticated', (done) => {
     chai
       .request(app)
       .post('/api/v1/red-flags')
@@ -58,7 +58,7 @@ describe('POST red-flags requests', () => {
         expect(res.body.status).to.be.equal(401);
         expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal(
-          'Sorry, the provided token cannot be authenticated.',
+          'The provided token cannot be authenticated.',
         );
         done(err);
       });
@@ -264,7 +264,6 @@ describe('GET red-flag requests', () => {
     chai
       .request(app)
       .post('/api/v1/auth/login')
-      .set('authorization', `Bearer ${currentToken}`)
       .send({ email: 'senisulyman@gmail.com', password: 12345678 })
       .end((err, res) => {
         currentToken = res.body.data[0].token;
@@ -272,7 +271,7 @@ describe('GET red-flag requests', () => {
       });
   });
 
-  it('should return an error if there is no authorization token was specified', (done) => {
+  it('should return an error if no authorization token was specified', (done) => {
     chai
       .request(app)
       .get('/api/v1/red-flags')
@@ -282,13 +281,13 @@ describe('GET red-flag requests', () => {
         expect(res.body.status).to.be.equal(401);
         expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal(
-          'You need to provide a token to make a request on this endpoint',
+          'No authorization header was specified',
         );
         done(err);
       });
   });
 
-  it('should return an error if the token cannot tbe authenticated', (done) => {
+  it('should return an error if the token cannot be authenticated', (done) => {
     chai
       .request(app)
       .get('/api/v1/red-flags')
@@ -298,7 +297,7 @@ describe('GET red-flag requests', () => {
         expect(res.body.status).to.be.equal(401);
         expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal(
-          'Sorry, the provided token cannot be authenticated.',
+          'The provided token cannot be authenticated.',
         );
         done(err);
       });
@@ -373,7 +372,7 @@ describe('PATCH red-flag requests', () => {
       });
   });
 
-  it('should return an error if there is no authorization token was specified', (done) => {
+  it('should return an error if no authorization token was specified', (done) => {
     chai
       .request(app)
       .patch('/api/v1/red-flags/3/location')
@@ -384,13 +383,13 @@ describe('PATCH red-flag requests', () => {
         expect(res.body.status).to.be.equal(401);
         expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal(
-          'You need to provide a token to make a request on this endpoint',
+          'No authorization header was specified',
         );
         done(err);
       });
   });
 
-  it('should return an error if the token cannot tbe authenticated', (done) => {
+  it('should return an error if the token cannot be authenticated', (done) => {
     chai
       .request(app)
       .patch('/api/v1/red-flags/3/location')
@@ -401,7 +400,7 @@ describe('PATCH red-flag requests', () => {
         expect(res.body.status).to.be.equal(401);
         expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal(
-          'Sorry, the provided token cannot be authenticated.',
+          'The provided token cannot be authenticated.',
         );
         done(err);
       });
@@ -598,7 +597,7 @@ describe('DELETE red-flags request', () => {
       });
   });
 
-  it('should return an error if there is no authorization token was specified', (done) => {
+  it('should return an error if no authorization token was specified', (done) => {
     chai
       .request(app)
       .delete('/api/v1/red-flags/3')
@@ -609,7 +608,7 @@ describe('DELETE red-flags request', () => {
         expect(res.body.status).to.be.equal(401);
         expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal(
-          'You need to provide a token to make a request on this endpoint',
+          'No authorization header was specified',
         );
         done(err);
       });
@@ -626,7 +625,7 @@ describe('DELETE red-flags request', () => {
         expect(res.body.status).to.be.equal(401);
         expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal(
-          'Sorry, the provided token cannot be authenticated.',
+          'The provided token cannot be authenticated.',
         );
         done(err);
       });
