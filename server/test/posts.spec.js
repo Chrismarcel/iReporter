@@ -91,50 +91,6 @@ describe('POST red-flags requests', () => {
       });
   });
 
-  it('should return an error if record type is empty', (done) => {
-    chai
-      .request(app)
-      .post('/api/v1/red-flags')
-      .set('authorization', `Bearer ${currentToken}`)
-      .send({
-        type: '',
-        latitude: '6.5951139',
-        longitude: '3.3429975',
-        comment: 'Extortion at the embassy',
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(400);
-        expect(res.body.status).to.equal(400);
-        expect(res.body).to.be.an('object');
-        expect(res.body.error).to.equal(
-          'A record type of either red-flag or intervention must be specified',
-        );
-        done(err);
-      });
-  });
-
-  it('should return an error if record type is not red-flag or intervention', (done) => {
-    chai
-      .request(app)
-      .post('/api/v1/red-flags')
-      .set('authorization', `Bearer ${currentToken}`)
-      .send({
-        type: 'gyhyr',
-        latitude: '6.5951139',
-        longitude: '3.3429975',
-        comment: 'Extortion at the embassy',
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(400);
-        expect(res.body.status).to.equal(400);
-        expect(res.body).to.be.an('object');
-        expect(res.body.error).to.equal(
-          'A valid record type of either red-flag or intervention must be specified',
-        );
-        done(err);
-      });
-  });
-
   it('should return an error if latitude is empty', (done) => {
     chai
       .request(app)

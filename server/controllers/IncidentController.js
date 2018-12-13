@@ -97,8 +97,22 @@ class IncidentController {
    * @returns {object} JSON API Response
    */
   static updateIncident(req, res) {
-    const { latitude, longitude, comment } = req.body;
+    const { id } = req.user;
     const { postId } = req;
+
+    if (req.params.status) {
+      const { status } = req.params;
+      const query = `
+      UPDATE incidents SET status = $1 WHERE id = $2 RETURNING id`;
+
+      return pool.query(query, [status, postId], (err, dbRes) => {
+        res.status(201).json({
+          status: 201,
+          messgae: 'Record has been successfully changed',
+        });
+      });
+    }
+    const { latitude, longitude, comment } = req.body;
     let message;
 
     if (comment) {
@@ -121,20 +135,6 @@ class IncidentController {
         return res.status(200).json({
           status: 200,
           data: [{ id: dbRes.rows[0].id, message }],
-        });
-      });
-    }
-
-    if (req.params.status) {
-      console.log('It entered here');
-      const { status } = req.params;
-      const query = `
-      UPDATE incidents SET status = $1 WHERE id = $2 RETURNING id`;
-
-      return pool.query(query, [status, id], (err, dbRes) => {
-        res.status(201).json({
-          status: 201,
-          messgae: 'Record has been successfully changed',
         });
       });
     }
