@@ -1,12 +1,20 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../app';
+import pool from '../models/dbconnection';
+import dropQuery from '../models/dropTables';
+import createQuery from '../models/createTables';
 
 chai.use(chaiHttp);
 
 const { expect } = chai;
 
 describe('POST Sign Up Authentication', () => {
+  before((done) => {
+    const query = `${createQuery}`;
+    pool.query(query, err => done(err));
+  });
+
   it('should register a new user if details are correct', (done) => {
     chai
       .request(app)
@@ -24,6 +32,28 @@ describe('POST Sign Up Authentication', () => {
         expect(res).to.have.status(201);
         expect(res.body.status).to.be.equal(201);
         expect(res.body.data[0].message).to.equal('Registration Successful!');
+        expect(res.body).to.be.an('object');
+        done(err);
+      });
+  });
+
+  it('should return an error if a user with email/phonenumber/username already exists', (done) => {
+    chai
+      .request(app)
+      .post('/api/v1/auth/register')
+      .send({
+        firstname: 'Chris',
+        lastname: 'James',
+        othername: '',
+        email: 'senisulyman@gmail.com',
+        phonenumber: '07038589706',
+        username: 'MarcelJames',
+        password: '12345678',
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(409);
+        expect(res.body.status).to.be.equal(409);
+        expect(res.body.error).to.equal('A user with the given email, username, phonenumber already exists');
         expect(res.body).to.be.an('object');
         done(err);
       });
@@ -313,6 +343,11 @@ describe('POST Sign Up Authentication', () => {
         expect(res.body.error).to.be.equal('You need to include a valid username');
         done(err);
       });
+  });
+
+  after((done) => {
+    const query = `${dropQuery}`;
+    pool.query(query, err => done(err));
   });
 });
 

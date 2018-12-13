@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import bcrypt from 'bcrypt';
 
 dotenv.config();
 
@@ -28,6 +29,10 @@ class HelperUtils {
     } catch (error) {
       return false;
     }
+  }
+
+  static hashPassword(password) {
+    return bcrypt.hashSync(password, 10);
   }
 }
 

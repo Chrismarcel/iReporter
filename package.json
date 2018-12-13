@@ -7,7 +7,8 @@
     "lint": "eslint ./server --fix",
     "start": "babel-node ./server/app.js",
     "test": "nyc mocha --require babel-polyfill --require babel-register ./server/test/ --timeout 10000 --exit",
-    "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
+    "migrate-db": "babel-node ./server/models"
   },
   "repository": {
     "type": "git",
@@ -40,7 +41,8 @@
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.4.0",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "pg": "^7.7.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

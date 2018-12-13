@@ -25,6 +25,7 @@ router.post(
   '/auth/register',
   ValidateUser.validateLoginDetails,
   ValidateUser.validateProfileDetails,
+  ValidateUser.validateExistingUser,
   UserController.registerUser,
 );
 router.post(
