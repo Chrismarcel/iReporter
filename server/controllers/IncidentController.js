@@ -1,5 +1,3 @@
-import postDb from '../models/posts';
-import userDb from '../models/users';
 import pool from '../models/dbconnection';
 
 /**
@@ -17,11 +15,12 @@ class IncidentController {
    * @returns {object} JSON API Response
    */
   static getAllIncidents(req, res) {
-    const query = 'SELECT * FROM incidents WHERE type = $1';
-    const { type } = req.params;
-    const incidentType = type.substr(0, type.length - 1);
+    const { id } = req.user;
+    const query = 'SELECT * FROM incidents WHERE type = $1 AND createdby = $2';
+    const { incidentType } = req.params;
+    const type = incidentType.substr(0, incidentType.length - 1);
 
-    pool.query(query, [incidentType], (err, dbRes) => res.status(200).json({
+    pool.query(query, [type, id], (err, dbRes) => res.status(200).json({
       status: 200,
       data: dbRes.rows,
     }));
@@ -35,12 +34,13 @@ class IncidentController {
    * @returns {object} JSON API Response
    */
   static getAnIncident(req, res) {
+    const { id } = req.user;
     const { postId } = req;
-    const { type } = req.params;
-    const incidentType = type.substr(0, type.length - 1);
+    const { incidentType } = req.params;
+    const type = incidentType.substr(0, incidentType.length - 1);
 
-    const query = 'SELECT * FROM incidents WHERE type = $1 AND id = $2';
-    pool.query(query, [incidentType, postId], (err, dbRes) => {
+    const query = 'SELECT * FROM incidents WHERE type = $1 AND id = $2 AND createdby = $3';
+    pool.query(query, [type, postId, id], (err, dbRes) => {
       if (err) {
         console.log(err);
       }
@@ -57,8 +57,10 @@ class IncidentController {
    */
   static createIncident(req, res) {
     const { id } = req.user;
+    const { incidentType } = req.params;
+    const type = incidentType.substr(0, incidentType.length - 1);
     const {
-      type, comment, latitude, longitude,
+      comment, latitude, longitude,
     } = req.body;
 
     const query = `
@@ -101,8 +103,8 @@ class IncidentController {
 
     if (comment) {
       const query = `
-      UPDATE incidents SET comment = $1 WHERE id = $2 RETURNING id`;
-      return pool.query(query, [comment, postId], (err, dbRes) => {
+      UPDATE incidents SET comment = $1 WHERE id = $2 AND createdby = $3 RETURNING id`;
+      return pool.query(query, [comment, postId, id], (err, dbRes) => {
         message = 'Red-flag record comment has been updated succesfully';
         return res.status(200).json({
           status: 200,
@@ -113,8 +115,8 @@ class IncidentController {
 
     if (latitude && longitude) {
       const query = `
-      UPDATE incidents SET latitude = $1, longitude = $2 WHERE id = $3 RETURNING id`;
-      return pool.query(query, [latitude, longitude, postId], (err, dbRes) => {
+      UPDATE incidents SET latitude = $1, longitude = $2 WHERE id = $3 AND createdby = $4 RETURNING id`;
+      return pool.query(query, [latitude, longitude, postId, id], (err, dbRes) => {
         message = "Updated red-flag record's location";
         return res.status(200).json({
           status: 200,
@@ -124,14 +126,17 @@ class IncidentController {
     }
 
     if (req.params.status) {
-      const { email } = req.payload;
-      const userID = userDb.findIndex(user => user.email === email);
-      if (userID === -1) {
-        return res.status(401).json({
-          status: 401,
-          error: 'Sorry, you are not permitted to access this endpoint',
+      console.log('It entered here');
+      const { status } = req.params;
+      const query = `
+      UPDATE incidents SET status = $1 WHERE id = $2 RETURNING id`;
+
+      return pool.query(query, [status, id], (err, dbRes) => {
+        res.status(201).json({
+          status: 201,
+          messgae: 'Record has been successfully changed',
         });
-      }
+      });
     }
   }
 
