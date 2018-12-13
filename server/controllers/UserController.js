@@ -33,8 +33,9 @@ class UserController {
       const rows = dbRes.rows[0];
       const id = rows.id;
       const email = rows.email;
+      const isadmin = rows.isadmin;
 
-      const token = HelperUtils.generateToken({ id, email });
+      const token = HelperUtils.generateToken({ id, email, isadmin });
       return res.status(201).json({ status: 201, data: [{ message: 'Registration Successful!', token }] });
     });
   }
@@ -47,8 +48,7 @@ class UserController {
    * @returns {object} JSON API Response
    */
   static loginUser(req, res) {
-    const { id, email } = req.user;
-    const token = HelperUtils.generateToken({ id, email });
+    const token = HelperUtils.generateToken(req.user);
 
     res.status(200).json({
       status: 200,
