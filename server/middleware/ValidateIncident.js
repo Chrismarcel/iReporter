@@ -1,5 +1,6 @@
 import HelperUtils from '../utils/HelperUtils';
 import postDb from '../models/posts';
+import pool from '../models/dbconnection';
 
 /**
  * @class ValidateIncident
@@ -54,12 +55,15 @@ class ValidateIncident {
       return res.status(400).json({ status: 400, error: 'The id parameter must be a number' });
     }
 
-    const recordIndex = postDb.findIndex(record => record.id === Number(req.params.id));
-    if (recordIndex === -1) {
-      return res.status(404).json({ status: 404, error: 'Sorry, no record with such id exists' });
-    }
+    const query = 'SELECT * FROM incidents WHERE id = $1';
+    return pool.query(query, [req.params.id], (err, dbRes) => {
+      if (dbRes.rowCount < 1) {
+        return res.status(404).json({ status: 404, error: 'Sorry, no record with such id exists' });
+      }
 
-    return next();
+      req.postId = dbRes.rows[0].id;
+      return next();
+    });
   }
 
   /**
