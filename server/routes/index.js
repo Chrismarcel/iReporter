@@ -19,7 +19,7 @@ router.post(
   ValidateIncident.validateCoordinates,
   ValidateIncident.validateComment,
   AuthenticateUser.verifyUser,
-  IncidentController.postRecord,
+  IncidentController.createIncident,
 );
 router.post(
   '/auth/register',
@@ -38,13 +38,13 @@ router.post(
 router.get(
   '/:type',
   AuthenticateUser.verifyUser,
-  IncidentController.getRecords,
+  IncidentController.getAllIncidents,
 );
 router.get(
   '/:type/:id',
   AuthenticateUser.verifyUser,
   ValidateIncident.validateIncidentId,
-  IncidentController.getARecord,
+  IncidentController.getAnIncident,
 );
 
 // Handle all PATCH requests
@@ -53,21 +53,21 @@ router.patch(
   AuthenticateUser.verifyUser,
   ValidateIncident.validateIncidentId,
   ValidateIncident.validateCoordinates,
-  IncidentController.updateReport,
+  IncidentController.updateIncident,
 );
 router.patch(
   '/:type/:id/comment',
   AuthenticateUser.verifyUser,
   ValidateIncident.validateIncidentId,
   ValidateIncident.validateComment,
-  IncidentController.updateReport,
+  IncidentController.updateIncident,
 );
 router.patch(
   '/:type/:id/status',
   AuthenticateUser.verifyAdmin,
   ValidateIncident.validateIncidentId,
   ValidateIncident.validateIncidentType,
-  IncidentController.updateReport,
+  IncidentController.updateIncident,
 );
 
 // Handle Delete requests
@@ -75,7 +75,7 @@ router.delete(
   '/:type/:id',
   AuthenticateUser.verifyUser,
   ValidateIncident.validateIncidentId,
-  IncidentController.deleteRecord,
+  IncidentController.deleteIncident,
 );
 
 export default router;
