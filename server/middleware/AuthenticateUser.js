@@ -39,10 +39,10 @@ class AuthenticateUser {
     let error;
     let status;
 
-    if (payload.error === 'auth') {
+    if (payload && payload.error === 'auth') {
       status = 401;
       error = 'No authorization header was specified';
-    } else if (payload.error === 'token') {
+    } else if (payload && payload.error === 'token') {
       status = 401;
       error = 'The provided token cannot be authenticated.';
     }
@@ -51,6 +51,7 @@ class AuthenticateUser {
       return res.status(status).json({ status, error });
     }
 
+    req.user = payload;
     return next();
   }
 

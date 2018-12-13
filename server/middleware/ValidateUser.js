@@ -19,7 +19,7 @@ class ValidateUser {
     const {
       firstname, lastname, othername, phonenumber, username,
     } = req.body;
-    let error = '';
+    let error;
 
     if (!validate.name.test(firstname)) {
       error = 'You need to include a valid first name';
@@ -27,7 +27,7 @@ class ValidateUser {
       error = 'You need to include a valid last name';
     } else if (!validate.phonenumber.test(phonenumber)) {
       error = 'You need to include a valid phone number';
-    } else if (!validate.username.test(username)) {
+    } else if (!username || !validate.username.test(username)) {
       error = 'You need to include a valid username';
     } else if (othername && !validate.name.test(othername)) {
       error = 'The other name you provided is invalid';
@@ -50,11 +50,11 @@ class ValidateUser {
   static validateLoginDetails(req, res, next) {
     const validate = HelperUtils.validate();
     const { email, password } = req.body;
-    const path = req.url.split('/')[2];
+    const path = req.url.trim().split('/')[2];
     let error;
     let status;
 
-    const query = 'SELECT email, password FROM users WHERE email = $1';
+    const query = 'SELECT id, email, password FROM users WHERE email = $1';
 
     if (!validate.email.test(email)) {
       error = 'The email you provided is invalid';
@@ -72,10 +72,24 @@ class ValidateUser {
     if (path === 'login') {
       return pool.query(query, [email], (err, dbRes) => {
         if (dbRes.rowCount < 1) {
-          error = 'Sorry, the email account you provided does not exist';
-          return res.status(404).json({ status: 404, error });
+          return res.status(404).json({
+            status: 404,
+            error: 'Sorry, the email account you provided does not exist',
+          });
         }
-        req.user = dbRes.rows;
+
+        const hashedPassword = dbRes.rows[0].password;
+        const verifyPassword = HelperUtils.verifyPassword(`${password}`, hashedPassword);
+        if (!verifyPassword) {
+          error = 'Sorry, the password for the given email is incorrect';
+          status = 401;
+        }
+        if (error) {
+          return res.status(status).json({ status, error });
+        }
+
+        const userReq = dbRes.rows[0];
+        req.user = { id: userReq.id, email: userReq.email };
         return next();
       });
     }
@@ -98,7 +112,7 @@ class ValidateUser {
     pool.query(query, [email, username, phonenumber], (err, dbRes) => {
       if (dbRes.rowCount >= 1) {
         const rows = dbRes.rows[0];
-        const errorMsg = Object.keys(rows).join(', ');
+        const errorMsg = Object.keys(rows).join(' or ');
         return res.status(409).json({
           status: 409,
           error: `A user with the given ${errorMsg} already exists`,

@@ -94,6 +94,11 @@ class ValidateIncident {
    * @returns {object} JSON API Response
    */
   static validateIncidentType(req, res, next) {
+    const incidentTypes = ['red-flags', 'interventions'];
+
+    if (!incidentTypes.includes(req.params.type)) {
+      return res.status(404).json({ status: 404, error: 'Such endpoint does not exist' });
+    }
     let error = '';
     const { type } = req.body;
 

@@ -20,6 +20,33 @@ describe('POST red-flags requests', () => {
       });
   });
 
+  it('should add a new record if details are correct', (done) => {
+    const incident = {
+      type: 'red-flag',
+      latitude: '6.5951139',
+      longitude: '3.3429975',
+      comment: 'Extortion at the embassy',
+    };
+    chai
+      .request(app)
+      .post('/api/v1/red-flags')
+      .set('authorization', `Bearer ${currentToken}`)
+      .send(incident)
+      .end((err, res) => {
+        expect(res).to.have.status(201);
+        expect(res.body.status).to.be.equal(201);
+        expect(res.body).to.be.an('object');
+        expect(res.body.data).to.deep.equal([
+          {
+            id: res.body.data[0].id,
+            message: 'Created red-flag record',
+            incident,
+          },
+        ]);
+        done(err);
+      });
+  });
+
   it('should return an error if no authorization token was specified', (done) => {
     chai
       .request(app)
@@ -60,28 +87,6 @@ describe('POST red-flags requests', () => {
         expect(res.body.error).to.equal(
           'The provided token cannot be authenticated.',
         );
-        done(err);
-      });
-  });
-
-  it('should add a new record if details are correct', (done) => {
-    chai
-      .request(app)
-      .post('/api/v1/red-flags')
-      .set('authorization', `Bearer ${currentToken}`)
-      .send({
-        type: 'red-flag',
-        latitude: '6.5951139',
-        longitude: '3.3429975',
-        comment: 'Extortion at the embassy',
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(201);
-        expect(res.body.status).to.be.equal(201);
-        expect(res.body).to.be.an('object');
-        expect(res.body.data).to.deep.equal([
-          { id: 9, message: 'Created red-flag record' },
-        ]);
         done(err);
       });
   });
