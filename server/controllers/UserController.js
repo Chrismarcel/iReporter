@@ -17,13 +17,13 @@ class UserController {
   */
   static registerUser(req, res) {
     const {
-      firstname, lastname, othername, email, phonenumber, password, username,
+      firstname, lastname, othernames, email, phonenumber, password, username,
     } = req.body;
 
     const hashedPassword = HelperUtils.hashPassword(password);
 
-    const query = 'INSERT INTO users(firstname, lastname, othername, email, phonenumber, password, username) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *';
-    const values = [firstname, lastname, othername, email, phonenumber, hashedPassword, username];
+    const query = 'INSERT INTO users(firstname, lastname, othernames, email, phonenumber, password, username) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *';
+    const values = [firstname, lastname, othernames, email, phonenumber, hashedPassword, username];
 
     pool.query(query, values, (err, dbRes) => {
       if (err) {

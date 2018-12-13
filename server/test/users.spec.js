@@ -14,7 +14,7 @@ describe('POST Sign Up Authentication', () => {
       .send({
         firstname: 'Marcel',
         lastname: 'James',
-        othername: '',
+        othernames: '',
         email: 'senisulyman@gmail.com',
         phonenumber: '07038589706',
         username: 'MarcelJames',
@@ -36,7 +36,7 @@ describe('POST Sign Up Authentication', () => {
       .send({
         firstname: 'Chris',
         lastname: 'James',
-        othername: '',
+        othernames: '',
         email: 'senisulyman@gmail.com',
         phonenumber: '07038589706',
         username: 'MarcelJames',
@@ -58,7 +58,7 @@ describe('POST Sign Up Authentication', () => {
       .send({
         firstname: '',
         lastname: 'Sulyman',
-        othername: '',
+        othernames: '',
         email: 'senisulyman@gmail.com',
         phonenumber: '07038890874',
         username: 'SeniSulyman',
@@ -80,7 +80,7 @@ describe('POST Sign Up Authentication', () => {
       .send({
         firstname: 'Seni',
         lastname: '',
-        othername: '',
+        othernames: '',
         email: 'senisulyman@gmail.com',
         phonenumber: '07038890874',
         username: 'SeniSulyman',
@@ -102,7 +102,7 @@ describe('POST Sign Up Authentication', () => {
       .send({
         firstname: 'Seni',
         lastname: 'Sulyman',
-        othername: '',
+        othernames: '',
         email: '',
         phonenumber: '07038890874',
         username: 'SeniSulyman',
@@ -124,7 +124,7 @@ describe('POST Sign Up Authentication', () => {
       .send({
         firstname: 'Seni',
         lastname: 'Sulyman',
-        othername: '',
+        othernames: '',
         email: 'senisulyman@gmail.com',
         phonenumber: '',
         username: 'SeniSulyman',
@@ -146,7 +146,7 @@ describe('POST Sign Up Authentication', () => {
       .send({
         firstname: 'Seni',
         lastname: 'Sulyman',
-        othername: '',
+        othernames: '',
         email: 'senisulyman@gmail.com',
         phonenumber: '07038890874',
         username: '',
@@ -168,7 +168,7 @@ describe('POST Sign Up Authentication', () => {
       .send({
         firstname: 'Seni',
         lastname: 'Sulyman',
-        othername: '',
+        othernames: '',
         email: 'senisulyman@gmail.com',
         phonenumber: '07038890874',
         username: 'SeniSulyman',
@@ -190,7 +190,7 @@ describe('POST Sign Up Authentication', () => {
       .send({
         firstname: 'Seni',
         lastname: 'Sulyman',
-        othername: '',
+        othernames: '',
         email: 'senisulyman@gmail.com',
         phonenumber: '07038890874',
         username: 'SeniSulyman',
@@ -212,7 +212,7 @@ describe('POST Sign Up Authentication', () => {
       .send({
         firstname: 'Seni#$2352',
         lastname: 'Sulyman',
-        othername: '',
+        othernames: '',
         email: 'senisulyman@gmail.com',
         phonenumber: '07038890874',
         username: 'SeniSulyman',
@@ -234,7 +234,7 @@ describe('POST Sign Up Authentication', () => {
       .send({
         firstname: 'Seni',
         lastname: 'Suly123di45./man',
-        othername: '',
+        othernames: '',
         email: 'senisulyman@gmail.com',
         phonenumber: '07038890874',
         username: 'SeniSulyman',
@@ -256,7 +256,7 @@ describe('POST Sign Up Authentication', () => {
       .send({
         firstname: 'Seni',
         lastname: 'Sulyman',
-        othername: '123etuyie45',
+        othernames: '123etuyie45',
         email: 'senisulyman@gmail.com',
         phonenumber: '07038890874',
         username: 'SeniSulyman',
@@ -278,7 +278,7 @@ describe('POST Sign Up Authentication', () => {
       .send({
         firstname: 'Seni',
         lastname: 'Sulyman',
-        othername: '',
+        othernames: '',
         email: 'senisulyman1#$^gmail',
         phonenumber: '07038890874',
         username: 'SeniSulyman',
@@ -300,7 +300,7 @@ describe('POST Sign Up Authentication', () => {
       .send({
         firstname: 'Seni',
         lastname: 'Sulyman',
-        othername: '',
+        othernames: '',
         email: 'senisulyman@gmail.com',
         phonenumber: '07038s$5%890874',
         username: 'SeniSulyman',
@@ -322,7 +322,7 @@ describe('POST Sign Up Authentication', () => {
       .send({
         firstname: 'Seni',
         lastname: 'Sulyman',
-        othername: '',
+        othernames: '',
         email: 'senisulyman@gmail.com',
         phonenumber: '07038890874',
         username: 'SeniSu*()^&#lyman',

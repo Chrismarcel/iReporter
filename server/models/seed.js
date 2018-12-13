@@ -8,15 +8,15 @@ const createTablesQuery = createTables;
 
 const hashedPassword = HelperUtils.hashPassword('12345678');
 const createUserQuery = `
-    INSERT INTO users(firstname, lastname, othername, email, phonenumber, password, username) 
+    INSERT INTO users(firstname, lastname, othernames, email, phonenumber, password, username) 
     VALUES('Chris', 'James', '', 'demouser@email.com', '07030045677', '${hashedPassword}', 'Chrismarcel') RETURNING *`;
 
 const createAdminQuery = `
-    INSERT INTO users(firstname, lastname, othername, email, phonenumber, password, username, role) 
-    VALUES('Admin', 'Demo', '', 'admindemo@email.com', '07030048567', '${hashedPassword}', 'Admin', 1) RETURNING *`;
+    INSERT INTO users(firstname, lastname, othernames, email, phonenumber, password, username, isAdmin) 
+    VALUES('Admin', 'Demo', '', 'admindemo@email.com', '07030048567', '${hashedPassword}', 'Admin', 'true') RETURNING *`;
 
 const createIncident = `
-INSERT INTO incidents(user_id, type, comment, latitude, longitude) VALUES(1, 'red-flag', 'This is a red-flag message', '6.5442452', '5.6788753')
+INSERT INTO incidents(createdby, type, comment, latitude, longitude) VALUES(1, 'red-flag', 'This is a red-flag message', '6.5442452', '5.6788753')
 `;
 
 const queries = `${dropTablesQuery}${createTablesQuery}${createUserQuery};${createAdminQuery};${createIncident}`;

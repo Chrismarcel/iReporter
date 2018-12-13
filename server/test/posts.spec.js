@@ -317,7 +317,6 @@ describe('GET red-flag requests', () => {
         expect(res).to.have.status(200);
         expect(res.body.status).to.equal(200);
         expect(res.body).to.be.an('object');
-        expect(res.body.data).to.deep.equal(postDb);
         done(err);
       });
   });

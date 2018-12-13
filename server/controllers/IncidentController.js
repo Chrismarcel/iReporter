@@ -10,24 +10,31 @@ import pool from '../models/dbconnection';
 
 class IncidentController {
   /**
-   * @method getRecords
+   * @method getAllIncidents
    * @description Retrieves a list of records
    * @param {object} req - The Request Object
    * @param {object} res - The Response Object
    * @returns {object} JSON API Response
    */
-  static getRecords(req, res) {
-    res.status(200).json({ status: 200, data: [...postDb] });
+  static getAllIncidents(req, res) {
+    const query = 'SELECT * FROM incidents WHERE type = $1';
+    const { type } = req.params;
+
+    pool.query(query, [type.substr(0, type.length - 1)],
+      (err, dbRes) => res.status(200).json({
+        status: 200,
+        data: dbRes.rows,
+      }));
   }
 
   /**
-   * @method getARecord
+   * @method getAnIncident
    * @description Retrieves a specific record with a given ID
    * @param {object} req - The Request Object
    * @param {object} res - The Response Object
    * @returns {object} JSON API Response
    */
-  static getARecord(req, res) {
+  static getAnIncident(req, res) {
     const recordIndex = postDb.findIndex(
       record => record.id === Number(req.params.id),
     );
@@ -36,20 +43,20 @@ class IncidentController {
   }
 
   /**
-   * @method postRecord
+   * @method createIncident
    * @description Posts the given record to the database
    * @param {object} req - The Request Object
    * @param {object} res - The Response Object
    * @returns {object} JSON API Response
    */
-  static postRecord(req, res) {
+  static createIncident(req, res) {
     const { id } = req.user;
     const {
       type, comment, latitude, longitude,
     } = req.body;
 
     const query = `
-    INSERT INTO incidents(user_id, type, comment, latitude, longitude) VALUES($1, $2, $3, $4, $5) RETURNING id`;
+    INSERT INTO incidents(createdby, type, comment, latitude, longitude) VALUES($1, $2, $3, $4, $5) RETURNING id`;
 
     pool.query(query, [id, type, comment, latitude, longitude], (err, dbRes) => {
       if (err) {
@@ -75,16 +82,16 @@ class IncidentController {
   }
 
   /**
-   * @method updateReport
+   * @method updateIncident
    * @description Updates a specific report based on the given parameters
    * @param {object} req - The Request Object
    * @param {object} res - The Response Object
    * @returns {object} JSON API Response
    */
-  static updateReport(req, res) {
+  static updateIncident(req, res) {
     const { latitude, longitude, comment } = req.body;
     const recordID = Number(req.params.id);
-    let message = '';
+    let message;
 
     const recordIndex = postDb.findIndex(record => record.id === recordID);
 
@@ -114,13 +121,13 @@ class IncidentController {
   }
 
   /**
-   * @method deleteRecord
+   * @method deleteIncident
    * @description Deletes a specific record
    * @param {object} req - The Request Object
    * @param {object} res - The Response Object
    * @returns {object} JSON API Response
    */
-  static deleteRecord(req, res) {
+  static deleteIncident(req, res) {
     const recordID = Number(req.params.id);
 
     const recordIndex = postDb.findIndex(record => record.id === recordID);

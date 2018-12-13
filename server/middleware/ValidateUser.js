@@ -17,7 +17,7 @@ class ValidateUser {
   static validateProfileDetails(req, res, next) {
     const validate = HelperUtils.validate();
     const {
-      firstname, lastname, othername, phonenumber, username,
+      firstname, lastname, othernames, phonenumber, username,
     } = req.body;
     let error;
 
@@ -29,7 +29,7 @@ class ValidateUser {
       error = 'You need to include a valid phone number';
     } else if (!username || !validate.username.test(username)) {
       error = 'You need to include a valid username';
-    } else if (othername && !validate.name.test(othername)) {
+    } else if (othernames && !validate.name.test(othernames)) {
       error = 'The other name you provided is invalid';
     }
 
