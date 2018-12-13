@@ -1,5 +1,6 @@
 import postDb from '../models/posts';
 import userDb from '../models/users';
+import pool from '../models/dbconnection';
 
 /**
  * @class IncidentController
@@ -42,28 +43,34 @@ class IncidentController {
    * @returns {object} JSON API Response
    */
   static postRecord(req, res) {
+    const { id } = req.user;
     const {
       type, comment, latitude, longitude,
     } = req.body;
 
-    const id = postDb.length + 1;
-    const recordData = {
-      id,
-      comment,
-      type,
-      location: `${latitude}, ${longitude}`,
-      createdOn: new Date(),
-      createdBy: 8,
-      status: 'drafted',
-      images: [],
-      videos: [],
-    };
+    const query = `
+    INSERT INTO incidents(user_id, type, comment, latitude, longitude) VALUES($1, $2, $3, $4, $5) RETURNING id`;
 
-    postDb.concat(recordData);
+    pool.query(query, [id, type, comment, latitude, longitude], (err, dbRes) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          status: 500,
+          error: 'Something went wrong with the database.',
+        });
+      }
 
-    res.status(201).json({
-      status: 201,
-      data: [{ id, message: `Created ${type} record` }],
+      const postId = dbRes.rows[0].id;
+      return res.status(201).json({
+        status: 201,
+        data: [{
+          id: postId,
+          message: `Created ${type} record`,
+          incident: {
+            type, comment, latitude, longitude,
+          },
+        }],
+      });
     });
   }
 

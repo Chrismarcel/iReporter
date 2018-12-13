@@ -9,7 +9,6 @@
     "test": "nyc mocha --require babel-polyfill --require babel-register ./server/test/ --timeout 10000 --exit",
     "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "pretest": "babel-node ./server/models/seed",
-    "posttest": "babel-node ./server/models",
     "migrate-db": "babel-node ./server/models"
   },
   "repository": {

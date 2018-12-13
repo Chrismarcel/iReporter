@@ -15,7 +15,11 @@ const createAdminQuery = `
     INSERT INTO users(firstname, lastname, othername, email, phonenumber, password, username, role) 
     VALUES('Admin', 'Demo', '', 'admindemo@email.com', '07030048567', '${hashedPassword}', 'Admin', 1) RETURNING *`;
 
-const queries = `${dropTablesQuery}${createTablesQuery}${createUserQuery};${createAdminQuery}`;
+const createIncident = `
+INSERT INTO incidents(user_id, type, comment, latitude, longitude) VALUES(1, 'red-flag', 'This is a red-flag message', '6.5442452', '5.6788753')
+`;
+
+const queries = `${dropTablesQuery}${createTablesQuery}${createUserQuery};${createAdminQuery};${createIncident}`;
 
 pool.query(queries, (err) => {
   if (err) {

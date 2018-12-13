@@ -21,15 +21,20 @@ class UserController {
     } = req.body;
 
     const hashedPassword = HelperUtils.hashPassword(password);
-    const token = HelperUtils.generateToken(req.body);
 
     const query = 'INSERT INTO users(firstname, lastname, othername, email, phonenumber, password, username) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *';
     const values = [firstname, lastname, othername, email, phonenumber, hashedPassword, username];
 
     pool.query(query, values, (err, dbRes) => {
       if (err) {
+        console.log(err);
         return res.status(500).json({ status: 500, error: 'Something went wrong with the database.' });
       }
+      const rows = dbRes.rows[0];
+      const id = rows.id;
+      const email = rows.email;
+
+      const token = HelperUtils.generateToken({ id, email });
       return res.status(201).json({ status: 201, data: [{ message: 'Registration Successful!', token }] });
     });
   }
@@ -42,7 +47,9 @@ class UserController {
    * @returns {object} JSON API Response
    */
   static loginUser(req, res) {
-    const token = HelperUtils.generateToken(req.body);
+    const { id, email } = req.user;
+    const token = HelperUtils.generateToken({ id, email });
+
     res.status(200).json({
       status: 200,
       data: [{ message: 'Login Successful!', token }],

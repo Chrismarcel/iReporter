@@ -45,7 +45,7 @@ describe('POST Sign Up Authentication', () => {
       .end((err, res) => {
         expect(res).to.have.status(409);
         expect(res.body.status).to.be.equal(409);
-        expect(res.body.error).to.equal('A user with the given email, username, phonenumber already exists');
+        expect(res.body.error).to.equal('A user with the given email or username or phonenumber already exists');
         expect(res.body).to.be.an('object');
         done(err);
       });
