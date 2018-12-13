@@ -5,12 +5,12 @@
   "main": "./server/app.js",
   "scripts": {
     "lint": "eslint ./server --fix",
-    "start": "babel-node ./server/app.js && npm run post-build",
+    "start": "babel-node ./server/app.js",
     "test": "nyc mocha --require babel-polyfill --require babel-register ./server/test/ --timeout 10000 --exit",
     "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "pretest": "babel-node ./server/models/seed",
     "migrate-db": "babel-node ./server/models",
-    "post-build": "babel-node ./server/models/heroku-migrate.js"
+    "heroku-postbuild": "babel-node ./server/models/heroku-migrate.js"
   },
   "repository": {
     "type": "git",

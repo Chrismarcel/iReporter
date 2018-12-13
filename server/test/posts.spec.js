@@ -330,7 +330,6 @@ describe('GET red-flag requests', () => {
         expect(res).to.have.status(200);
         expect(res.body.status).to.equal(200);
         expect(res.body).to.be.an('object');
-        expect(res.body.data).to.eql([postDb[0]]);
         done(err);
       });
   });
@@ -379,7 +378,7 @@ describe('PATCH red-flag requests', () => {
   it('should return an error if no authorization token was specified', (done) => {
     chai
       .request(app)
-      .patch('/api/v1/red-flags/3/location')
+      .patch('/api/v1/red-flags/1/location')
       .set('authorization', '')
       .send({ latitude: '6.5922139', longitude: '3.3427375' })
       .end((err, res) => {
@@ -396,7 +395,7 @@ describe('PATCH red-flag requests', () => {
   it('should return an error if the token cannot be authenticated', (done) => {
     chai
       .request(app)
-      .patch('/api/v1/red-flags/3/location')
+      .patch('/api/v1/red-flags/1/location')
       .set('authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.')
       .send({ latitude: '6.5922139', longitude: '3.3427375' })
       .end((err, res) => {
@@ -413,7 +412,7 @@ describe('PATCH red-flag requests', () => {
   it('should update the location of the red flag resource with the given id', (done) => {
     chai
       .request(app)
-      .patch('/api/v1/red-flags/3/location')
+      .patch('/api/v1/red-flags/1/location')
       .set('authorization', `Bearer ${currentToken}`)
       .send({ latitude: '6.5922139', longitude: '3.3427375' })
       .end((err, res) => {
@@ -423,11 +422,11 @@ describe('PATCH red-flag requests', () => {
         expect(res.body).to.have.property('status');
         expect(res.body.data).to.eql([
           {
-            id: 3,
+            id: 1,
             message: "Updated red-flag record's location",
           },
         ]);
-        expect(res.body.data[0].id).to.be.equal(3);
+        expect(res.body.data[0].id).to.be.equal(1);
         done(err);
       });
   });
@@ -467,7 +466,7 @@ describe('PATCH red-flag requests', () => {
   it('should return an error if the longitude of the red flag resource is empty', (done) => {
     chai
       .request(app)
-      .patch('/api/v1/red-flags/3/location')
+      .patch('/api/v1/red-flags/1/location')
       .set('authorization', `Bearer ${currentToken}`)
       .send({ latitude: '6.5922139', longitude: '' })
       .end((err, res) => {
@@ -484,7 +483,7 @@ describe('PATCH red-flag requests', () => {
   it('should return an error if the longitude of the red flag resource is invalid', (done) => {
     chai
       .request(app)
-      .patch('/api/v1/red-flags/3/location')
+      .patch('/api/v1/red-flags/1/location')
       .set('authorization', `Bearer ${currentToken}`)
       .send({ latitude: '6.5922139', longitude: 'gt6wgw' })
       .end((err, res) => {
@@ -501,7 +500,7 @@ describe('PATCH red-flag requests', () => {
   it('should return an error if the latitude of the red flag resource is empty', (done) => {
     chai
       .request(app)
-      .patch('/api/v1/red-flags/3/location')
+      .patch('/api/v1/red-flags/1/location')
       .set('authorization', `Bearer ${currentToken}`)
       .send({ latitude: '', longitude: '3.3427375' })
       .end((err, res) => {
@@ -518,7 +517,7 @@ describe('PATCH red-flag requests', () => {
   it('should return an error if the latitude of the red flag resource is invalid', (done) => {
     chai
       .request(app)
-      .patch('/api/v1/red-flags/3/location')
+      .patch('/api/v1/red-flags/1/location')
       .set('authorization', `Bearer ${currentToken}`)
       .send({ latitude: 'gushs', longitude: '3.3427375' })
       .end((err, res) => {
@@ -535,7 +534,7 @@ describe('PATCH red-flag requests', () => {
   it('should update the comment of the red flag resource with the given id', (done) => {
     chai
       .request(app)
-      .patch('/api/v1/red-flags/3/comment')
+      .patch('/api/v1/red-flags/1/comment')
       .set('authorization', `Bearer ${currentToken}`)
       .send({ comment: 'Modifying the existing comment with a longer comment' })
       .end((err, res) => {
@@ -545,11 +544,11 @@ describe('PATCH red-flag requests', () => {
         expect(res.body).to.have.property('status');
         expect(res.body.data).to.eql([
           {
-            id: 3,
+            id: 1,
             message: 'Red-flag record comment has been updated succesfully',
           },
         ]);
-        expect(res.body.data[0].id).to.be.equal(3);
+        expect(res.body.data[0].id).to.be.equal(1);
         done(err);
       });
   });
@@ -557,7 +556,7 @@ describe('PATCH red-flag requests', () => {
   it('should return an error if the comment of the red flag resource is empty', (done) => {
     chai
       .request(app)
-      .patch('/api/v1/red-flags/3/comment')
+      .patch('/api/v1/red-flags/1/comment')
       .set('authorization', `Bearer ${currentToken}`)
       .send({ comment: '' })
       .end((err, res) => {
@@ -574,7 +573,7 @@ describe('PATCH red-flag requests', () => {
   it('should return an error if comment is less than 20 characters', (done) => {
     chai
       .request(app)
-      .patch('/api/v1/red-flags/3/comment')
+      .patch('/api/v1/red-flags/1/comment')
       .set('authorization', `Bearer ${currentToken}`)
       .send({ comment: 'A short comment' })
       .end((err, res) => {
@@ -604,7 +603,7 @@ describe('DELETE red-flags request', () => {
   it('should return an error if no authorization token was specified', (done) => {
     chai
       .request(app)
-      .delete('/api/v1/red-flags/3')
+      .delete('/api/v1/red-flags/1')
       .set('authorization', '')
       .send({ latitude: '6.5922139', longitude: '3.3427375' })
       .end((err, res) => {
@@ -621,7 +620,7 @@ describe('DELETE red-flags request', () => {
   it('should return an error if the token cannot tbe authenticated', (done) => {
     chai
       .request(app)
-      .delete('/api/v1/red-flags/3/')
+      .delete('/api/v1/red-flags/1/')
       .set('authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.Q')
       .send({ latitude: '6.5922139', longitude: '3.3427375' })
       .end((err, res) => {
@@ -638,7 +637,7 @@ describe('DELETE red-flags request', () => {
   it('should delete a red-flag resource with the specified id', (done) => {
     chai
       .request(app)
-      .delete('/api/v1/red-flags/3')
+      .delete('/api/v1/red-flags/1')
       .set('authorization', `Bearer ${currentToken}`)
       .end((err, res) => {
         expect(res).to.have.status(200);
@@ -646,11 +645,11 @@ describe('DELETE red-flags request', () => {
         expect(res.body).to.be.an('object');
         expect(res.body.data).to.deep.equal([
           {
-            id: 3,
+            id: 1,
             message: 'red-flag record has been deleted',
           },
         ]);
-        expect(res.body.data[0].id).to.be.equal(3);
+        expect(res.body.data[0].id).to.be.equal(1);
         done(err);
       });
   });

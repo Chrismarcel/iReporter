@@ -19,12 +19,12 @@ class IncidentController {
   static getAllIncidents(req, res) {
     const query = 'SELECT * FROM incidents WHERE type = $1';
     const { type } = req.params;
+    const incidentType = type.substr(0, type.length - 1);
 
-    pool.query(query, [type.substr(0, type.length - 1)],
-      (err, dbRes) => res.status(200).json({
-        status: 200,
-        data: dbRes.rows,
-      }));
+    pool.query(query, [incidentType], (err, dbRes) => res.status(200).json({
+      status: 200,
+      data: dbRes.rows,
+    }));
   }
 
   /**
@@ -35,11 +35,17 @@ class IncidentController {
    * @returns {object} JSON API Response
    */
   static getAnIncident(req, res) {
-    const recordIndex = postDb.findIndex(
-      record => record.id === Number(req.params.id),
-    );
-    const data = [postDb[recordIndex]];
-    res.status(200).json({ status: 200, data });
+    const { postId } = req;
+    const { type } = req.params;
+    const incidentType = type.substr(0, type.length - 1);
+
+    const query = 'SELECT * FROM incidents WHERE type = $1 AND id = $2';
+    pool.query(query, [incidentType, postId], (err, dbRes) => {
+      if (err) {
+        console.log(err);
+      }
+      res.status(200).json({ status: 200, data: dbRes.rows[0] });
+    });
   }
 
   /**
@@ -90,17 +96,31 @@ class IncidentController {
    */
   static updateIncident(req, res) {
     const { latitude, longitude, comment } = req.body;
-    const recordID = Number(req.params.id);
+    const { postId } = req;
     let message;
 
-    const recordIndex = postDb.findIndex(record => record.id === recordID);
-
     if (comment) {
-      postDb[recordIndex].comment = `${comment}`;
-      message = 'Red-flag record comment has been updated succesfully';
-    } else if (latitude && longitude) {
-      postDb[recordIndex].location = `${latitude}, ${longitude}`;
-      message = "Updated red-flag record's location";
+      const query = `
+      UPDATE incidents SET comment = $1 WHERE id = $2 RETURNING id`;
+      return pool.query(query, [comment, postId], (err, dbRes) => {
+        message = 'Red-flag record comment has been updated succesfully';
+        return res.status(200).json({
+          status: 200,
+          data: [{ id: dbRes.rows[0].id, message }],
+        });
+      });
+    }
+
+    if (latitude && longitude) {
+      const query = `
+      UPDATE incidents SET latitude = $1, longitude = $2 WHERE id = $3 RETURNING id`;
+      return pool.query(query, [latitude, longitude, postId], (err, dbRes) => {
+        message = "Updated red-flag record's location";
+        return res.status(200).json({
+          status: 200,
+          data: [{ id: dbRes.rows[0].id, message }],
+        });
+      });
     }
 
     if (req.params.status) {
@@ -113,11 +133,6 @@ class IncidentController {
         });
       }
     }
-
-    return res.status(200).json({
-      status: 200,
-      data: [{ id: recordID, message }],
-    });
   }
 
   /**
@@ -128,14 +143,14 @@ class IncidentController {
    * @returns {object} JSON API Response
    */
   static deleteIncident(req, res) {
-    const recordID = Number(req.params.id);
+    const { postId } = req;
+    const query = 'DELETE FROM incidents WHERE id = $1';
 
-    const recordIndex = postDb.findIndex(record => record.id === recordID);
-    postDb.splice(recordIndex, 1);
-
-    res.status(200).json({
-      status: 200,
-      data: [{ id: recordID, message: 'red-flag record has been deleted' }],
+    return pool.query(query, [postId], (err, dbRes) => {
+      return res.status(200).json({
+        status: 200,
+        data: [{ id: postId, message: 'red-flag record has been deleted' }],
+      });
     });
   }
 }
