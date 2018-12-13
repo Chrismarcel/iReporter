@@ -13,7 +13,7 @@ describe('POST red-flags requests', () => {
     chai
       .request(app)
       .post('/api/v1/auth/login')
-      .send({ email: 'senisulyman@gmail.com', password: 12345678 })
+      .send({ email: 'demouser@email.com', password: 12345678 })
       .end((err, res) => {
         currentToken = res.body.data[0].token;
         done(err);
@@ -264,7 +264,7 @@ describe('GET red-flag requests', () => {
     chai
       .request(app)
       .post('/api/v1/auth/login')
-      .send({ email: 'senisulyman@gmail.com', password: 12345678 })
+      .send({ email: 'demouser@email.com', password: 12345678 })
       .end((err, res) => {
         currentToken = res.body.data[0].token;
         done(err);
@@ -291,7 +291,7 @@ describe('GET red-flag requests', () => {
     chai
       .request(app)
       .get('/api/v1/red-flags')
-      .set('authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNlbmlzdWx5bWFuQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiMTIzNDU2NzgiLCJpYXQiOjE1NDQzMjA0NzIsImV4cCI6MTU0NDMyMDUzMn0.H-NOWf3zSzwgdyVJ7o7GRrLHpUTjBTPOhvGpKvkl5TQ')
+      .set('authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9')
       .end((err, res) => {
         expect(res).to.have.status(401);
         expect(res.body.status).to.be.equal(401);
@@ -365,7 +365,7 @@ describe('PATCH red-flag requests', () => {
     chai
       .request(app)
       .post('/api/v1/auth/login')
-      .send({ email: 'senisulyman@gmail.com', password: 12345678 })
+      .send({ email: 'demouser@email.com', password: 12345678 })
       .end((err, res) => {
         currentToken = res.body.data[0].token;
         done(err);
@@ -393,7 +393,7 @@ describe('PATCH red-flag requests', () => {
     chai
       .request(app)
       .patch('/api/v1/red-flags/3/location')
-      .set('authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNlbmlzdWx5bWFuQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiMTIzNDU2NzgiLCJpYXQiOjE1NDQzMjA0NzIsImV4cCI6MTU0NDMyMDUzMn0.H-NOWf3zSzwgdyVJ7o7GRrLHpUTjBTPOhvGpKvkl5TQ')
+      .set('authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.')
       .send({ latitude: '6.5922139', longitude: '3.3427375' })
       .end((err, res) => {
         expect(res).to.have.status(401);
@@ -590,7 +590,7 @@ describe('DELETE red-flags request', () => {
     chai
       .request(app)
       .post('/api/v1/auth/login')
-      .send({ email: 'senisulyman@gmail.com', password: 12345678 })
+      .send({ email: 'demouser@email.com', password: 12345678 })
       .end((err, res) => {
         currentToken = res.body.data[0].token;
         done(err);
@@ -618,7 +618,7 @@ describe('DELETE red-flags request', () => {
     chai
       .request(app)
       .delete('/api/v1/red-flags/3/')
-      .set('authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNlbmlzdWx5bWFuQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiMTIzNDU2NzgiLCJpYXQiOjE1NDQzMjA0NzIsImV4cCI6MTU0NDMyMDUzMn0.H-NOWf3zSzwgdyVJ7o7GRrLHpUTjBTPOhvGpKvkl5TQ')
+      .set('authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.Q')
       .send({ latitude: '6.5922139', longitude: '3.3427375' })
       .end((err, res) => {
         expect(res).to.have.status(401);

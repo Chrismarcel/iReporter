@@ -1,6 +1,5 @@
 import HelperUtils from '../utils/HelperUtils';
 import pool from '../models/dbconnection';
-import userDb from '../models/users';
 
 /**
  * @class ValidateUser
@@ -22,13 +21,13 @@ class ValidateUser {
     } = req.body;
     let error = '';
 
-    if (!firstname || !validate.name.test(firstname)) {
+    if (!validate.name.test(firstname)) {
       error = 'You need to include a valid first name';
-    } else if (!lastname || !validate.name.test(lastname)) {
+    } else if (!validate.name.test(lastname)) {
       error = 'You need to include a valid last name';
-    } else if (!phonenumber || !validate.phonenumber.test(phonenumber)) {
+    } else if (!validate.phonenumber.test(phonenumber)) {
       error = 'You need to include a valid phone number';
-    } else if (!username || !validate.username.test(username)) {
+    } else if (!validate.username.test(username)) {
       error = 'You need to include a valid username';
     } else if (othername && !validate.name.test(othername)) {
       error = 'The other name you provided is invalid';
@@ -51,12 +50,13 @@ class ValidateUser {
   static validateLoginDetails(req, res, next) {
     const validate = HelperUtils.validate();
     const { email, password } = req.body;
-    let error = '';
+    const path = req.url.split('/')[2];
+    let error;
     let status;
 
-    const userId = userDb.findIndex(user => user.email === email);
+    const query = 'SELECT email, password FROM users WHERE email = $1';
 
-    if (!email || !validate.email.test(email)) {
+    if (!validate.email.test(email)) {
       error = 'The email you provided is invalid';
     } else if (!password) {
       error = 'You need to provide a password';
@@ -66,13 +66,18 @@ class ValidateUser {
 
     if (error) {
       status = 400;
-    } else if (userId === -1) {
-      status = 404;
-      error = 'Sorry, such account does not exist';
+      return res.status(status).json({ status, error });
     }
 
-    if (status >= 400) {
-      return res.status(status).json({ status, error });
+    if (path === 'login') {
+      return pool.query(query, [email], (err, dbRes) => {
+        if (dbRes.rowCount < 1) {
+          error = 'Sorry, the email account you provided does not exist';
+          return res.status(404).json({ status: 404, error });
+        }
+        req.user = dbRes.rows;
+        return next();
+      });
     }
 
     return next();
