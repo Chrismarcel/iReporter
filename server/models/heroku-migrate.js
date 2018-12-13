@@ -5,6 +5,6 @@ const queries = `${createQuery}`;
 
 // Create tables on Heroku Postgres
 pool.query(queries, () => {
-    console.log('Tables Created');
-    pool.end();
+  console.log('Tables Created');
+  pool.end();
 });
