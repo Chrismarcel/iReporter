@@ -34,9 +34,31 @@ class UserController {
       const id = rows.id;
       const email = rows.email;
       const isadmin = rows.isadmin;
+      const username = rows.username;
+      const firstname = rows.firstname;
+      const lastname = rows.lastname;
+      const othernames = rows.othernames;
+      const phonenumber = rows.phonenumber;
+
 
       const token = HelperUtils.generateToken({ id, email, isadmin });
-      return res.status(201).json({ status: 201, data: [{ message: 'Registration Successful!', token }] });
+      return res.status(201).json({
+        status: 201,
+        data: [{
+          message: 'Registration Successful!',
+          token,
+          user: {
+            id,
+            email,
+            firstname,
+            lastname,
+            username,
+            othernames,
+            phonenumber,
+            isadmin,
+          },
+        }],
+      });
     });
   }
 
