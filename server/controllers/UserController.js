@@ -49,10 +49,22 @@ class UserController {
    */
   static loginUser(req, res) {
     const token = HelperUtils.generateToken(req.user);
-
+    console.log(req.body, req.user);
     res.status(200).json({
       status: 200,
-      data: [{ message: 'Login Successful!', token }],
+      data: [{
+        message: 'Login Successful!',
+        token,
+        user: {
+          id: req.user.id,
+          email: req.user.email,
+          firstname: req.user.firstname,
+          lastname: req.user.lastname,
+          username: req.user.username,
+          phonenumber: req.user.phonenumber,
+          isadmin: req.user.isadmin,
+        },
+      }],
     });
   }
 }
