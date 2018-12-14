@@ -16,11 +16,17 @@ class IncidentController {
    */
   static getAllIncidents(req, res) {
     const { id } = req.user;
-    const query = 'SELECT * FROM incidents WHERE type = $1 AND createdby = $2';
     const { incidentType } = req.params;
     const type = incidentType.substr(0, incidentType.length - 1);
+    let query = 'SELECT * FROM incidents WHERE type = $1';
+    let params = [type];
 
-    pool.query(query, [type, id], (err, dbRes) => res.status(200).json({
+    if (req.user.isadmin !== 'true') {
+      query += 'AND createdby = $2';
+      params = [type, id];
+    }
+
+    pool.query(query, params, (err, dbRes) => res.status(200).json({
       status: 200,
       data: dbRes.rows,
     }));
@@ -97,25 +103,27 @@ class IncidentController {
    * @returns {object} JSON API Response
    */
   static updateIncident(req, res) {
-    const { id } = req.user;
-    const { postId } = req;
+    let message;
 
-    if (req.params.status) {
-      const { status } = req.params;
+    const { postId } = req;
+    const {
+      latitude, longitude, comment, status,
+    } = req.body;
+
+    if (status) {
       const query = `
       UPDATE incidents SET status = $1 WHERE id = $2 RETURNING id`;
 
       return pool.query(query, [status, postId], (err, dbRes) => {
         res.status(201).json({
           status: 201,
-          messgae: 'Record has been successfully changed',
+          message: 'Record has been successfully changed',
         });
       });
     }
-    const { latitude, longitude, comment } = req.body;
-    let message;
 
     if (comment) {
+      const { id } = req.user;
       const query = `
       UPDATE incidents SET comment = $1 WHERE id = $2 AND createdby = $3 RETURNING id`;
       return pool.query(query, [comment, postId, id], (err, dbRes) => {
@@ -128,6 +136,7 @@ class IncidentController {
     }
 
     if (latitude && longitude) {
+      const { id } = req.user;
       const query = `
       UPDATE incidents SET latitude = $1, longitude = $2 WHERE id = $3 AND createdby = $4 RETURNING id`;
       return pool.query(query, [latitude, longitude, postId, id], (err, dbRes) => {
@@ -151,12 +160,10 @@ class IncidentController {
     const { postId } = req;
     const query = 'DELETE FROM incidents WHERE id = $1';
 
-    return pool.query(query, [postId], (err, dbRes) => {
-      return res.status(200).json({
-        status: 200,
-        data: [{ id: postId, message: 'red-flag record has been deleted' }],
-      });
-    });
+    return pool.query(query, [postId], (err, dbRes) => res.status(200).json({
+      status: 200,
+      data: [{ id: postId, message: 'red-flag record has been deleted' }],
+    }));
   }
 }
 
