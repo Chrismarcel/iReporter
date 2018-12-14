@@ -39,7 +39,8 @@ select {
 
 input,
 select,
-textarea {
+textarea,
+button {
   height: 45px;
   text-align: left;
   border: 2px solid #0facf3;
@@ -47,6 +48,7 @@ textarea {
   margin-bottom: 20px;
   padding: 0 10px;
   background: transparent;
+  outline: none;
 }
 
 input[type="file"] {
