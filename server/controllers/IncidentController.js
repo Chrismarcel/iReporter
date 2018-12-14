@@ -118,6 +118,7 @@ class IncidentController {
         res.status(201).json({
           status: 201,
           message: 'Record has been successfully changed',
+          incidentStatus: status,
         });
       });
     }
@@ -130,7 +131,7 @@ class IncidentController {
         message = 'Red-flag record comment has been updated succesfully';
         return res.status(200).json({
           status: 200,
-          data: [{ id: dbRes.rows[0].id, message }],
+          data: [{ id: postId, message, comment }],
         });
       });
     }
@@ -143,7 +144,7 @@ class IncidentController {
         message = "Updated red-flag record's location";
         return res.status(200).json({
           status: 200,
-          data: [{ id: dbRes.rows[0].id, message }],
+          data: [{ id: postId, message, location: `${latitude}, ${longitude}` }],
         });
       });
     }

@@ -1,5 +1,4 @@
 import HelperUtils from '../utils/HelperUtils';
-import postDb from '../models/posts';
 import pool from '../models/dbconnection';
 
 /**

@@ -376,12 +376,6 @@ describe('PATCH red-flag requests', () => {
         expect(res.body.status).to.be.equal(200);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('status');
-        expect(res.body.data).to.eql([
-          {
-            id: 1,
-            message: "Updated red-flag record's location",
-          },
-        ]);
         expect(res.body.data[0].id).to.be.equal(1);
         done(err);
       });
@@ -498,12 +492,6 @@ describe('PATCH red-flag requests', () => {
         expect(res.body.status).to.be.equal(200);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('status');
-        expect(res.body.data).to.eql([
-          {
-            id: 1,
-            message: 'Red-flag record comment has been updated succesfully',
-          },
-        ]);
         expect(res.body.data[0].id).to.be.equal(1);
         done(err);
       });
