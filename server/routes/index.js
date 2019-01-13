@@ -14,58 +14,68 @@ router.get('/', (req, res) => {
 
 // Handle POST requests
 router.post(
-  '/:type',
+  '/:incidentType',
   ValidateIncident.validateIncidentType,
   ValidateIncident.validateCoordinates,
   ValidateIncident.validateComment,
-  AuthenticateUser.verifyToken,
-  IncidentController.postRecord,
+  AuthenticateUser.verifyUser,
+  IncidentController.createIncident,
 );
 router.post(
   '/auth/register',
   ValidateUser.validateLoginDetails,
   ValidateUser.validateProfileDetails,
-  AuthenticateUser.generateToken,
+  ValidateUser.validateExistingUser,
   UserController.registerUser,
 );
 router.post(
   '/auth/login',
   ValidateUser.validateLoginDetails,
-  AuthenticateUser.generateToken,
   UserController.loginUser,
 );
 
 // Handle all GET requests
-router.get('/:type', AuthenticateUser.verifyToken, IncidentController.getRecords);
 router.get(
-  '/:type/:id',
-  AuthenticateUser.verifyToken,
+  '/:incidentType',
+  AuthenticateUser.verifyUser,
+  IncidentController.getAllIncidents,
+);
+router.get(
+  '/:incidentType/:id',
+  AuthenticateUser.verifyUser,
   ValidateIncident.validateIncidentId,
-  IncidentController.getARecord,
+  IncidentController.getAnIncident,
 );
 
 // Handle all PATCH requests
 router.patch(
-  '/:type/:id/location',
-  AuthenticateUser.verifyToken,
+  '/:incidentType/:id/location',
+  AuthenticateUser.verifyUser,
   ValidateIncident.validateIncidentId,
   ValidateIncident.validateCoordinates,
-  IncidentController.updateReport,
+  IncidentController.updateIncident,
 );
 router.patch(
-  '/:type/:id/comment',
-  AuthenticateUser.verifyToken,
+  '/:incidentType/:id/comment',
+  AuthenticateUser.verifyUser,
   ValidateIncident.validateIncidentId,
   ValidateIncident.validateComment,
-  IncidentController.updateReport,
+  IncidentController.updateIncident,
+);
+router.patch(
+  '/:incidentType/:id/status',
+  AuthenticateUser.verifyAdmin,
+  ValidateIncident.validateIncidentId,
+  ValidateIncident.validateIncidentType,
+  IncidentController.updateIncident,
 );
 
 // Handle Delete requests
 router.delete(
-  '/:type/:id',
-  AuthenticateUser.verifyToken,
+  '/:incidentType/:id',
+  AuthenticateUser.verifyUser,
   ValidateIncident.validateIncidentId,
-  IncidentController.deleteRecord,
+  IncidentController.deleteIncident,
 );
 
 export default router;

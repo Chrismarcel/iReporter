@@ -1,5 +1,5 @@
 import HelperUtils from '../utils/HelperUtils';
-import userDb from '../models/users';
+import pool from '../models/dbconnection';
 
 /**
  * @class ValidateUser
@@ -17,19 +17,19 @@ class ValidateUser {
   static validateProfileDetails(req, res, next) {
     const validate = HelperUtils.validate();
     const {
-      firstname, lastname, othername, phonenumber, username,
+      firstname, lastname, othernames, phonenumber, username,
     } = req.body;
-    let error = '';
+    let error;
 
-    if (!firstname || !validate.name.test(firstname)) {
+    if (!validate.name.test(firstname)) {
       error = 'You need to include a valid first name';
-    } else if (!lastname || !validate.name.test(lastname)) {
+    } else if (!validate.name.test(lastname)) {
       error = 'You need to include a valid last name';
-    } else if (!phonenumber || !validate.phonenumber.test(phonenumber)) {
+    } else if (!validate.phonenumber.test(phonenumber)) {
       error = 'You need to include a valid phone number';
     } else if (!username || !validate.username.test(username)) {
       error = 'You need to include a valid username';
-    } else if (othername && !validate.name.test(othername)) {
+    } else if (othernames && !validate.name.test(othernames)) {
       error = 'The other name you provided is invalid';
     }
 
@@ -50,12 +50,13 @@ class ValidateUser {
   static validateLoginDetails(req, res, next) {
     const validate = HelperUtils.validate();
     const { email, password } = req.body;
-    let error = '';
+    const path = req.url.trim().split('/')[2];
+    let error;
     let status;
 
-    const userId = userDb.findIndex(user => user.email === email);
+    const query = 'SELECT id, email, password, firstname, lastname, registered, othernames, username, phonenumber, isadmin FROM users WHERE email = $1';
 
-    if (!email || !validate.email.test(email)) {
+    if (!validate.email.test(email)) {
       error = 'The email you provided is invalid';
     } else if (!password) {
       error = 'You need to provide a password';
@@ -65,16 +66,69 @@ class ValidateUser {
 
     if (error) {
       status = 400;
-    } else if (userId === -1) {
-      status = 404;
-      error = 'Sorry, such account does not exist';
-    }
-
-    if (status >= 400) {
       return res.status(status).json({ status, error });
     }
 
+    if (path === 'login') {
+      return pool.query(query, [email], (err, dbRes) => {
+        if (dbRes.rowCount < 1) {
+          return res.status(404).json({
+            status: 404,
+            error: 'Sorry, the email account you provided does not exist',
+          });
+        }
+
+        const hashedPassword = dbRes.rows[0].password;
+        const verifyPassword = HelperUtils.verifyPassword(`${password}`, hashedPassword);
+        if (!verifyPassword) {
+          error = 'Sorry, the password for the given email is incorrect';
+          status = 401;
+        }
+        if (error) {
+          return res.status(status).json({ status, error });
+        }
+
+        const userReq = dbRes.rows[0];
+        req.user = {
+          id: userReq.id,
+          email: userReq.email,
+          isadmin: userReq.isadmin,
+          firstname: userReq.firstname,
+          lastname: userReq.firstname,
+          phonenumber: userReq.phonenumber,
+          username: userReq.username,
+          createdon: userReq.registered,
+        };
+        return next();
+      });
+    }
+
     return next();
+  }
+
+  static validateExistingUser(req, res, next) {
+    const { email, username, phonenumber } = req.body;
+
+    const query = `SELECT email, 
+                    username, 
+                    phonenumber 
+                    FROM 
+                    users 
+                    WHERE email = $1 
+                    OR username = $2 
+                    OR phonenumber = $3`;
+
+    pool.query(query, [email, username, phonenumber], (err, dbRes) => {
+      if (dbRes.rowCount >= 1) {
+        const rows = dbRes.rows[0];
+        const errorMsg = Object.keys(rows).join(' or ');
+        return res.status(409).json({
+          status: 409,
+          error: `A user with the given ${errorMsg} already exists`,
+        });
+      }
+      return next();
+    });
   }
 }
 

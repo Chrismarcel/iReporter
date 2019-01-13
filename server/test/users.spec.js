@@ -14,7 +14,7 @@ describe('POST Sign Up Authentication', () => {
       .send({
         firstname: 'Marcel',
         lastname: 'James',
-        othername: '',
+        othernames: '',
         email: 'senisulyman@gmail.com',
         phonenumber: '07038589706',
         username: 'MarcelJames',
@@ -29,6 +29,28 @@ describe('POST Sign Up Authentication', () => {
       });
   });
 
+  it('should return an error if a user with email/phonenumber/username already exists', (done) => {
+    chai
+      .request(app)
+      .post('/api/v1/auth/register')
+      .send({
+        firstname: 'Chris',
+        lastname: 'James',
+        othernames: '',
+        email: 'senisulyman@gmail.com',
+        phonenumber: '07038589706',
+        username: 'MarcelJames',
+        password: '12345678',
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(409);
+        expect(res.body.status).to.be.equal(409);
+        expect(res.body.error).to.equal('A user with the given email or username or phonenumber already exists');
+        expect(res.body).to.be.an('object');
+        done(err);
+      });
+  });
+
   it('should return an error when user tries signing up with empty first name', (done) => {
     chai
       .request(app)
@@ -36,7 +58,7 @@ describe('POST Sign Up Authentication', () => {
       .send({
         firstname: '',
         lastname: 'Sulyman',
-        othername: '',
+        othernames: '',
         email: 'senisulyman@gmail.com',
         phonenumber: '07038890874',
         username: 'SeniSulyman',
@@ -58,7 +80,7 @@ describe('POST Sign Up Authentication', () => {
       .send({
         firstname: 'Seni',
         lastname: '',
-        othername: '',
+        othernames: '',
         email: 'senisulyman@gmail.com',
         phonenumber: '07038890874',
         username: 'SeniSulyman',
@@ -80,7 +102,7 @@ describe('POST Sign Up Authentication', () => {
       .send({
         firstname: 'Seni',
         lastname: 'Sulyman',
-        othername: '',
+        othernames: '',
         email: '',
         phonenumber: '07038890874',
         username: 'SeniSulyman',
@@ -102,7 +124,7 @@ describe('POST Sign Up Authentication', () => {
       .send({
         firstname: 'Seni',
         lastname: 'Sulyman',
-        othername: '',
+        othernames: '',
         email: 'senisulyman@gmail.com',
         phonenumber: '',
         username: 'SeniSulyman',
@@ -124,7 +146,7 @@ describe('POST Sign Up Authentication', () => {
       .send({
         firstname: 'Seni',
         lastname: 'Sulyman',
-        othername: '',
+        othernames: '',
         email: 'senisulyman@gmail.com',
         phonenumber: '07038890874',
         username: '',
@@ -146,7 +168,7 @@ describe('POST Sign Up Authentication', () => {
       .send({
         firstname: 'Seni',
         lastname: 'Sulyman',
-        othername: '',
+        othernames: '',
         email: 'senisulyman@gmail.com',
         phonenumber: '07038890874',
         username: 'SeniSulyman',
@@ -168,7 +190,7 @@ describe('POST Sign Up Authentication', () => {
       .send({
         firstname: 'Seni',
         lastname: 'Sulyman',
-        othername: '',
+        othernames: '',
         email: 'senisulyman@gmail.com',
         phonenumber: '07038890874',
         username: 'SeniSulyman',
@@ -190,7 +212,7 @@ describe('POST Sign Up Authentication', () => {
       .send({
         firstname: 'Seni#$2352',
         lastname: 'Sulyman',
-        othername: '',
+        othernames: '',
         email: 'senisulyman@gmail.com',
         phonenumber: '07038890874',
         username: 'SeniSulyman',
@@ -212,7 +234,7 @@ describe('POST Sign Up Authentication', () => {
       .send({
         firstname: 'Seni',
         lastname: 'Suly123di45./man',
-        othername: '',
+        othernames: '',
         email: 'senisulyman@gmail.com',
         phonenumber: '07038890874',
         username: 'SeniSulyman',
@@ -234,7 +256,7 @@ describe('POST Sign Up Authentication', () => {
       .send({
         firstname: 'Seni',
         lastname: 'Sulyman',
-        othername: '123etuyie45',
+        othernames: '123etuyie45',
         email: 'senisulyman@gmail.com',
         phonenumber: '07038890874',
         username: 'SeniSulyman',
@@ -256,7 +278,7 @@ describe('POST Sign Up Authentication', () => {
       .send({
         firstname: 'Seni',
         lastname: 'Sulyman',
-        othername: '',
+        othernames: '',
         email: 'senisulyman1#$^gmail',
         phonenumber: '07038890874',
         username: 'SeniSulyman',
@@ -278,7 +300,7 @@ describe('POST Sign Up Authentication', () => {
       .send({
         firstname: 'Seni',
         lastname: 'Sulyman',
-        othername: '',
+        othernames: '',
         email: 'senisulyman@gmail.com',
         phonenumber: '07038s$5%890874',
         username: 'SeniSulyman',
@@ -300,7 +322,7 @@ describe('POST Sign Up Authentication', () => {
       .send({
         firstname: 'Seni',
         lastname: 'Sulyman',
-        othername: '',
+        othernames: '',
         email: 'senisulyman@gmail.com',
         phonenumber: '07038890874',
         username: 'SeniSu*()^&#lyman',
@@ -317,11 +339,11 @@ describe('POST Sign Up Authentication', () => {
 });
 
 describe('POST Login Authentication', () => {
-  it('should log user in when details are correct', (done) => {
+  it('should log user in if details are correct', (done) => {
     chai
       .request(app)
       .post('/api/v1/auth/login')
-      .send({ email: 'senisulyman@gmail.com', password: '#123456#' })
+      .send({ email: 'demouser@email.com', password: '12345678' })
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body.status).to.be.equal(200);
@@ -382,7 +404,7 @@ describe('POST Login Authentication', () => {
         expect(res).to.have.status(404);
         expect(res.body.status).to.be.equal(404);
         expect(res.body).to.be.an('object');
-        expect(res.body.error).to.be.equal('Sorry, such account does not exist');
+        expect(res.body.error).to.be.equal('Sorry, the email account you provided does not exist');
         done(err);
       });
   });
