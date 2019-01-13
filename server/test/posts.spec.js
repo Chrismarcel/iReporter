@@ -91,50 +91,6 @@ describe('POST red-flags requests', () => {
       });
   });
 
-  it('should return an error if record type is empty', (done) => {
-    chai
-      .request(app)
-      .post('/api/v1/red-flags')
-      .set('authorization', `Bearer ${currentToken}`)
-      .send({
-        type: '',
-        latitude: '6.5951139',
-        longitude: '3.3429975',
-        comment: 'Extortion at the embassy',
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(400);
-        expect(res.body.status).to.equal(400);
-        expect(res.body).to.be.an('object');
-        expect(res.body.error).to.equal(
-          'A record type of either red-flag or intervention must be specified',
-        );
-        done(err);
-      });
-  });
-
-  it('should return an error if record type is not red-flag or intervention', (done) => {
-    chai
-      .request(app)
-      .post('/api/v1/red-flags')
-      .set('authorization', `Bearer ${currentToken}`)
-      .send({
-        type: 'gyhyr',
-        latitude: '6.5951139',
-        longitude: '3.3429975',
-        comment: 'Extortion at the embassy',
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(400);
-        expect(res.body.status).to.equal(400);
-        expect(res.body).to.be.an('object');
-        expect(res.body.error).to.equal(
-          'A valid record type of either red-flag or intervention must be specified',
-        );
-        done(err);
-      });
-  });
-
   it('should return an error if latitude is empty', (done) => {
     chai
       .request(app)
@@ -420,12 +376,6 @@ describe('PATCH red-flag requests', () => {
         expect(res.body.status).to.be.equal(200);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('status');
-        expect(res.body.data).to.eql([
-          {
-            id: 1,
-            message: "Updated red-flag record's location",
-          },
-        ]);
         expect(res.body.data[0].id).to.be.equal(1);
         done(err);
       });
@@ -542,12 +492,6 @@ describe('PATCH red-flag requests', () => {
         expect(res.body.status).to.be.equal(200);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('status');
-        expect(res.body.data).to.eql([
-          {
-            id: 1,
-            message: 'Red-flag record comment has been updated succesfully',
-          },
-        ]);
         expect(res.body.data[0].id).to.be.equal(1);
         done(err);
       });

@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 
 // Handle POST requests
 router.post(
-  '/:type',
+  '/:incidentType',
   ValidateIncident.validateIncidentType,
   ValidateIncident.validateCoordinates,
   ValidateIncident.validateComment,
@@ -36,12 +36,12 @@ router.post(
 
 // Handle all GET requests
 router.get(
-  '/:type',
+  '/:incidentType',
   AuthenticateUser.verifyUser,
   IncidentController.getAllIncidents,
 );
 router.get(
-  '/:type/:id',
+  '/:incidentType/:id',
   AuthenticateUser.verifyUser,
   ValidateIncident.validateIncidentId,
   IncidentController.getAnIncident,
@@ -49,21 +49,21 @@ router.get(
 
 // Handle all PATCH requests
 router.patch(
-  '/:type/:id/location',
+  '/:incidentType/:id/location',
   AuthenticateUser.verifyUser,
   ValidateIncident.validateIncidentId,
   ValidateIncident.validateCoordinates,
   IncidentController.updateIncident,
 );
 router.patch(
-  '/:type/:id/comment',
+  '/:incidentType/:id/comment',
   AuthenticateUser.verifyUser,
   ValidateIncident.validateIncidentId,
   ValidateIncident.validateComment,
   IncidentController.updateIncident,
 );
 router.patch(
-  '/:type/:id/status',
+  '/:incidentType/:id/status',
   AuthenticateUser.verifyAdmin,
   ValidateIncident.validateIncidentId,
   ValidateIncident.validateIncidentType,
@@ -72,7 +72,7 @@ router.patch(
 
 // Handle Delete requests
 router.delete(
-  '/:type/:id',
+  '/:incidentType/:id',
   AuthenticateUser.verifyUser,
   ValidateIncident.validateIncidentId,
   IncidentController.deleteIncident,

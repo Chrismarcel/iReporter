@@ -35,6 +35,11 @@ class AuthenticateUser {
    * @returns {object} - JSON response object
    */
   static verifyUser(req, res, next) {
+    const incidentTypes = ['red-flags', 'interventions'];
+
+    if (!incidentTypes.includes(req.params.incidentType)) {
+      return res.status(404).json({ status: 404, error: 'Such endpoint does not exist' });
+    }
     const payload = AuthenticateUser.verifyAuthHeader(req);
     let error;
     let status;
@@ -63,14 +68,23 @@ class AuthenticateUser {
    * @returns {object} - JSON response object
    */
   static verifyAdmin(req, res, next) {
+    const incidentTypes = ['red-flags', 'interventions'];
+    const status = ['drafted', 'investigating', 'resolved', 'rejected'];
     const payload = AuthenticateUser.verifyAuthHeader(req);
-    const { isAdmin } = payload;
+    const { isadmin } = payload;
 
-    if (!isAdmin) {
+    if (!isadmin) {
       return res.status(401).json({
         status: 401,
         error: 'You are not authorized to access this endpoint.',
       });
+    }
+
+    if (!incidentTypes.includes(req.params.incidentType)) {
+      return res.status(404).json({ status: 404, error: 'Such endpoint does not exist' });
+    }
+    if (!status.includes(req.body.status)) {
+      return res.status(401).json({ status: 401, error: 'You are trying to update an unknown status' });
     }
 
     return next();

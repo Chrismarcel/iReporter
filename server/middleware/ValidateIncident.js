@@ -1,5 +1,4 @@
 import HelperUtils from '../utils/HelperUtils';
-import postDb from '../models/posts';
 import pool from '../models/dbconnection';
 
 /**
@@ -100,20 +99,8 @@ class ValidateIncident {
   static validateIncidentType(req, res, next) {
     const incidentTypes = ['red-flags', 'interventions'];
 
-    if (!incidentTypes.includes(req.params.type)) {
+    if (!incidentTypes.includes(req.params.incidentType)) {
       return res.status(404).json({ status: 404, error: 'Such endpoint does not exist' });
-    }
-    let error = '';
-    const { type } = req.body;
-
-    if (!type) {
-      error = 'A record type of either red-flag or intervention must be specified';
-    } else if (type !== 'red-flag' && type !== 'intervention') {
-      error = 'A valid record type of either red-flag or intervention must be specified';
-    }
-
-    if (error) {
-      return res.status(400).json({ status: 400, error });
     }
 
     return next();
