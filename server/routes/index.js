@@ -37,11 +37,13 @@ router.post(
 // Handle all GET requests
 router.get(
   '/:incidentType',
+  ValidateIncident.validateIncidentType,
   AuthenticateUser.verifyUser,
   IncidentController.getAllIncidents,
 );
 router.get(
   '/:incidentType/:id',
+  ValidateIncident.validateIncidentType,
   AuthenticateUser.verifyUser,
   ValidateIncident.validateIncidentId,
   IncidentController.getAnIncident,
@@ -50,6 +52,7 @@ router.get(
 // Handle all PATCH requests
 router.patch(
   '/:incidentType/:id/location',
+  ValidateIncident.validateIncidentType,
   AuthenticateUser.verifyUser,
   ValidateIncident.validateIncidentId,
   ValidateIncident.validateCoordinates,
@@ -57,6 +60,7 @@ router.patch(
 );
 router.patch(
   '/:incidentType/:id/comment',
+  ValidateIncident.validateIncidentType,
   AuthenticateUser.verifyUser,
   ValidateIncident.validateIncidentId,
   ValidateIncident.validateComment,
@@ -64,6 +68,7 @@ router.patch(
 );
 router.patch(
   '/:incidentType/:id/status',
+  ValidateIncident.validateIncidentType,
   AuthenticateUser.verifyAdmin,
   ValidateIncident.validateIncidentId,
   ValidateIncident.validateIncidentType,
@@ -73,6 +78,7 @@ router.patch(
 // Handle Delete requests
 router.delete(
   '/:incidentType/:id',
+  ValidateIncident.validateIncidentType,
   AuthenticateUser.verifyUser,
   ValidateIncident.validateIncidentId,
   IncidentController.deleteIncident,

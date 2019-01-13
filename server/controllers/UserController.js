@@ -26,17 +26,34 @@ class UserController {
     const values = [firstname, lastname, othernames, email, phonenumber, hashedPassword, username];
 
     pool.query(query, values, (err, dbRes) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).json({ status: 500, error: 'Something went wrong with the database.' });
-      }
       const rows = dbRes.rows[0];
       const id = rows.id;
       const email = rows.email;
       const isadmin = rows.isadmin;
+      const username = rows.username;
+      const firstname = rows.firstname;
+      const lastname = rows.lastname;
+      const othernames = rows.othernames;
+      const phonenumber = rows.phonenumber;
 
       const token = HelperUtils.generateToken({ id, email, isadmin });
-      return res.status(201).json({ status: 201, data: [{ message: 'Registration Successful!', token }] });
+      return res.status(201).json({
+        status: 201,
+        data: [{
+          message: 'Registration Successful!',
+          token,
+          user: {
+            id,
+            email,
+            firstname,
+            lastname,
+            username,
+            othernames,
+            phonenumber,
+            isadmin,
+          },
+        }],
+      });
     });
   }
 
@@ -49,10 +66,22 @@ class UserController {
    */
   static loginUser(req, res) {
     const token = HelperUtils.generateToken(req.user);
-
+    console.log(req.user);
     res.status(200).json({
       status: 200,
-      data: [{ message: 'Login Successful!', token }],
+      data: [{
+        message: 'Login Successful!',
+        token,
+        user: {
+          id: req.user.id,
+          email: req.user.email,
+          firstname: req.user.firstname,
+          lastname: req.user.lastname,
+          username: req.user.username,
+          phonenumber: req.user.phonenumber,
+          isadmin: req.user.isadmin,
+        },
+      }],
     });
   }
 }

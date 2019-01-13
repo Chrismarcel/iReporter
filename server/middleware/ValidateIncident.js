@@ -1,5 +1,4 @@
 import HelperUtils from '../utils/HelperUtils';
-import postDb from '../models/posts';
 import pool from '../models/dbconnection';
 
 /**
@@ -101,7 +100,7 @@ class ValidateIncident {
     const incidentTypes = ['red-flags', 'interventions'];
 
     if (!incidentTypes.includes(req.params.incidentType)) {
-      return res.status(404).json({ status: 404, error: 'Such endpoint does not exist' });
+      return res.status(404).json({ status: 404, error: 'Sorry, such endpoint does not exist' });
     }
 
     return next();

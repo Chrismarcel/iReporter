@@ -35,11 +35,6 @@ class AuthenticateUser {
    * @returns {object} - JSON response object
    */
   static verifyUser(req, res, next) {
-    const incidentTypes = ['red-flags', 'interventions'];
-
-    if (!incidentTypes.includes(req.params.incidentType)) {
-      return res.status(404).json({ status: 404, error: 'Such endpoint does not exist' });
-    }
     const payload = AuthenticateUser.verifyAuthHeader(req);
     let error;
     let status;
@@ -68,19 +63,11 @@ class AuthenticateUser {
    * @returns {object} - JSON response object
    */
   static verifyAdmin(req, res, next) {
-    const incidentTypes = ['red-flags', 'interventions'];
-    const status = ['drafted', 'investigating', 'resolved', 'rejected'];
-
-    if (!incidentTypes.includes(req.params.incidentType)) {
-      return res.status(404).json({ status: 404, error: 'Such endpoint does not exist' });
-    }
-    if (!status.includes(req.body.status)) {
-      return res.status(401).json({ status: 401, error: 'You are trying to update an unknown status' });
-    }
     const payload = AuthenticateUser.verifyAuthHeader(req);
     const { isadmin } = payload;
-
+    console.log(payload);
     if (isadmin === 'false') {
+      console.log('You are not an admin');
       return res.status(401).json({
         status: 401,
         error: 'You are not authorized to access this endpoint.',

@@ -54,7 +54,7 @@ class ValidateUser {
     let error;
     let status;
 
-    const query = 'SELECT id, email, password, isadmin FROM users WHERE email = $1';
+    const query = 'SELECT id, email, password, firstname, lastname, registered, othernames, username, phonenumber, isadmin FROM users WHERE email = $1';
 
     if (!validate.email.test(email)) {
       error = 'The email you provided is invalid';
@@ -81,7 +81,7 @@ class ValidateUser {
         const hashedPassword = dbRes.rows[0].password;
         const verifyPassword = HelperUtils.verifyPassword(`${password}`, hashedPassword);
         if (!verifyPassword) {
-          error = 'Sorry, the password for the given email is incorrect';
+          error = 'Sorry, the provided email/password is incorrect';
           status = 401;
         }
         if (error) {
@@ -89,7 +89,16 @@ class ValidateUser {
         }
 
         const userReq = dbRes.rows[0];
-        req.user = { id: userReq.id, email: userReq.email, isadmin: userReq.isadmin };
+        req.user = {
+          id: userReq.id,
+          email: userReq.email,
+          isadmin: userReq.isadmin,
+          firstname: userReq.firstname,
+          lastname: userReq.firstname,
+          phonenumber: userReq.phonenumber,
+          username: userReq.username,
+          createdon: userReq.registered,
+        };
         return next();
       });
     }

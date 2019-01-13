@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
 app.all('*', (req, res) => {
   res
     .status(404)
-    .json({ message: 'Wrong endpoint. Such endpoint does not exist' });
+    .json({ message: 'Sorry, such endpoint does not exist' });
 });
 
 app.listen(PORT);
