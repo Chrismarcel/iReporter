@@ -81,7 +81,7 @@ class ValidateUser {
         const hashedPassword = dbRes.rows[0].password;
         const verifyPassword = HelperUtils.verifyPassword(`${password}`, hashedPassword);
         if (!verifyPassword) {
-          error = 'Sorry, the password for the given email is incorrect';
+          error = 'Sorry, the provided email/password is incorrect';
           status = 401;
         }
         if (error) {
