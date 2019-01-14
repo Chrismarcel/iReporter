@@ -40,12 +40,12 @@ select {
 input,
 select,
 textarea,
-button {
+button
+ {
   height: 45px;
   text-align: left;
   border: 2px solid #0facf3;
   border-radius: 4px;
-  margin-bottom: 20px;
   padding: 0 10px;
   background: transparent;
   outline: none;
@@ -65,11 +65,15 @@ button {
 }
 
 .btn {
-  padding: 12px 25px;
+  height: 45px;
   border-radius: 4px;
   display: inline-block;
   min-width: 110px;
   text-align: center;
+}
+
+a.btn {
+  line-height: 45px;
 }
 
 .btn-hollow {
@@ -80,6 +84,7 @@ button {
 .btn-warning {
   color: #fffffa;
   background: #ef271b;
+  border: 2px solid #ef271b;
 }
 
 .btn-primary {
