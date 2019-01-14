@@ -549,11 +549,13 @@ p.stat-value {
   padding: 20px;
   background: #0facf3;
   opacity: 0;
+  z-index: -1;
 }
 
 .toast-show {
   opacity: 1;
   transition: opacity 0.5s ease-in-out;
+  z-index: 1000;
 }
 
 .toast-message {
