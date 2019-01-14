@@ -73,7 +73,7 @@ button {
 }
 
 a.btn {
-  line-height: 45px;
+  padding: 12px 25px
 }
 
 .btn-hollow {
@@ -263,6 +263,11 @@ main {
   display: flex;
   width: 26%;
   justify-content: space-between;
+}
+
+.hero-cta .btn {
+  height: 49px;
+  line-height: 20px;
 }
 
 /* Homepage Sections */
