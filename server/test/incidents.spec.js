@@ -1,12 +1,12 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../app';
-import postDb from '../models/posts';
 
 chai.use(chaiHttp);
 const { expect } = chai;
 
-let currentToken;
+let userToken;
+let adminToken;
 
 describe('POST red-flags requests', () => {
   before((done) => {
@@ -15,7 +15,7 @@ describe('POST red-flags requests', () => {
       .post('/api/v1/auth/login')
       .send({ email: 'demouser@email.com', password: 12345678 })
       .end((err, res) => {
-        currentToken = res.body.data[0].token;
+        userToken = res.body.data[0].token;
         done(err);
       });
   });
@@ -30,12 +30,11 @@ describe('POST red-flags requests', () => {
     chai
       .request(app)
       .post('/api/v1/red-flags')
-      .set('authorization', `Bearer ${currentToken}`)
+      .set('authorization', `Bearer ${userToken}`)
       .send(incident)
       .end((err, res) => {
         expect(res).to.have.status(201);
         expect(res.body.status).to.be.equal(201);
-        expect(res.body).to.be.an('object');
         expect(res.body.data).to.deep.equal([
           {
             id: res.body.data[0].id,
@@ -61,7 +60,6 @@ describe('POST red-flags requests', () => {
       .end((err, res) => {
         expect(res).to.have.status(401);
         expect(res.body.status).to.be.equal(401);
-        expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal(
           'No authorization header was specified',
         );
@@ -83,7 +81,6 @@ describe('POST red-flags requests', () => {
       .end((err, res) => {
         expect(res).to.have.status(401);
         expect(res.body.status).to.be.equal(401);
-        expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal(
           'The provided token cannot be authenticated.',
         );
@@ -95,7 +92,7 @@ describe('POST red-flags requests', () => {
     chai
       .request(app)
       .post('/api/v1/red-flags')
-      .set('authorization', `Bearer ${currentToken}`)
+      .set('authorization', `Bearer ${userToken}`)
       .send({
         type: 'red-flag',
         latitude: '',
@@ -105,7 +102,6 @@ describe('POST red-flags requests', () => {
       .end((err, res) => {
         expect(res).to.have.status(400);
         expect(res.body.status).to.equal(400);
-        expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal(
           'Latitude of the incident location must be specified',
         );
@@ -117,7 +113,7 @@ describe('POST red-flags requests', () => {
     chai
       .request(app)
       .post('/api/v1/red-flags')
-      .set('authorization', `Bearer ${currentToken}`)
+      .set('authorization', `Bearer ${userToken}`)
       .send({
         type: 'red-flag',
         latitude: 'ghyshh',
@@ -127,7 +123,6 @@ describe('POST red-flags requests', () => {
       .end((err, res) => {
         expect(res).to.have.status(400);
         expect(res.body.status).to.equal(400);
-        expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal('Latitude must be in a valid format');
         done(err);
       });
@@ -137,7 +132,7 @@ describe('POST red-flags requests', () => {
     chai
       .request(app)
       .post('/api/v1/red-flags')
-      .set('authorization', `Bearer ${currentToken}`)
+      .set('authorization', `Bearer ${userToken}`)
       .send({
         type: 'red-flag',
         latitude: '6.5951139',
@@ -147,7 +142,6 @@ describe('POST red-flags requests', () => {
       .end((err, res) => {
         expect(res).to.have.status(400);
         expect(res.body.status).to.equal(400);
-        expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal(
           'Longitude of the incident location must be specified',
         );
@@ -159,7 +153,7 @@ describe('POST red-flags requests', () => {
     chai
       .request(app)
       .post('/api/v1/red-flags')
-      .set('authorization', `Bearer ${currentToken}`)
+      .set('authorization', `Bearer ${userToken}`)
       .send({
         type: 'red-flag',
         latitude: '6.5951139',
@@ -169,7 +163,6 @@ describe('POST red-flags requests', () => {
       .end((err, res) => {
         expect(res).to.have.status(400);
         expect(res.body.status).to.equal(400);
-        expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal('Longitude must be in a valid format');
         done(err);
       });
@@ -179,7 +172,7 @@ describe('POST red-flags requests', () => {
     chai
       .request(app)
       .post('/api/v1/red-flags')
-      .set('authorization', `Bearer ${currentToken}`)
+      .set('authorization', `Bearer ${userToken}`)
       .send({
         type: 'red-flag',
         latitude: '6.5951139',
@@ -189,7 +182,6 @@ describe('POST red-flags requests', () => {
       .end((err, res) => {
         expect(res).to.have.status(400);
         expect(res.body.status).to.equal(400);
-        expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal(
           'Your comment/narration should be from 20 characters above',
         );
@@ -201,7 +193,7 @@ describe('POST red-flags requests', () => {
     chai
       .request(app)
       .post('/api/v1/red-flags')
-      .set('authorization', `Bearer ${currentToken}`)
+      .set('authorization', `Bearer ${userToken}`)
       .send({
         type: 'red-flag',
         latitude: '6.5951139',
@@ -211,7 +203,6 @@ describe('POST red-flags requests', () => {
       .end((err, res) => {
         expect(res).to.have.status(400);
         expect(res.body.status).to.equal(400);
-        expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal(
           'A comment narrating the incident must be specified',
         );
@@ -227,7 +218,18 @@ describe('GET red-flag requests', () => {
       .post('/api/v1/auth/login')
       .send({ email: 'demouser@email.com', password: 12345678 })
       .end((err, res) => {
-        currentToken = res.body.data[0].token;
+        userToken = res.body.data[0].token;
+        done(err);
+      });
+  });
+
+  it('should return an error if incident type is wrong', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/sjoiois')
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        expect(res.body.error).to.be.equal('Sorry, such endpoint does not exist');
         done(err);
       });
   });
@@ -240,7 +242,6 @@ describe('GET red-flag requests', () => {
       .end((err, res) => {
         expect(res).to.have.status(401);
         expect(res.body.status).to.be.equal(401);
-        expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal(
           'No authorization header was specified',
         );
@@ -256,7 +257,6 @@ describe('GET red-flag requests', () => {
       .end((err, res) => {
         expect(res).to.have.status(401);
         expect(res.body.status).to.be.equal(401);
-        expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal(
           'The provided token cannot be authenticated.',
         );
@@ -268,11 +268,10 @@ describe('GET red-flag requests', () => {
     chai
       .request(app)
       .get('/api/v1/red-flags')
-      .set('authorization', `Bearer ${currentToken}`)
+      .set('authorization', `Bearer ${userToken}`)
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body.status).to.equal(200);
-        expect(res.body).to.be.an('object');
         done(err);
       });
   });
@@ -281,11 +280,10 @@ describe('GET red-flag requests', () => {
     chai
       .request(app)
       .get('/api/v1/red-flags/1')
-      .set('authorization', `Bearer ${currentToken}`)
+      .set('authorization', `Bearer ${userToken}`)
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body.status).to.equal(200);
-        expect(res.body).to.be.an('object');
         done(err);
       });
   });
@@ -294,11 +292,10 @@ describe('GET red-flag requests', () => {
     chai
       .request(app)
       .get('/api/v1/red-flags/10')
-      .set('authorization', `Bearer ${currentToken}`)
+      .set('authorization', `Bearer ${userToken}`)
       .end((err, res) => {
         expect(res).to.have.status(404);
         expect(res.body.status).to.equal(404);
-        expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal('Sorry, no record with such id exists');
         done(err);
       });
@@ -308,11 +305,10 @@ describe('GET red-flag requests', () => {
     chai
       .request(app)
       .get('/api/v1/red-flags/ty')
-      .set('authorization', `Bearer ${currentToken}`)
+      .set('authorization', `Bearer ${userToken}`)
       .end((err, res) => {
         expect(res).to.have.status(400);
         expect(res.body.status).to.equal(400);
-        expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal('The id parameter must be a number');
         done(err);
       });
@@ -320,14 +316,21 @@ describe('GET red-flag requests', () => {
 });
 
 describe('PATCH red-flag requests', () => {
-  before((done) => {
+  before(() => {
     chai
       .request(app)
       .post('/api/v1/auth/login')
       .send({ email: 'demouser@email.com', password: 12345678 })
       .end((err, res) => {
-        currentToken = res.body.data[0].token;
-        done(err);
+        userToken = res.body.data[0].token;
+      });
+
+    chai
+      .request(app)
+      .post('/api/v1/auth/login')
+      .send({ email: 'admindemo@email.com', password: 12345678 })
+      .end((err, res) => {
+        adminToken = res.body.data[0].token;
       });
   });
 
@@ -340,7 +343,6 @@ describe('PATCH red-flag requests', () => {
       .end((err, res) => {
         expect(res).to.have.status(401);
         expect(res.body.status).to.be.equal(401);
-        expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal(
           'No authorization header was specified',
         );
@@ -357,7 +359,6 @@ describe('PATCH red-flag requests', () => {
       .end((err, res) => {
         expect(res).to.have.status(401);
         expect(res.body.status).to.be.equal(401);
-        expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal(
           'The provided token cannot be authenticated.',
         );
@@ -369,12 +370,11 @@ describe('PATCH red-flag requests', () => {
     chai
       .request(app)
       .patch('/api/v1/red-flags/1/location')
-      .set('authorization', `Bearer ${currentToken}`)
+      .set('authorization', `Bearer ${userToken}`)
       .send({ latitude: '6.5922139', longitude: '3.3427375' })
       .end((err, res) => {
         expect(res).to.has.status(200);
         expect(res.body.status).to.be.equal(200);
-        expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('status');
         expect(res.body.data[0].id).to.be.equal(1);
         done(err);
@@ -385,12 +385,11 @@ describe('PATCH red-flag requests', () => {
     chai
       .request(app)
       .patch('/api/v1/red-flags/fghsys/location')
-      .set('authorization', `Bearer ${currentToken}`)
+      .set('authorization', `Bearer ${userToken}`)
       .send({ latitude: '6.5922139', longitude: '3.3427375' })
       .end((err, res) => {
         expect(res).to.has.status(400);
         expect(res.body.status).to.be.equal(400);
-        expect(res.body).to.be.an('object');
         expect(res.body.error).to.be.equal('The id parameter must be a number');
         done(err);
       });
@@ -400,12 +399,11 @@ describe('PATCH red-flag requests', () => {
     chai
       .request(app)
       .patch('/api/v1/red-flags/10/location')
-      .set('authorization', `Bearer ${currentToken}`)
+      .set('authorization', `Bearer ${userToken}`)
       .send({ latitude: '6.5922139', longitude: '3.3427375' })
       .end((err, res) => {
         expect(res).to.has.status(404);
         expect(res.body.status).to.be.equal(404);
-        expect(res.body).to.be.an('object');
         expect(res.body.error).to.be.equal(
           'Sorry, no record with such id exists',
         );
@@ -417,12 +415,11 @@ describe('PATCH red-flag requests', () => {
     chai
       .request(app)
       .patch('/api/v1/red-flags/1/location')
-      .set('authorization', `Bearer ${currentToken}`)
+      .set('authorization', `Bearer ${userToken}`)
       .send({ latitude: '6.5922139', longitude: '' })
       .end((err, res) => {
         expect(res).to.has.status(400);
         expect(res.body.status).to.be.equal(400);
-        expect(res.body).to.be.an('object');
         expect(res.body.error).to.be.equal(
           'Longitude of the incident location must be specified',
         );
@@ -434,12 +431,11 @@ describe('PATCH red-flag requests', () => {
     chai
       .request(app)
       .patch('/api/v1/red-flags/1/location')
-      .set('authorization', `Bearer ${currentToken}`)
+      .set('authorization', `Bearer ${userToken}`)
       .send({ latitude: '6.5922139', longitude: 'gt6wgw' })
       .end((err, res) => {
         expect(res).to.has.status(400);
         expect(res.body.status).to.be.equal(400);
-        expect(res.body).to.be.an('object');
         expect(res.body.error).to.be.equal(
           'Longitude must be in a valid format',
         );
@@ -451,12 +447,11 @@ describe('PATCH red-flag requests', () => {
     chai
       .request(app)
       .patch('/api/v1/red-flags/1/location')
-      .set('authorization', `Bearer ${currentToken}`)
+      .set('authorization', `Bearer ${userToken}`)
       .send({ latitude: '', longitude: '3.3427375' })
       .end((err, res) => {
         expect(res).to.has.status(400);
         expect(res.body.status).to.be.equal(400);
-        expect(res.body).to.be.an('object');
         expect(res.body.error).to.be.equal(
           'Latitude of the incident location must be specified',
         );
@@ -468,12 +463,11 @@ describe('PATCH red-flag requests', () => {
     chai
       .request(app)
       .patch('/api/v1/red-flags/1/location')
-      .set('authorization', `Bearer ${currentToken}`)
+      .set('authorization', `Bearer ${userToken}`)
       .send({ latitude: 'gushs', longitude: '3.3427375' })
       .end((err, res) => {
         expect(res).to.has.status(400);
         expect(res.body.status).to.be.equal(400);
-        expect(res.body).to.be.an('object');
         expect(res.body.error).to.be.equal(
           'Latitude must be in a valid format',
         );
@@ -485,12 +479,41 @@ describe('PATCH red-flag requests', () => {
     chai
       .request(app)
       .patch('/api/v1/red-flags/1/comment')
-      .set('authorization', `Bearer ${currentToken}`)
+      .set('authorization', `Bearer ${userToken}`)
       .send({ comment: 'Modifying the existing comment with a longer comment' })
       .end((err, res) => {
         expect(res).to.has.status(200);
         expect(res.body.status).to.be.equal(200);
-        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('status');
+        expect(res.body.data[0].id).to.be.equal(1);
+        done(err);
+      });
+  });
+
+  it('should return an error if a non-admin is trying to access the status route', (done) => {
+    chai
+      .request(app)
+      .patch('/api/v1/red-flags/1/status')
+      .set('authorization', `Bearer ${userToken}`)
+      .send({ status: 'rejected' })
+      .end((err, res) => {
+        expect(res).to.has.status(401);
+        expect(res.body.status).to.be.equal(401);
+        expect(res.body).to.have.property('status');
+        expect(res.body.error).to.be.equal('You are not authorized to access this endpoint.');
+        done(err);
+      });
+  });
+
+  it('should update the status of the red flag resource with the given id', (done) => {
+    chai
+      .request(app)
+      .patch('/api/v1/red-flags/1/status')
+      .set('authorization', `Bearer ${adminToken}`)
+      .send({ status: 'rejected' })
+      .end((err, res) => {
+        expect(res).to.has.status(200);
+        expect(res.body.status).to.be.equal(200);
         expect(res.body).to.have.property('status');
         expect(res.body.data[0].id).to.be.equal(1);
         done(err);
@@ -501,12 +524,11 @@ describe('PATCH red-flag requests', () => {
     chai
       .request(app)
       .patch('/api/v1/red-flags/1/comment')
-      .set('authorization', `Bearer ${currentToken}`)
+      .set('authorization', `Bearer ${userToken}`)
       .send({ comment: '' })
       .end((err, res) => {
         expect(res).to.have.status(400);
         expect(res.body.status).to.equal(400);
-        expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal(
           'A comment narrating the incident must be specified',
         );
@@ -518,12 +540,11 @@ describe('PATCH red-flag requests', () => {
     chai
       .request(app)
       .patch('/api/v1/red-flags/1/comment')
-      .set('authorization', `Bearer ${currentToken}`)
+      .set('authorization', `Bearer ${userToken}`)
       .send({ comment: 'A short comment' })
       .end((err, res) => {
         expect(res).to.have.status(400);
         expect(res.body.status).to.equal(400);
-        expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal(
           'Your comment/narration should be from 20 characters above',
         );
@@ -539,7 +560,7 @@ describe('DELETE red-flags request', () => {
       .post('/api/v1/auth/login')
       .send({ email: 'demouser@email.com', password: 12345678 })
       .end((err, res) => {
-        currentToken = res.body.data[0].token;
+        userToken = res.body.data[0].token;
         done(err);
       });
   });
@@ -553,7 +574,6 @@ describe('DELETE red-flags request', () => {
       .end((err, res) => {
         expect(res).to.have.status(401);
         expect(res.body.status).to.be.equal(401);
-        expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal(
           'No authorization header was specified',
         );
@@ -570,7 +590,6 @@ describe('DELETE red-flags request', () => {
       .end((err, res) => {
         expect(res).to.have.status(401);
         expect(res.body.status).to.be.equal(401);
-        expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal(
           'The provided token cannot be authenticated.',
         );
@@ -582,11 +601,10 @@ describe('DELETE red-flags request', () => {
     chai
       .request(app)
       .delete('/api/v1/red-flags/1')
-      .set('authorization', `Bearer ${currentToken}`)
+      .set('authorization', `Bearer ${userToken}`)
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body.status).to.be.equal(200);
-        expect(res.body).to.be.an('object');
         expect(res.body.data).to.deep.equal([
           {
             id: 1,
@@ -602,11 +620,10 @@ describe('DELETE red-flags request', () => {
     chai
       .request(app)
       .delete('/api/v1/red-flags/fgtre')
-      .set('authorization', `Bearer ${currentToken}`)
+      .set('authorization', `Bearer ${userToken}`)
       .end((err, res) => {
         expect(res).to.has.status(400);
         expect(res.body.status).to.be.equal(400);
-        expect(res.body).to.be.an('object');
         expect(res.body.error).to.be.equal('The id parameter must be a number');
         done(err);
       });
@@ -616,11 +633,10 @@ describe('DELETE red-flags request', () => {
     chai
       .request(app)
       .delete('/api/v1/red-flags/10')
-      .set('authorization', `Bearer ${currentToken}`)
+      .set('authorization', `Bearer ${userToken}`)
       .end((err, res) => {
         expect(res).to.has.status(404);
         expect(res.body.status).to.be.equal(404);
-        expect(res.body).to.be.an('object');
         expect(res.body.error).to.be.equal(
           'Sorry, no record with such id exists',
         );

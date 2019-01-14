@@ -26,10 +26,6 @@ class UserController {
     const values = [firstname, lastname, othernames, email, phonenumber, hashedPassword, username];
 
     pool.query(query, values, (err, dbRes) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).json({ status: 500, error: 'Something went wrong with the database.' });
-      }
       const rows = dbRes.rows[0];
       const id = rows.id;
       const email = rows.email;
@@ -39,7 +35,6 @@ class UserController {
       const lastname = rows.lastname;
       const othernames = rows.othernames;
       const phonenumber = rows.phonenumber;
-
 
       const token = HelperUtils.generateToken({ id, email, isadmin });
       return res.status(201).json({
@@ -71,7 +66,7 @@ class UserController {
    */
   static loginUser(req, res) {
     const token = HelperUtils.generateToken(req.user);
-    console.log(req.body, req.user);
+    console.log(req.user);
     res.status(200).json({
       status: 200,
       data: [{
