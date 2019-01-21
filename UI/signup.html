@@ -36,7 +36,7 @@
   <main>
     <section class="container form-container">
       <h2 class="section-title">Sign Up</h2>
-      <form class="form-card" onsubmit="return submitForm()" method="post">
+      <form class="form-card" method="post">
         <label for="firstname">Enter First Name <span>*</span></label>
         <input type="text" id="firstname" name="firstname" class="form-element"
           placeholder="Enter First Name" required />
@@ -46,6 +46,9 @@
         <label for="othername">Enter other name</label>
         <input type="text" id="othername" name="othername" class="form-element"
           placeholder="Enter Other Name" />
+        <label for="username">Enter Username</label>
+        <input type="text" id="username" name="username" class="form-element"
+          placeholder="Enter Username" />
         <label for="email">Enter Email <span>*</span></label>
         <input type="email" id="email" name="email" class="form-element"
           placeholder="Enter Email" required />
@@ -64,5 +67,6 @@
   </footer>
 </body>
 <script src="./assets/js/script.js"></script>
+<script src="./assets/js/authenticateUser.js"></script>
 
 </html>
