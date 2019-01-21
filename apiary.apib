@@ -1,0 +1,2300 @@
+FORMAT: 1A
+HOST: http://ireporter-api.herokuapp.com/api/v1
+
+# iReporter
+
+iReporter is an web platform that enables any/every citizen to bring any form of corruption to the notice of appropriate authorities
+and the general public and also report on things that needs government intervention.
+
+## Home [/]
+
+### Welcome Page [GET /]
+
++ Response 200 (application/json)
+
+        {
+            "message": "Welcome to iReporter API v1"
+        }
+        
+## User Authentication [/auth]
+
+A User object has the following attributes:
+
++ id - An integer representing the User's ID
++ email - A string representing the User's email
++ firstname - A string representing the User's first name
++ lastname - A string representing the User's last name
++ othername - A string representing the User's other name
++ phonenumber - A string representing the User's phone number
++ isadmin - A string representing the User's role (If the user is an admin or not)
+
+
+### Register User [POST /auth/register]
+
++ Request (application/json)
+
+        {
+            "firstname": "Test",
+            "lastname": "User",
+            "othernames": "",
+            "username": "TestUser",
+            "phonenumber": "07088998845",
+            "email": "testuser2@gmail.com",
+            "password": "1234567890"
+        }
+
++ Response 201 (application/json) 
+    
+    + Headers
+    
+            Location: /auth/register
+
+    + Body
+    
+            {
+                "status": 201,
+                "data": [
+                    {
+                        "message": "Registration Successful!",
+                        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ0ZXN0dXNlcjJAZ21haWwuY29tIiwiaXNhZG1pbiI6ImZhbHNlIiwiaWF0IjoxNTQ3OTc1Njc3LCJleHAiOjE1NDg1ODA0Nzd9.5pghCiV41jGyfcFGOd1Inw191tpjoJVOPdkGhlsFhag",
+                        "user": {
+                            "id": 3,
+                            "email": "testuser2@gmail.com",
+                            "firstname": "Test",
+                            "othernames": "",
+                            "lastname": "User",
+                            "username": "TestUser",
+                            "phonenumber": "07088998845",
+                            "isadmin": "false"
+                        }
+                    }
+                ]
+            }
+        
++ Request (application/json)
+
+        {
+            "firstname": "",
+            "lastname": "User",
+            "othernames": "",
+            "username": "TestUser",
+            "phonenumber": "07088998845",
+            "email": "testuser2@gmail.com",
+            "password": "1234567890"
+        }
+
++ Response 400 (application/json) 
+    
+    + Headers
+    
+            Location: /auth/register
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "You need to include a valid first name"
+            }
+
++ Request (application/json)
+
+        {
+            "firstname": "Test",
+            "lastname": "",
+            "othernames": "",
+            "username": "TestUser",
+            "phonenumber": "07088998845",
+            "email": "testuser2@gmail.com",
+            "password": "1234567890"
+        }
+
++ Response 400 (application/json) 
+    
+    + Headers
+    
+            Location: /auth/register
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "You need to include a valid last name"
+            }
+            
++ Request (application/json)
+
+        {
+            "firstname": "Test",
+            "lastname": "User",
+            "othernames": "",
+            "username": "TestUser",
+            "phonenumber": "07088998845",
+            "email": "",
+            "password": "1234567890"
+        }
+
++ Response 400 (application/json) 
+    
+    + Headers
+    
+            Location: /auth/register
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "The email you provided is invalid"
+            }
+
++ Request (application/json)
+
+        {
+            "firstname": "Test",
+            "lastname": "User",
+            "othernames": "",
+            "username": "TestUser",
+            "phonenumber": "",
+            "email": "testuser2@gmail.com",
+            "password": "1234567890"
+        }
+
++ Response 400 (application/json) 
+    
+    + Headers
+    
+            Location: /auth/register
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "You need to include a valid phone number"
+            }
+
++ Request (application/json)
+
+        {
+            "firstname": "Test",
+            "lastname": "User",
+            "othernames": "",
+            "username": "",
+            "phonenumber": "07088998845",
+            "email": "testuser2@gmail.com",
+            "password": "1234567890"
+        }
+
++ Response 400 (application/json) 
+    
+    + Headers
+    
+            Location: /auth/register
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "You need to include a valid username"
+            }
+            
++ Request (application/json)
+
+        {
+            "firstname": "Test",
+            "lastname": "User",
+            "othernames": "",
+            "username": "TestUser",
+            "phonenumber": "07088998845",
+            "email": "testuser2@gmail.com",
+            "password": ""
+        }
+
++ Response 400 (application/json) 
+    
+    + Headers
+    
+            Location: /auth/register
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "You need to provide a password"
+            }
+
++ Request (application/json)
+
+        {
+            "firstname": "Test",
+            "lastname": "",
+            "othernames": "",
+            "username": "TestUser",
+            "phonenumber": "07088998845",
+            "email": "testuser2@gmail.com",
+            "password": "12345"
+        }
+
++ Response 400 (application/json) 
+    
+    + Headers
+    
+            Location: /auth/register
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "Password length must be 8 characters and above"
+            }
+
++ Request (application/json)
+
+        {
+            "firstname": "Test#@345&",
+            "lastname": "User",
+            "othernames": "",
+            "username": "TestUser",
+            "phonenumber": "07088998845",
+            "email": "testuser2@gmail.com",
+            "password": "1234567890"
+        }
+
++ Response 400 (application/json) 
+    
+    + Headers
+    
+            Location: /auth/register
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "You need to include a valid first name"
+            }
+
++ Request (application/json)
+
+        {
+            "firstname": "Test",
+            "lastname": "User#@345&",
+            "othernames": "",
+            "username": "TestUser",
+            "phonenumber": "07088998845",
+            "email": "testuser2@gmail.com",
+            "password": "1234567890"
+        }
+
++ Response 400 (application/json) 
+    
+    + Headers
+    
+            Location: /auth/register
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "You need to include a valid last name"
+            }
+            
++ Request (application/json)
+
+        {
+            "firstname": "Test",
+            "lastname": "User",
+            "othernames": "Othename12$%",
+            "username": "TestUser",
+            "phonenumber": "07088998845",
+            "email": "testuser2@gmail.com",
+            "password": "1234567890"
+        }
+
++ Response 400 (application/json) 
+    
+    + Headers
+    
+            Location: /auth/register
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "The other name you provided is invalid"
+            }
+            
++ Request (application/json)
+
+        {
+            "firstname": "Test",
+            "lastname": "User",
+            "othernames": "",
+            "username": "TestUser",
+            "phonenumber": "07088998845",
+            "email": "testuser2%1##*(gmail.com",
+            "password": "1234567890"
+        }
+
++ Response 400 (application/json) 
+    
+    + Headers
+    
+            Location: /auth/register
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "The email you provided is invalid"
+            }
+
++ Request (application/json)
+
+        {
+            "firstname": "Test",
+            "lastname": "User",
+            "othernames": "Othename",
+            "username": "TestUser",
+            "phonenumber": "07088998%^$845",
+            "email": "testuser2@gmail.com",
+            "password": "1234567890"
+        }
+
++ Response 400 (application/json) 
+    
+    + Headers
+    
+            Location: /auth/register
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "You need to include a valid phone number"
+            }
+
++ Request (application/json)
+
+        {
+            "firstname": "Test",
+            "lastname": "User",
+            "othernames": "Othename",
+            "username": "TestUser$%^..?",
+            "phonenumber": "07088998845",
+            "email": "testuser2@gmail.com",
+            "password": "1234567890"
+        }
+
++ Response 400 (application/json) 
+    
+    + Headers
+    
+            Location: /auth/register
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "You need to include a valid username"
+            }
+
++ Request (application/json)
+
+        {
+            "firstname": "Test",
+            "lastname": "User",
+            "othernames": "",
+            "username": "TestUser",
+            "phonenumber": "07088998845",
+            "email": "testuser2@gmail.com",
+            "password": "1234567890"
+        }
+
++ Response 409 (application/json) 
+    
+    + Headers
+    
+            Location: /auth/register
+
+    + Body
+    
+            {
+                "status": 409,
+                "error": "A user with the given email or username or phonenumber already exists"
+            }
+
+### User Login [POST /auth/login]
+
++ Request (application/json) 
+
+        {
+            "email": "testuser2@gmail.com",
+            "password": "1234567890"
+        }
+
++ Response 200 (application/json)
+
+    + Headers
+        
+            Location: /auth/login
+        
+    + Body
+            
+            {
+               "status": 200,
+               "data": [
+                   {
+                       "message": "Login Successful!",
+                       "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ0ZXN0dXNlcjJAZ21haWwuY29tIiwiaXNhZG1pbiI6ImZhbHNlIiwiZmlyc3RuYW1lIjoiVGVzdCIsImxhc3RuYW1lIjoiVGVzdCIsInBob25lbnVtYmVyIjoiMDcwODg5OTg4NDUiLCJ1c2VybmFtZSI6IlRlc3RVc2VyIiwiY3JlYXRlZG9uIjoiMjAxOS0wMS0yMFQwOToxNDozNy4yNTlaIiwiaWF0IjoxNTQ3OTgyNTUxLCJleHAiOjE1NDg1ODczNTF9.WX3YnKFwZ9Xb3QVc7D5wDe_ROWzlwlpMsKuvnFe3FGQ",
+                       "user": {
+                           "id": 3,
+                           "email": "testuser2@gmail.com",
+                           "firstname": "Test",
+                           "lastname": "Test",
+                           "username": "TestUser",
+                           "phonenumber": "07088998845",
+                           "isadmin": "false"
+                        }
+                    }
+                ]
+            }
+            
++ Request (application/json) 
+
+        {
+            "email": "",
+            "password": "1234567890"
+        }
+
++ Response 400 (application/json)
+
+    + Headers
+        
+            Location: /auth/login
+        
+    + Body
+            
+            {
+                "status": 400,
+                "error": "The email you provided is invalid"
+            }
+            
++ Request (application/json) 
+
+        {
+            "email": "testuser2@gmail.com",
+            "password": ""
+        }
+
++ Response 400 (application/json)
+
+    + Headers
+        
+            Location: /auth/login
+        
+    + Body
+            
+            {
+                "status": 400,
+                "error": "You need to provide a password"
+            }
+            
++ Request (application/json) 
+
+        {
+            "email": "testuser2%^&$*#$(gmail.com",
+            "password": "1234567890"
+        }
+
++ Response 400 (application/json)
+
+    + Headers
+        
+            Location: /auth/login
+        
+    + Body
+            
+            {
+                "status": 400,
+                "error": "The email you provided is invalid"
+            }
+            
++ Request (application/json) 
+
+        {
+            "email": "randomuser@gmail.com",
+            "password": "1234567890"
+        }
+
++ Response 404 (application/json)
+
+    + Headers
+        
+            Location: /auth/login
+        
+    + Body
+            
+            {
+                "status": 404,
+                "error": "Sorry, the email account you provided does not exist"
+            }
+            
++ Request (application/json) 
+
+        {
+            "email": "testuser2@gmail.com",
+            "password": "123456"
+        }
+
++ Response 400 (application/json)
+
+    + Headers
+        
+            Location: /auth/login
+        
+    + Body
+            
+            {
+                "status": 400,
+                "error": "Password length must be 8 characters and above"
+            }
+            
++ Request (application/json) 
+
+        {
+            "email": "testuser2@gmail.com",
+            "password": "123456789010"
+        }
+
++ Response 400 (application/json)
+
+    + Headers
+        
+            Location: /auth/login
+        
+    + Body
+            
+            {
+                "status": 400,
+                "error": "Sorry, the provided email/password is incorrect"
+            }            
+
+## Red Flags Collection [/red-flags]
+
+A Red-flag object has the following attributes:
+
++ id - The ID of the red-flag report represented as an integer
++ createdby: The ID of the User who created the resource represented as an integer
++ comment: The comment associated with the report represented as a string
++ latitude: The latitude of the location of the incident represented as a string
++ longitude: The longitude of the location of the incident represented as a string
++ images: An array containing links to the url of associated images
++ videos: An array containing links to the url of associated videos
++ status: A string representing the current status of the red-flag report. It could be drafted|investigating|resolved|rejected
++ createdat: The date the report was created in UTC format represented as a string
++ updated: The date the report was updated in UTC format represented as a string
+
+### List All Red Flags reports [GET /red-flags]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authentication: Bearer JWT
+
++ Response 200 (application/json)
+    + Headers
+            
+            Location: /red-flags
+            
+    + Body
+    
+            {
+                "status": 200,
+                "data": [
+                    {
+                        "id": 2,
+                        "createdby": 3,
+                        "type": "red-flag",
+                        "comment": "This a test post to test a red flag post",
+                        "latitude": "5.68948984",
+                        "longitude": "7.8975794",
+                        "images": null,
+                        "videos": null,
+                        "status": "drafted",
+                        "createdat": "2019-01-20T16:52:07.921Z",
+                        "updated": "2019-01-20T16:52:07.921Z"
+                    },
+                    {
+                        "id": 3,
+                        "createdby": 3,
+                        "type": "red-flag",
+                        "comment": "This another test post to test a red flag post",
+                        "latitude": "5.68948984",
+                        "longitude": "7.8975794",
+                        "images": null,
+                        "videos": null,
+                        "status": "drafted",
+                        "createdat": "2019-01-20T17:15:15.446Z",
+                        "updated": "2019-01-20T17:15:15.446Z"
+                    },
+                    {
+                        "id": 4,
+                        "createdby": 3,
+                        "type": "red-flag",
+                        "comment": "This is another random test post to test a red flag post",
+                        "latitude": "5.68948984",
+                        "longitude": "7.8975794",
+                        "images": null,
+                        "videos": null,
+                        "status": "drafted",
+                        "createdat": "2019-01-20T17:15:41.589Z",
+                        "updated": "2019-01-20T17:15:41.589Z"
+                    }
+                ]
+            }
+
+### Retrieve a single Red Flag report [GET /red-flags/{id}]
+
++ Request
+
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)
+
+    + Headers
+        
+            Location: /red-flags/2
+        
+    + Body
+        
+            {
+                "status": 200,
+                "data": {
+                    "id": 2,
+                    "createdby": 3,
+                    "type": "red-flag",
+                    "comment": "This a test post to test a red flag post",
+                    "latitude": "5.68948984",
+                    "longitude": "7.8975794",
+                    "images": null,
+                    "videos": null,
+                    "status": "drafted",
+                    "createdat": "2019-01-20T16:52:07.921Z",
+                    "updated": "2019-01-20T16:52:07.921Z"
+                }
+            }
+            
++ Request
+    
+    + Headers
+        
+            Authorization: No Auth
+            Location: /red-flags/3
+            
++ Response 401 (application/json)
+
+    + Headers
+
+            Location: /red-flags/dh$47
+
+    + Body
+    
+            {
+                "status": 401,
+                "error": "No authorization header was specified"
+            }
+            
++ Request (application/json)
+
+        Authorization: Invalid/Expired Token
+        
+        {
+            "latitude": "5.68948984",
+            "longitude": "7.8975794",
+            "comment": "This a test post to test a red flag post"
+        }
+
++ Response 401 (application/json)
+
+    + Headers
+
+            Location: /red-flags/3
+
+    + Body
+    
+            {
+                "status": 401,
+                "error": "The provided token cannot be authenticated."
+            }
+            
++ Request
+    
+    + Headers
+        
+            Authorization: Bearer JWT
+            Location: /red-flags/0
+            
++ Response 404 (application/json)
+
+    + Headers
+
+            Location: /red-flags/0
+
+    + Body
+    
+            {
+                "status": 404,
+                "error": "Sorry, no record with such id exists"
+            }
+            
++ Request
+    
+    + Headers
+        
+            Authorization: Bearer JWT
+            Location: /red-flags/dh$47
+            
++ Response 400 (application/json)
+
+    + Headers
+
+            Location: /red-flags/dh$47
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "The id parameter must be a number"
+            }
+            
++ Request
+    
+    + Headers
+        
+            Authorization: Bearer JWT
+            Location: /red-flags/dh$47
+            
++ Response 400 (application/json)
+
+    + Headers
+
+            Location: /red-flags/dh$47
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "The id parameter must be a number"
+            }
+
+### Create a new Red Flag report [POST /red-flags]
+
+As an authenticated user, you can create a new red-flag report. 
+It takes a JSON object containing the latitude and longitude coordinates
+of the red-flag report and also a comment narrating the report. You also
+need to provide a valid Bearer token for authorization. 
+
++ Request (application/json)
+
+        Authorization: Bearer JWT
+        
+        {
+            "latitude": "5.68948984",
+            "longitude": "7.8975794",
+            "comment": "This a test post to test a red flag post"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /red-flags
+
+    + Body
+
+            {
+                "status": 201,
+                "data": [
+                    {
+                        "id": 2,
+                        "message": "Created red-flag record",
+                        "incident": {
+                            "type": "red-flag",
+                            "comment": "This a test post to test a red flag post",
+                            "latitude": "5.68948984",
+                            "longitude": "7.8975794"
+                        }
+                    }
+                ]
+            }
+
++ Request (application/json)
+
+        Authorization: No Auth
+        
+        {
+            "latitude": "5.68948984",
+            "longitude": "7.8975794",
+            "comment": "This a test post to test a red flag post"
+        }
+
++ Response 401 (application/json)
+
+    + Headers
+
+            Location: /red-flags
+
+    + Body
+    
+            {
+                "status": 401,
+                "error": "No authorization header was specified"
+            }
+            
++ Request (application/json)
+
+        Authorization: Invalid/Expired Token
+        
+        {
+            "latitude": "5.68948984",
+            "longitude": "7.8975794",
+            "comment": "This a test post to test a red flag post"
+        }
+
++ Response 401 (application/json)
+
+    + Headers
+
+            Location: /red-flags
+
+    + Body
+    
+            {
+                "status": 401,
+                "error": "The provided token cannot be authenticated."
+            }
+            
++ Request (application/json)
+
+        Authorization: Bearer JWT
+        
+        {
+            "latitude": "",
+            "longitude": "7.8975794",
+            "comment": "This a test post to test a red flag post"
+        }
+
++ Response 400 (application/json)
+
+    + Headers
+
+            Location: /red-flags
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "Latitude of the incident location must be specified"
+            }
+            
++ Request (application/json)
+
+        Authorization: Bearer JWT
+        
+        {
+            "latitude": "5.68948984",
+            "longitude": "",
+            "comment": "This a test post to test a red flag post"
+        }
+
++ Response 400 (application/json)
+
+    + Headers
+
+            Location: /red-flags
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "Longitude of the incident location must be specified"
+            }
+            
++ Request (application/json)
+
+        Authorization: Bearer JWT
+        
+        {
+            "latitude": "fgjhie%473",
+            "longitude": "7.8975794",
+            "comment": "This a test post to test a red flag post"
+        }
+
++ Response 400 (application/json)
+
+    + Headers
+
+            Location: /red-flags
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "Latitude must be in a valid format"
+            }
+            
++ Request (application/json)
+
+        Authorization: Bearer JWT
+        
+        {
+            "latitude": "5.68948984",
+            "longitude": "Hfjk&4*$",
+            "comment": "This a test post to test a red flag post"
+        }
+
++ Response 400 (application/json)
+
+    + Headers
+
+            Location: /red-flags
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "Longitude must be in a valid format"
+            }
+            
++ Request (application/json)
+
+        Authorization: Bearer JWT
+        
+        {
+            "latitude": "5.68948984",
+            "longitude": "7.8975794",
+            "comment": ""
+        }
+
++ Response 400 (application/json)
+
+    + Headers
+
+            Location: /red-flags
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "A comment narrating the incident must be specified"
+            }
+            
++ Request (application/json)
+
+        Authorization: Bearer JWT
+        
+        {
+            "latitude": "5.68948984",
+            "longitude": "7.8975794",
+            "comment": "A short comment"
+        }
+
++ Response 400 (application/json)
+
+    + Headers
+
+            Location: /red-flags
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "Your comment/narration should be from 20 characters above"
+            }
+
+### Update Red-flag report location [PATCH /red-flags/{id}/location]
+
++ Request (application/json)
+
+    + Headers
+            
+            Location: /red-flags/2/location
+            Authorization: Bearer JWT
+            
+    + Body
+            
+            {
+                "latitude": "6.78995678",
+                "longitude": "7.98998786"
+            }
+
++ Response 200 (application/json)
+
+            {
+                "status": 200,
+                "data": [
+                    {
+                        "id": 2,
+                        "message": "Updated red-flag record's location",
+                        "location": "6.78995678, 7.98998786"
+                    }
+                ]
+            }
+            
++ Request
+    
+    + Headers
+            
+            Location: /red-flags/2/location
+            Authorization: No Auth
+            
+    + Body
+            
+            {
+                "latitude": "6.78995678",
+                "longitude": "7.98998786"
+            }
+            
++ Response 401 (application/json)
+
+            {
+                "status": 401,
+                "error": "No authorization header was specified"
+            }
+            
++ Request (application/json)
+
+    + Headers
+            
+            Location: /red-flags/2/location
+            Authorization: Invalid/Expired Token
+            
+    + Body
+            
+            {
+                "latitude": "6.78995678",
+                "longitude": "7.98998786"
+            }
+
++ Response 401 (application/json)
+
+            {
+                "status": 401,
+                "error": "The provided token cannot be authenticated."
+            }
+            
++ Request (application/json)
+
+    + Headers
+            
+            Location: /red-flags/0/location
+            Authorization: Bearer JWT
+            
+    + Body
+            
+            {
+                "latitude": "6.78995678",
+                "longitude": "7.98998786"
+            }
+
++ Response 404 (application/json)
+
+            {
+                "status": 404,
+                "error": "Sorry, no record with such id exists"
+            }
+            
++ Request
+    
+    + Headers
+        
+            Authorization: Bearer JWT
+            Location: /red-flags/dh$47
+            
++ Response 400 (application/json)
+
+    + Headers
+
+            Location: /red-flags/dh$47
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "The id parameter must be a number"
+            }
+            
++ Request (application/json)
+
+    + Headers
+            
+            Location: /red-flags/2/location
+            Authorization: Bearer JWT
+            
+    + Body
+            
+            {
+                "latitude": "",
+                "longitude": "7.98998786"
+            }
+
++ Response 400 (application/json)
+
+            {
+                "status": 400,
+                "error": "Latitude of the incident location must be specified"
+            }
+            
++ Request
+    
+    + Headers
+        
+            Authorization: Bearer JWT
+            Location: /red-flags/dh$47
+            
++ Response 400 (application/json)
+
+    + Headers
+
+            Location: /red-flags/dh$47
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "The id parameter must be a number"
+            }
+
++ Request (application/json)
+
+    + Headers
+            
+            Location: /red-flags/2/location
+            Authorization: Bearer JWT
+            
+    + Body
+            
+            {
+                "latitude": "6.78995678",
+                "longitude": ""
+            }
+
++ Response 400 (application/json)
+
+            {
+                "status": 400,
+                "error": "Longitude of the incident location must be specified"
+            }
+            
++ Request (application/json)
+
+    + Headers
+            
+            Location: /red-flags/2/location
+            Authorization: Bearer JWT
+            
+    + Body
+            
+            {
+                "latitude": "wih3ui4",
+                "longitude": "7.98998786"
+            }
+
++ Response 400 (application/json)
+
+            {
+                "status": 400,
+                "error": "Latitude must be in a valid format"
+            }
+            
++ Request (application/json)
+
+    + Headers
+            
+            Location: /red-flags/2/location
+            Authorization: Bearer JWT
+            
+    + Body
+            
+            {
+                "latitude": "6.78995678",
+                "longitude": "sjoieoi"
+            }
+
++ Response 400 (application/json)
+
+            {
+                "status": 400,
+                "error": "Longitude must be in a valid format"
+            }
+            
+### Update Red-flag report comment [PATCH /red-flags/{id}/comment]
+
++ Request (application/json)
+
+    + Headers
+            
+            Location: /red-flags/2/comment
+            Authorization: Bearer JWT
+            
+    + Body
+            
+            {
+                "comment": "Updating this report with a test comment"
+            }
+
++ Response 200 (application/json)
+
+            {
+                "status": 200,
+                "data": [
+                    {
+                        "id": 2,
+                        "message": "Red-flag record comment has been updated succesfully",
+                        "comment": "Updating this report with a test comment"
+                    }
+                ]
+            }
+            
++ Request
+    
+    + Headers
+            
+            Location: /red-flags/2/comment
+            Authorization: No Auth
+            
+    + Body
+            
+            {
+                "comment": "Updating this report with a test comment"
+            }
+            
++ Response 401 (application/json)
+
+            {
+                "status": 401,
+                "error": "No authorization header was specified"
+            }
+            
++ Request (application/json)
+
+    + Headers
+            
+            Location: /red-flags/2/comment
+            Authorization: Invalid/Expired Token
+            
+    + Body
+            
+            {
+                "comment": "Updating this report with a test comment"
+            }
+
++ Response 401 (application/json)
+
+            {
+                "status": 401,
+                "error": "The provided token cannot be authenticated."
+            }
+            
++ Request (application/json)
+
+    + Headers
+            
+            Location: /red-flags/0/comment
+            Authorization: Bearer JWT
+            
+    + Body
+            
+            {
+                "comment": "Updating this report with a test comment"
+            }
+
++ Response 404 (application/json)
+
+            {
+                "status": 404,
+                "error": "Sorry, no record with such id exists"
+            }
+            
++ Request (application/json)
+
+    + Headers
+            
+            Location: /red-flags/2/comment
+            Authorization: Bearer JWT
+            
+    + Body
+            
+            {
+                "comment": ""
+            }
+
++ Response 400 (application/json)
+
+            {
+                "status": 400,
+                "error": "A comment narrating the incident must be specified"
+            }
+
++ Request (application/json)
+
+    + Headers
+            
+            Location: /red-flags/2/location
+            Authorization: Bearer JWT
+            
+    + Body
+            
+            {
+                "comment": "A short comment"
+            }
+
++ Response 400 (application/json)
+
+            {
+                "status": 400,
+                "error": "Your comment/narration should be from 20 characters above"
+            }
+            
+### Delete a Red-flag report [DELETE /red-flags/{id}]
+
++ Request (application/json)
+
+    + Headers
+            
+            Location: /red-flags/5
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)
+
+            {
+                "status": 200,
+                "data": [
+                    {
+                        "id": 5,
+                        "message": "red-flag record has been deleted"
+                    }
+                ]
+            }
+            
++ Request
+    
+    + Headers
+            
+            Location: /red-flags/5
+            Authorization: No Auth
+            
++ Response 401 (application/json)
+
+            {
+                "status": 401,
+                "error": "No authorization header was specified"
+            }
+            
++ Request (application/json)
+
+    + Headers
+            
+            Location: /red-flags/5
+            Authorization: Invalid/Expired Token
+
++ Response 401 (application/json)
+
+            {
+                "status": 401,
+                "error": "The provided token cannot be authenticated."
+            }
+            
++ Request (application/json)
+
+    + Headers
+            
+            Location: /red-flags/0
+            Authorization: Bearer JWT
+
++ Response 404 (application/json)
+
+            {
+                "status": 404,
+                "error": "Sorry, no record with such id exists"
+            }
+            
++ Request
+    
+    + Headers
+        
+            Authorization: Bearer JWT
+            Location: /red-flags/dh$47
+            
++ Response 400 (application/json)
+
+    + Headers
+
+            Location: /red-flags/dh$47
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "The id parameter must be a number"
+            }
+            
+## Interventions Collection [/interventions]
+
+A intervention object has the following attributes:
+
++ id - The ID of the intervention report represented as an integer
++ createdby: The ID of the User who created the resource represented as an integer
++ comment: The comment associated with the report represented as a string
++ latitude: The latitude of the location of the incident represented as a string
++ longitude: The longitude of the location of the incident represented as a string
++ images: An array containing links to the url of associated images
++ videos: An array containing links to the url of associated videos
++ status: A string representing the current status of the intervention report. It could be drafted|investigating|resolved|rejected
++ createdat: The date the report was created in UTC format represented as a string
++ updated: The date the report was updated in UTC format represented as a string
+
+### List All interventions reports [GET /interventions]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authentication: Bearer JWT
+
++ Response 200 (application/json)
+    + Headers
+            
+            Location: /interventions
+            
+    + Body
+    
+            {
+                "status": 200,
+                "data": [
+                    {
+                        "id": 2,
+                        "createdby": 3,
+                        "type": "intervention",
+                        "comment": "This a test post to test a intervention post",
+                        "latitude": "5.68948984",
+                        "longitude": "7.8975794",
+                        "images": null,
+                        "videos": null,
+                        "status": "drafted",
+                        "createdat": "2019-01-20T16:52:07.921Z",
+                        "updated": "2019-01-20T16:52:07.921Z"
+                    },
+                    {
+                        "id": 3,
+                        "createdby": 3,
+                        "type": "intervention",
+                        "comment": "This another test post to test a intervention post",
+                        "latitude": "5.68948984",
+                        "longitude": "7.8975794",
+                        "images": null,
+                        "videos": null,
+                        "status": "drafted",
+                        "createdat": "2019-01-20T17:15:15.446Z",
+                        "updated": "2019-01-20T17:15:15.446Z"
+                    },
+                    {
+                        "id": 4,
+                        "createdby": 3,
+                        "type": "intervention",
+                        "comment": "This is another random test post to test a intervention post",
+                        "latitude": "5.68948984",
+                        "longitude": "7.8975794",
+                        "images": null,
+                        "videos": null,
+                        "status": "drafted",
+                        "createdat": "2019-01-20T17:15:41.589Z",
+                        "updated": "2019-01-20T17:15:41.589Z"
+                    }
+                ]
+            }
+
+### Retrieve a single intervention report [GET /interventions/{id}]
+
++ Request
+
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)
+
+    + Headers
+        
+            Location: /interventions/2
+        
+    + Body
+        
+            {
+                "status": 200,
+                "data": {
+                    "id": 2,
+                    "createdby": 3,
+                    "type": "intervention",
+                    "comment": "This a test post to test a intervention post",
+                    "latitude": "5.68948984",
+                    "longitude": "7.8975794",
+                    "images": null,
+                    "videos": null,
+                    "status": "drafted",
+                    "createdat": "2019-01-20T16:52:07.921Z",
+                    "updated": "2019-01-20T16:52:07.921Z"
+                }
+            }
+            
++ Request
+    
+    + Headers
+        
+            Authorization: No Auth
+            Location: /interventions/3
+            
++ Response 401 (application/json)
+
+    + Headers
+
+            Location: /interventions/dh$47
+
+    + Body
+    
+            {
+                "status": 401,
+                "error": "No authorization header was specified"
+            }
+            
++ Request (application/json)
+
+        Authorization: Invalid/Expired Token
+        
+        {
+            "latitude": "5.68948984",
+            "longitude": "7.8975794",
+            "comment": "This a test post to test a intervention post"
+        }
+
++ Response 401 (application/json)
+
+    + Headers
+
+            Location: /interventions/3
+
+    + Body
+    
+            {
+                "status": 401,
+                "error": "The provided token cannot be authenticated."
+            }
+            
++ Request
+    
+    + Headers
+        
+            Authorization: Bearer JWT
+            Location: /interventions/0
+            
++ Response 404 (application/json)
+
+    + Headers
+
+            Location: /interventions/0
+
+    + Body
+    
+            {
+                "status": 404,
+                "error": "Sorry, no record with such id exists"
+            }
+            
++ Request
+    
+    + Headers
+        
+            Authorization: Bearer JWT
+            Location: /interventions/dh$47
+            
++ Response 400 (application/json)
+
+    + Headers
+
+            Location: /interventions/dh$47
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "The id parameter must be a number"
+            }
+            
++ Request
+    
+    + Headers
+        
+            Authorization: Bearer JWT
+            Location: /interventions/dh$47
+            
++ Response 400 (application/json)
+
+    + Headers
+
+            Location: /interventions/dh$47
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "The id parameter must be a number"
+            }
+
+### Create a new intervention report [POST /interventions]
+
+As an authenticated user, you can create a new intervention report. 
+It takes a JSON object containing the latitude and longitude coordinates
+of the intervention report and also a comment narrating the report. You also
+need to provide a valid Bearer token for authorization. 
+
++ Request (application/json)
+
+        Authorization: Bearer JWT
+        
+        {
+            "latitude": "5.68948984",
+            "longitude": "7.8975794",
+            "comment": "This a test post to test a intervention post"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /interventions
+
+    + Body
+
+            {
+                "status": 201,
+                "data": [
+                    {
+                        "id": 2,
+                        "message": "Created intervention record",
+                        "incident": {
+                            "type": "intervention",
+                            "comment": "This a test post to test a intervention post",
+                            "latitude": "5.68948984",
+                            "longitude": "7.8975794"
+                        }
+                    }
+                ]
+            }
+
++ Request (application/json)
+
+        Authorization: No Auth
+        
+        {
+            "latitude": "5.68948984",
+            "longitude": "7.8975794",
+            "comment": "This a test post to test a intervention post"
+        }
+
++ Response 401 (application/json)
+
+    + Headers
+
+            Location: /interventions
+
+    + Body
+    
+            {
+                "status": 401,
+                "error": "No authorization header was specified"
+            }
+            
++ Request (application/json)
+
+        Authorization: Invalid/Expired Token
+        
+        {
+            "latitude": "5.68948984",
+            "longitude": "7.8975794",
+            "comment": "This a test post to test a intervention post"
+        }
+
++ Response 401 (application/json)
+
+    + Headers
+
+            Location: /interventions
+
+    + Body
+    
+            {
+                "status": 401,
+                "error": "The provided token cannot be authenticated."
+            }
+            
++ Request (application/json)
+
+        Authorization: Bearer JWT
+        
+        {
+            "latitude": "",
+            "longitude": "7.8975794",
+            "comment": "This a test post to test a intervention post"
+        }
+
++ Response 400 (application/json)
+
+    + Headers
+
+            Location: /interventions
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "Latitude of the incident location must be specified"
+            }
+            
++ Request (application/json)
+
+        Authorization: Bearer JWT
+        
+        {
+            "latitude": "5.68948984",
+            "longitude": "",
+            "comment": "This a test post to test a intervention post"
+        }
+
++ Response 400 (application/json)
+
+    + Headers
+
+            Location: /interventions
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "Longitude of the incident location must be specified"
+            }
+            
++ Request (application/json)
+
+        Authorization: Bearer JWT
+        
+        {
+            "latitude": "fgjhie%473",
+            "longitude": "7.8975794",
+            "comment": "This a test post to test a intervention post"
+        }
+
++ Response 400 (application/json)
+
+    + Headers
+
+            Location: /interventions
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "Latitude must be in a valid format"
+            }
+            
++ Request (application/json)
+
+        Authorization: Bearer JWT
+        
+        {
+            "latitude": "5.68948984",
+            "longitude": "Hfjk&4*$",
+            "comment": "This a test post to test a intervention post"
+        }
+
++ Response 400 (application/json)
+
+    + Headers
+
+            Location: /interventions
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "Longitude must be in a valid format"
+            }
+            
++ Request (application/json)
+
+        Authorization: Bearer JWT
+        
+        {
+            "latitude": "5.68948984",
+            "longitude": "7.8975794",
+            "comment": ""
+        }
+
++ Response 400 (application/json)
+
+    + Headers
+
+            Location: /interventions
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "A comment narrating the incident must be specified"
+            }
+            
++ Request (application/json)
+
+        Authorization: Bearer JWT
+        
+        {
+            "latitude": "5.68948984",
+            "longitude": "7.8975794",
+            "comment": "A short comment"
+        }
+
++ Response 400 (application/json)
+
+    + Headers
+
+            Location: /interventions
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "Your comment/narration should be from 20 characters above"
+            }
+
+### Update intervention report location [PATCH /interventions/{id}/location]
+
++ Request (application/json)
+
+    + Headers
+            
+            Location: /interventions/2/location
+            Authorization: Bearer JWT
+            
+    + Body
+            
+            {
+                "latitude": "6.78995678",
+                "longitude": "7.98998786"
+            }
+
++ Response 200 (application/json)
+
+            {
+                "status": 200,
+                "data": [
+                    {
+                        "id": 2,
+                        "message": "Updated intervention record's location",
+                        "location": "6.78995678, 7.98998786"
+                    }
+                ]
+            }
+            
++ Request
+    
+    + Headers
+            
+            Location: /interventions/2/location
+            Authorization: No Auth
+            
+    + Body
+            
+            {
+                "latitude": "6.78995678",
+                "longitude": "7.98998786"
+            }
+            
++ Response 401 (application/json)
+
+            {
+                "status": 401,
+                "error": "No authorization header was specified"
+            }
+            
++ Request (application/json)
+
+    + Headers
+            
+            Location: /interventions/2/location
+            Authorization: Invalid/Expired Token
+            
+    + Body
+            
+            {
+                "latitude": "6.78995678",
+                "longitude": "7.98998786"
+            }
+
++ Response 401 (application/json)
+
+            {
+                "status": 401,
+                "error": "The provided token cannot be authenticated."
+            }
+            
++ Request (application/json)
+
+    + Headers
+            
+            Location: /interventions/0/location
+            Authorization: Bearer JWT
+            
+    + Body
+            
+            {
+                "latitude": "6.78995678",
+                "longitude": "7.98998786"
+            }
+
++ Response 404 (application/json)
+
+            {
+                "status": 404,
+                "error": "Sorry, no record with such id exists"
+            }
+            
++ Request
+    
+    + Headers
+        
+            Authorization: Bearer JWT
+            Location: /interventions/dh$47
+            
++ Response 400 (application/json)
+
+    + Headers
+
+            Location: /interventions/dh$47
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "The id parameter must be a number"
+            }
+            
++ Request (application/json)
+
+    + Headers
+            
+            Location: /interventions/2/location
+            Authorization: Bearer JWT
+            
+    + Body
+            
+            {
+                "latitude": "",
+                "longitude": "7.98998786"
+            }
+
++ Response 400 (application/json)
+
+            {
+                "status": 400,
+                "error": "Latitude of the incident location must be specified"
+            }
+            
++ Request
+    
+    + Headers
+        
+            Authorization: Bearer JWT
+            Location: /interventions/dh$47
+            
++ Response 400 (application/json)
+
+    + Headers
+
+            Location: /interventions/dh$47
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "The id parameter must be a number"
+            }
+
++ Request (application/json)
+
+    + Headers
+            
+            Location: /interventions/2/location
+            Authorization: Bearer JWT
+            
+    + Body
+            
+            {
+                "latitude": "6.78995678",
+                "longitude": ""
+            }
+
++ Response 400 (application/json)
+
+            {
+                "status": 400,
+                "error": "Longitude of the incident location must be specified"
+            }
+            
++ Request (application/json)
+
+    + Headers
+            
+            Location: /interventions/2/location
+            Authorization: Bearer JWT
+            
+    + Body
+            
+            {
+                "latitude": "wih3ui4",
+                "longitude": "7.98998786"
+            }
+
++ Response 400 (application/json)
+
+            {
+                "status": 400,
+                "error": "Latitude must be in a valid format"
+            }
+            
++ Request (application/json)
+
+    + Headers
+            
+            Location: /interventions/2/location
+            Authorization: Bearer JWT
+            
+    + Body
+            
+            {
+                "latitude": "6.78995678",
+                "longitude": "sjoieoi"
+            }
+
++ Response 400 (application/json)
+
+            {
+                "status": 400,
+                "error": "Longitude must be in a valid format"
+            }
+            
+### Update intervention report comment [PATCH /interventions/{id}/comment]
+
++ Request (application/json)
+
+    + Headers
+            
+            Location: /interventions/2/comment
+            Authorization: Bearer JWT
+            
+    + Body
+            
+            {
+                "comment": "Updating this report with a test comment"
+            }
+
++ Response 200 (application/json)
+
+            {
+                "status": 200,
+                "data": [
+                    {
+                        "id": 2,
+                        "message": "intervention record comment has been updated succesfully",
+                        "comment": "Updating this report with a test comment"
+                    }
+                ]
+            }
+            
++ Request
+    
+    + Headers
+            
+            Location: /interventions/2/comment
+            Authorization: No Auth
+            
+    + Body
+            
+            {
+                "comment": "Updating this report with a test comment"
+            }
+            
++ Response 401 (application/json)
+
+            {
+                "status": 401,
+                "error": "No authorization header was specified"
+            }
+            
++ Request (application/json)
+
+    + Headers
+            
+            Location: /interventions/2/comment
+            Authorization: Invalid/Expired Token
+            
+    + Body
+            
+            {
+                "comment": "Updating this report with a test comment"
+            }
+
++ Response 401 (application/json)
+
+            {
+                "status": 401,
+                "error": "The provided token cannot be authenticated."
+            }
+            
++ Request (application/json)
+
+    + Headers
+            
+            Location: /interventions/0/comment
+            Authorization: Bearer JWT
+            
+    + Body
+            
+            {
+                "comment": "Updating this report with a test comment"
+            }
+
++ Response 404 (application/json)
+
+            {
+                "status": 404,
+                "error": "Sorry, no record with such id exists"
+            }
+            
++ Request (application/json)
+
+    + Headers
+            
+            Location: /interventions/2/comment
+            Authorization: Bearer JWT
+            
+    + Body
+            
+            {
+                "comment": ""
+            }
+
++ Response 400 (application/json)
+
+            {
+                "status": 400,
+                "error": "A comment narrating the incident must be specified"
+            }
+
++ Request (application/json)
+
+    + Headers
+            
+            Location: /interventions/2/location
+            Authorization: Bearer JWT
+            
+    + Body
+            
+            {
+                "comment": "A short comment"
+            }
+
++ Response 400 (application/json)
+
+            {
+                "status": 400,
+                "error": "Your comment/narration should be from 20 characters above"
+            }
+            
+### Delete a intervention report [DELETE /interventions/{id}]
+
++ Request (application/json)
+
+    + Headers
+            
+            Location: /interventions/5
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)
+
+            {
+                "status": 200,
+                "data": [
+                    {
+                        "id": 5,
+                        "message": "intervention record has been deleted"
+                    }
+                ]
+            }
+            
++ Request
+    
+    + Headers
+            
+            Location: /interventions/5
+            Authorization: No Auth
+            
++ Response 401 (application/json)
+
+            {
+                "status": 401,
+                "error": "No authorization header was specified"
+            }
+            
++ Request (application/json)
+
+    + Headers
+            
+            Location: /interventions/5
+            Authorization: Invalid/Expired Token
+
++ Response 401 (application/json)
+
+            {
+                "status": 401,
+                "error": "The provided token cannot be authenticated."
+            }
+            
++ Request (application/json)
+
+    + Headers
+            
+            Location: /interventions/0
+            Authorization: Bearer JWT
+
++ Response 404 (application/json)
+
+            {
+                "status": 404,
+                "error": "Sorry, no record with such id exists"
+            }
+            
++ Request
+    
+    + Headers
+        
+            Authorization: Bearer JWT
+            Location: /interventions/dh$47
+            
++ Response 400 (application/json)
+
+    + Headers
+
+            Location: /interventions/dh$47
+
+    + Body
+    
+            {
+                "status": 400,
+                "error": "The id parameter must be a number"
+            }
