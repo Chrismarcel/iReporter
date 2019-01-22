@@ -19,7 +19,7 @@ const createIncidentsTable = `
     id SERIAL PRIMARY KEY NOT NULL,
     createdby INTEGER REFERENCES users(id),
     type VARCHAR(12) NOT NULL,
-    comment VARCHAR(255) NOT NULL,
+    comment TEXT NOT NULL,
     latitude VARCHAR(25) NOT NULL,
     longitude VARCHAR(25) NOT NULL,
     Images VARCHAR(25)[],
