@@ -65,7 +65,7 @@ class AuthenticateUser {
   static verifyAdmin(req, res, next) {
     const payload = AuthenticateUser.verifyAuthHeader(req);
     const { isadmin } = payload;
-    console.log(payload);
+
     if (isadmin === 'false') {
       console.log('You are not an admin');
       return res.status(401).json({
