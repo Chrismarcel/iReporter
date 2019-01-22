@@ -66,7 +66,7 @@ class UserController {
    */
   static loginUser(req, res) {
     const token = HelperUtils.generateToken(req.user);
-    console.log(req.user);
+
     res.status(200).json({
       status: 200,
       data: [{

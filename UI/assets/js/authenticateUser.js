@@ -1,7 +1,7 @@
-function authenticateUser(userObj, method) {
-  const endpoint = 'http://localhost:3000/api/v1/auth/register';
-  fetch(endpoint, {
-    method,
+function authenticateUser(userObj, endpoint) {
+  const url = `http://localhost:3000/api/v1/auth/${endpoint}`;
+  fetch(url, {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -19,7 +19,7 @@ function authenticateUser(userObj, method) {
 document.querySelector('.form-card').addEventListener('submit', (evt) => {
   evt.preventDefault();
 
-
+  let endpoint = 'login';
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
   const userDetails = {
@@ -27,6 +27,8 @@ document.querySelector('.form-card').addEventListener('submit', (evt) => {
   };
 
   if (window.location.href.includes('signup')) {
+    endpoint = 'register';
+
     const firstname = document.getElementById('firstname').value;
     const lastname = document.getElementById('lastname').value;
     const othername = document.getElementById('othername').value;
@@ -38,5 +40,5 @@ document.querySelector('.form-card').addEventListener('submit', (evt) => {
     });
   }
 
-  authenticateUser(userDetails, 'POST');
+  authenticateUser(userDetails, endpoint);
 });
