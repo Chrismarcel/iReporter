@@ -24,24 +24,14 @@ a {
   text-decoration: none;
 }
 
-button,
 input,
+select,
 textarea,
-select {
-  border: none;
+button {
   font-family: "PT Sans", sans-serif;
   font-size: 1em;
   margin: 0;
   text-decoration: none;
-  text-align: center;
-  outline: none;
-}
-
-input,
-select,
-textarea,
-button
- {
   height: 45px;
   text-align: left;
   border: 2px solid #0facf3;
@@ -136,6 +126,12 @@ a.btn {
 .form-container > .section-title,
 .form-card {
   align-self: center;
+}
+
+.form-card input, 
+.form-card select, 
+.form-card textarea {
+  margin-bottom: 15px;
 }
 
 label {

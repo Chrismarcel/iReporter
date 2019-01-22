@@ -83,8 +83,3 @@ mediaLinks.forEach((mediaLink) => {
     toggleModal(evt);
   });
 });
-
-function submitForm() {
-  window.location.href = './profile.html';
-  return false;
-}
