@@ -104,6 +104,11 @@ a.btn {
   justify-content: space-between;
 }
 
+.icon {
+  margin-right: 5px;
+  color: #0facf3;
+}
+
 .circle-icon {
   width: 60px;
   height: 60px;
@@ -316,28 +321,32 @@ section > .btn {
   padding-top: 110px;
 }
 
-.featured-cards {
+.cards-list {
   justify-content: space-between;
   margin: 20px 0;
   flex-wrap: wrap;
 }
 
-.featured-cards .report-card {
+.cards-list .report-card {
   flex-basis: 23.5%;
   background: #fffffa;
   margin-bottom: 20px;
 }
 
+.card p.report-comment {
+  margin-bottom: 25px;
+}
+
 .report-user {
+  color: #0facf3;
+  text-decoration: underline;
   display: block;
   font-size: 1.2em;
   margin-bottom: 15px;
 }
 
-.report-media,
-.report-user {
-  color: #0facf3;
-  text-decoration: underline;
+.report-time {
+  margin-top: 15px;
 }
 
 .report-status {
@@ -348,12 +357,28 @@ section > .btn {
   padding: 4px 10px;
 }
 
+.report-media {
+  margin-bottom: 15px;
+}
+
+.report-media div {
+  display: inline-block;
+}
+
+.report-media > .report-image {
+  margin-right: 15px;
+}
+
 .rejected {
   background: #ef271b;
 }
 
 .investigating {
   background: #0facf3;
+}
+
+.drafted {
+  background: #939393;
 }
 
 .resolved {
@@ -381,6 +406,10 @@ section > .btn {
 
 .investigating::after {
   background: #0facf3;
+}
+
+.drafted::after {
+  background: #939393;
 }
 
 .resolved::after {
@@ -628,7 +657,7 @@ tr > td:last-child {
   flex-basis: 73%;
 }
 
-.user-reports > .featured-cards {
+.user-reports > .cards-list {
   justify-content: flex-start;
 }
 
@@ -763,7 +792,7 @@ tr > td:last-child {
 
   .hero-cta,
   .steps,
-  .featured-cards,
+  .cards-list,
   .profile {
     flex-direction: column;
   }
@@ -814,7 +843,7 @@ tr > td:last-child {
     margin-bottom: 15px;
   }
 
-  .user-reports > .featured-cards > .report-card {
+  .user-reports > .cards-list > .report-card {
     margin-right: 0;
   }
 
