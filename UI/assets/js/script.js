@@ -61,22 +61,6 @@ if (closeModal) {
   });
 }
 
-const submitBtn = document.querySelector('.update');
-if (submitBtn) {
-  submitBtn.addEventListener('click', (evt) => {
-    evt.preventDefault();
-    let message = '';
-
-    if (evt.target.id === 'record') {
-      message = 'Record Updated Successfully';
-    } else if (evt.target.id === 'profile') {
-      message = 'Profile Updated Successfully';
-    }
-
-    document.querySelector('.message-box').textContent = message;
-  });
-}
-
 const mediaLinks = document.querySelectorAll('.report-media');
 mediaLinks.forEach((mediaLink) => {
   mediaLink.addEventListener('click', (evt) => {
