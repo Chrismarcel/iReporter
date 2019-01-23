@@ -1,4 +1,4 @@
-function handleReports(body = {}, endpoint, method, token) {
+function createAndUpdateReport(body, endpoint, method, token) {
   const url = `http://localhost:3000/api/v1/${endpoint}`;
   fetch(url, {
     method,
@@ -11,7 +11,9 @@ function handleReports(body = {}, endpoint, method, token) {
     .then(response => response.json())
     .then(responseObj => {
       console.log(responseObj);
-      window.location.href = './view-reports.html';
+      if (method !== 'GET') {
+        window.location.href = './view-reports.html';
+      }
     })
     .catch(error => console.log(error));
 }
