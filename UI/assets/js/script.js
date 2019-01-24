@@ -16,23 +16,6 @@ const toggleModal = (evt) => {
   modal.classList.toggle('modal-open');
 };
 
-const deleteReportBtns = Array.from(document.querySelectorAll('.delete-report'));
-deleteReportBtns.forEach(deleteReportBtn => deleteReportBtn.addEventListener('click', (evt) => {
-  toggleModal(evt);
-}));
-
-const modalActionBtns = Array.from(document.querySelectorAll('.modal-btn'));
-modalActionBtns.forEach(modalActionBtn => modalActionBtn.addEventListener('click', (evt) => {
-  evt.preventDefault();
-  if (evt.target.id === 'delete') {
-    const modalMessage = document.querySelector('.modal-message');
-    modalMessage.textContent = 'Report Deleted Successfully';
-    document.querySelector('.modal-group').remove();
-  } else {
-    toggleModal(evt);
-  }
-}));
-
 const updateStatusBtns = Array.from(document.querySelectorAll('.update-record'));
 if (updateStatusBtns) {
   const toast = document.querySelector('.toast');

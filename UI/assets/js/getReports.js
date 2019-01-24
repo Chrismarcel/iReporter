@@ -17,8 +17,9 @@ function convertUTCTOLocalTime(timeString) {
 
 function renderReportCard(reportObj) {
   const {
-    status, latitude, longitude, comment, createdat,
+    id, type, status, latitude, longitude, comment, createdat,
   } = reportObj;
+
   const reportsGrid = document.querySelector('.cards-list');
   const cardDiv = document.createElement('div');
   cardDiv.classList.add('card', 'report-card');
@@ -66,8 +67,6 @@ function renderReportCard(reportObj) {
   cardDiv.append(reportLocation);
 
   if (window.location.href.includes('dashboard')) {
-    const { id, type } = reportObj;
-
     const editBtn = document.createElement('a');
     const deleteBtn = document.createElement('button');
     const editIcon = document.createElement('i');
@@ -76,6 +75,8 @@ function renderReportCard(reportObj) {
     editBtn.classList.add('btn', 'btn-primary', 'edit-report');
     editIcon.classList.add('icon', 'icon-white', 'fas', 'fa-pen');
     deleteBtn.classList.add('btn', 'btn-warning', 'delete-report');
+    deleteBtn.setAttribute('id', `delete-${id}`);
+    deleteBtn.setAttribute('data-type', `${type}`);
     deleteIcon.classList.add('icon', 'icon-white', 'fas', 'fa-trash-alt');
     editBtn.textContent = 'Edit Report';
     editBtn.prepend(editIcon);
