@@ -95,6 +95,12 @@ a.btn {
   box-shadow: 0 10px 15px #cecaca;
 }
 
+.card .btn {
+  width: 100%;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
 .card p {
   margin-bottom: 15px;
 }
@@ -106,7 +112,14 @@ a.btn {
 
 .icon {
   margin-right: 5px;
+}
+
+.icon-blue {
   color: #0facf3;
+}
+
+.icon-white {
+  color: #ffffff;
 }
 
 .circle-icon {
@@ -535,7 +548,7 @@ footer {
 }
 
 .profile-name {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 600;
 }
 
@@ -554,7 +567,7 @@ footer {
   content: "";
   position: absolute;
   height: 50px;
-  right: -25px;
+  right: -26px;
   top: 5px;
   border-right: 2px solid rgba(173, 176, 183, 0.7);
 }
@@ -662,7 +675,7 @@ tr > td:last-child {
 }
 
 .user-reports .report-card {
-  flex-basis: 30%;
+  flex-basis: 31%;
   margin-right: 20px;
 }
 

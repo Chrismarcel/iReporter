@@ -28,7 +28,7 @@ function renderReportCard(reportObj) {
   const reportTime = document.createElement('p');
   reportTime.classList.add('report-time');
   const clockIcon = document.createElement('i');
-  clockIcon.classList.add('icon', 'fas', 'fa-clock');
+  clockIcon.classList.add('icon', 'icon-blue', 'fas', 'fa-clock');
   reportTime.textContent = convertUTCTOLocalTime(createdat);
   const reportComment = document.createElement('p');
   reportComment.classList.add('report-comment');
@@ -37,7 +37,7 @@ function renderReportCard(reportObj) {
   reportLocation.classList.add('report-location');
   reportLocation.textContent = `${latitude}, ${longitude}`;
   const locationIcon = document.createElement('i');
-  locationIcon.classList.add('icon', 'fas', 'fa-map-marker-alt');
+  locationIcon.classList.add('icon', 'icon-blue', 'fas', 'fa-map-marker-alt');
 
   reportTime.prepend(clockIcon);
   const reportMedia = document.createElement('div');
@@ -45,12 +45,12 @@ function renderReportCard(reportObj) {
   const reportImage = document.createElement('div');
   reportImage.classList.add('report-image');
   const imageIcon = document.createElement('i');
-  imageIcon.classList.add('icon', 'fas', 'fa-images');
+  imageIcon.classList.add('icon', 'icon-blue', 'fas', 'fa-images');
   reportImage.textContent = '2 Photos';
   const reportVideo = document.createElement('div');
   reportVideo.classList.add('report-video');
   const videoIcon = document.createElement('i');
-  videoIcon.classList.add('icon', 'fas', 'fa-video');
+  videoIcon.classList.add('icon', 'icon-blue', 'fas', 'fa-video');
   reportVideo.textContent = '2 Videos';
 
   reportImage.prepend(imageIcon);
@@ -65,6 +65,26 @@ function renderReportCard(reportObj) {
   cardDiv.append(reportMedia);
   cardDiv.append(reportLocation);
 
+  if (window.location.href.includes('dashboard')) {
+    const { id, type } = reportObj;
+
+    const editBtn = document.createElement('a');
+    const deleteBtn = document.createElement('button');
+    const editIcon = document.createElement('i');
+    const deleteIcon = document.createElement('i');
+    editBtn.setAttribute('href', `./edit-report.html?type=${type}s&id=${id}`);
+    editBtn.classList.add('btn', 'btn-primary', 'edit-report');
+    editIcon.classList.add('icon', 'icon-white', 'fas', 'fa-pen');
+    deleteBtn.classList.add('btn', 'btn-warning', 'delete-report');
+    deleteIcon.classList.add('icon', 'icon-white', 'fas', 'fa-trash-alt');
+    editBtn.textContent = 'Edit Report';
+    editBtn.prepend(editIcon);
+    deleteBtn.textContent = 'Delete Report';
+    deleteBtn.prepend(deleteIcon);
+    cardDiv.append(editBtn);
+    cardDiv.append(deleteBtn);
+  }
+
   return reportsGrid.append(cardDiv);
 }
 
@@ -77,8 +97,8 @@ function renderReportForm(reportObj) {
   locationField.value = `${latitude}, ${longitude}`;
 }
 
-function getReports(id = null) {
-  let url = 'http://localhost:3000/api/v1/red-flags';
+function getReports(endpoint = null, id = null) {
+  let url = `http://localhost:3000/api/v1/${endpoint}`;
   const token = window.localStorage.getItem('token');
 
   if (id) {
@@ -96,22 +116,23 @@ function getReports(id = null) {
     .then((responseObj) => {
       const report = responseObj.data;
       if (!id) {
-        report.map((reportDetails) => {
-          renderReportCard(reportDetails);
-        });
+        report.map(reportDetails => renderReportCard(reportDetails));
       }
 
       if (window.location.href.includes('edit-report')) {
         renderReportForm(responseObj.data);
-      } else {
-        console.log(window.location);
       }
     })
     .catch(error => console.log(error));
 }
 
+function getPostID(queryString) {
+  const matches = queryString.substr(1).match(/=(\w+)-?(\w+)?/gm);
+  return matches.map(match => match.substr(1))[1];
+}
+
 if (window.location.href.includes('edit-report')) {
-  getReports(3);
+  getReports('red-flags', getPostID(window.location.search));
 } else {
-  getReports();
+  getReports('red-flags');
 }

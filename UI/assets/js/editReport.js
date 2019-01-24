@@ -33,5 +33,11 @@ document.querySelector('.form-card').addEventListener('submit', (evt) => {
   Promise.all(
     [updateReport(endpoint[0], 'location', endpoint[1], locationObj),
       updateReport(endpoint[0], 'comment', endpoint[1], commentObj)],
-  ).then(response => console.log(response));
+  ).then((response) => {
+    const locationResponse = response[0];
+    const commentResponse = response[1];
+    if (locationResponse.status === 200 && commentResponse.status === 200) {
+      window.location.href = './dashboard.html';
+    }
+  });
 });
