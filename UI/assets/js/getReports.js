@@ -66,7 +66,7 @@ function renderReportCard(reportObj) {
   cardDiv.append(reportMedia);
   cardDiv.append(reportLocation);
 
-  if (window.location.href.includes('dashboard')) {
+  if (window.location.href.includes('dashboard') && status === 'drafted') {
     const editBtn = document.createElement('a');
     const deleteBtn = document.createElement('button');
     const editIcon = document.createElement('i');

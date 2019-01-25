@@ -520,6 +520,36 @@ describe('PATCH red-flag requests', () => {
       });
   });
 
+  it('should return an error if incorrect status was specified', (done) => {
+    chai
+      .request(app)
+      .patch('/api/v1/red-flags/1/status')
+      .set('authorization', `Bearer ${adminToken}`)
+      .send({ status: 'rejected%^&' })
+      .end((err, res) => {
+        expect(res).to.has.status(400);
+        expect(res.body.status).to.be.equal(400);
+        expect(res.body).to.have.property('status');
+        expect(res.body.error).to.be.equal('You need to specify a correct status type');
+        done(err);
+      });
+  });
+
+  it('should return an error if report is trying to be edited after is has been updated', (done) => {
+    chai
+      .request(app)
+      .patch('/api/v1/red-flags/1/comment')
+      .set('authorization', `Bearer ${userToken}`)
+      .send({ comment: 'Modifying the existing comment with a longer comment' })
+      .end((err, res) => {
+        expect(res).to.has.status(409);
+        expect(res.body.status).to.be.equal(409);
+        expect(res.body).to.have.property('status');
+        expect(res.body.error).to.be.equal('You cannot modify this report after its status has been updated');
+        done(err);
+      });
+  });
+
   it('should return an error if the comment of the red flag resource is empty', (done) => {
     chai
       .request(app)
@@ -581,7 +611,7 @@ describe('DELETE red-flags request', () => {
       });
   });
 
-  it('should return an error if the token cannot tbe authenticated', (done) => {
+  it('should return an error if the token cannot the authenticated', (done) => {
     chai
       .request(app)
       .delete('/api/v1/red-flags/1/')

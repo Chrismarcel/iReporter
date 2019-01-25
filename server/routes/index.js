@@ -56,6 +56,7 @@ router.patch(
   AuthenticateUser.verifyUser,
   ValidateIncident.validateIncidentId,
   ValidateIncident.validateCoordinates,
+  ValidateIncident.validateStatus,
   IncidentController.updateIncident,
 );
 router.patch(
@@ -64,6 +65,7 @@ router.patch(
   AuthenticateUser.verifyUser,
   ValidateIncident.validateIncidentId,
   ValidateIncident.validateComment,
+  ValidateIncident.validateStatus,
   IncidentController.updateIncident,
 );
 router.patch(
@@ -71,6 +73,7 @@ router.patch(
   ValidateIncident.validateIncidentType,
   AuthenticateUser.verifyAdmin,
   ValidateIncident.validateIncidentId,
+  ValidateIncident.validateStatus,
   IncidentController.updateIncident,
 );
 
@@ -80,6 +83,7 @@ router.delete(
   ValidateIncident.validateIncidentType,
   AuthenticateUser.verifyUser,
   ValidateIncident.validateIncidentId,
+  ValidateIncident.validateStatus,
   IncidentController.deleteIncident,
 );
 

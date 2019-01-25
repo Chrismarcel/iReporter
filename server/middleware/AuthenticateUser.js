@@ -67,7 +67,6 @@ class AuthenticateUser {
     const { isadmin } = payload;
 
     if (isadmin === 'false') {
-      console.log('You are not an admin');
       return res.status(401).json({
         status: 401,
         error: 'You are not authorized to access this endpoint.',

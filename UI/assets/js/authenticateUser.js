@@ -14,11 +14,11 @@ function authenticateUser(userObj, endpoint) {
         localStorage.setItem('token', token);
 
         if (user.isadmin === 'true') {
-          localStorage.setItem('role', 'user');
+          localStorage.setItem('role', 'admin');
           window.location.href = './admin.html';
         } else {
-          localStorage.setItem('role', 'admin');
-          window.location.href = './profile.html';
+          localStorage.setItem('role', 'user');
+          window.location.href = './dashboard.html';
         }
       }
     })
