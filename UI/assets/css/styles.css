@@ -499,6 +499,8 @@ footer {
 
 .modal.report-modal {
   width: 45vw;
+  height: 500px;
+  overflow-y: scroll;
 }
 
 .modal-toggle.modal-open {
@@ -932,6 +934,10 @@ tr > td:last-child {
     width: 90%;
     padding: 10px 15px 20px;
   } 
+
+  .report-modal.modal-open {
+    width: 95vw;
+  }
 
   .toggle-reports {
     float: left;

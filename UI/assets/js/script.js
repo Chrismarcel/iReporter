@@ -1,3 +1,14 @@
+const isHomePage = window.location.pathname === '/' || window.location.href.includes('index');
+
+if (localStorage.getItem('token') && isHomePage) {
+  document.getElementById('login').remove();
+  document.getElementById('signup').remove();
+}
+
+if (localStorage.getItem('role') === 'user') {
+  document.getElementById('admin').remove();
+}
+
 // Event handler for toggling menu of mobile devices
 const hamburgerBtn = document.querySelector('.hamburger-menu');
 hamburgerBtn.addEventListener('click', function toggleMenu() {
