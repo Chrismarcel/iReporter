@@ -1,3 +1,7 @@
+if (!localStorage.getItem('token')) {
+  window.location.href = './';
+}
+
 function capitalizeFirstLetter(str) {
   return str[0].toUpperCase() + str.substr(1);
 }
@@ -15,12 +19,28 @@ function convertUTCTOLocalTime(timeString) {
   return formattedDate;
 }
 
+function renderEmptyReportsCard(selector) {
+  const messageCard = document.createElement('div');
+  const message = document.createElement('p');
+  messageCard.classList.add('card', 'report-card', 'no-reports');
+  message.textContent = 'You have not created any records';
+  messageCard.append(message);
+  return document.querySelector(selector).append(messageCard);
+}
+
+function emptyNode(node) {
+  while (node.firstChild) {
+    node.firstChild.remove();
+  }
+}
+
 function renderReportCard(reportObj) {
   const {
     id, type, status, latitude, longitude, comment, createdat,
   } = reportObj;
 
   const reportsGrid = document.querySelector('.cards-list');
+
   const cardDiv = document.createElement('div');
   cardDiv.classList.add('card', 'report-card');
   const reportStatus = document.createElement('div');
@@ -116,24 +136,43 @@ function getReports(endpoint = null, id = null) {
     .then(response => response.json())
     .then((responseObj) => {
       const report = responseObj.data;
-      if (window.location.href.includes('admin')) {
-        report.map(reportDetails => renderReportTable(reportDetails));
-      } else if (window.location.href.includes('edit-report')) {
+      if (report.length < 1) {
+        return renderEmptyReportsCard('.cards-list');
+      }
+      if (window.location.href.includes('edit-report')) {
         renderReportForm(report);
       } else {
-        report.map(reportDetails => renderReportCard(reportDetails));
+        return report.map(reportDetails => renderReportCard(reportDetails));
       }
     })
     .catch(error => console.log(error));
 }
 
-function getPostID(queryString) {
+function getReportParams(queryString) {
   const matches = queryString.substr(1).match(/=(\w+)-?(\w+)?/gm);
-  return matches.map(match => match.substr(1))[1];
+  return matches.map(match => match.substr(1));
 }
 
 if (window.location.href.includes('edit-report')) {
-  getReports('red-flags', getPostID(window.location.search));
+  const endpoint = getReportParams(window.location.search)[0];
+  const id = getReportParams(window.location.search)[1];
+  getReports(endpoint, id);
 } else {
   getReports('red-flags');
 }
+
+const toggleBtns = Array.from(document.querySelectorAll('.toggle-reports button'));
+toggleBtns.map((toggleBtn) => {
+  toggleBtn.addEventListener('click', function toggle(evt) {
+    const reportsList = document.querySelector('.cards-list');
+    emptyNode(reportsList);
+    const type = evt.target.id;
+    if (type === 'red-flags') {
+      this.nextElementSibling.classList.remove('toggled');
+    } else {
+      this.previousElementSibling.classList.remove('toggled');
+    }
+    this.classList.add('toggled');
+    getReports(type);
+  });
+});

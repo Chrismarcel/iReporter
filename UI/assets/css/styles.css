@@ -77,12 +77,12 @@ a.btn {
   border: 2px solid #ef271b;
 }
 
-.btn-primary {
+.btn-primary, .toggle-reports .btn.toggled {
   background: #0facf3;
   color: #fffffa;
 }
 
-.btn-white {
+.btn-white, .toggle-reports .btn {
   background: #fffffa;
   color: #0facf3;
   border: 2px solid #fffffa;
@@ -191,6 +191,16 @@ td.comment {
 
 td.time, td.serial {
   text-align: center;
+}
+
+.toggle-reports {
+  float: right;
+  margin-right: 25px;
+}
+
+.toggle-reports button {
+  border-radius: 0;
+  margin-right: -4px;
 }
 
 /* Navigation */
@@ -316,6 +326,10 @@ section > .btn {
   margin-bottom: 20px;
 }
 
+.section-title {
+  display: inline-block;
+}
+
 .section-title,
 .section-text {
   position: relative;
@@ -351,8 +365,9 @@ section > .btn {
   margin-bottom: 20px;
 }
 
-.card p.report-comment {
-  margin-bottom: 25px;
+.cards-list .no-reports {
+  flex-basis: 99%;
+  text-align: center;
 }
 
 .report-time {
@@ -578,6 +593,15 @@ p.stat-value {
   text-align: center;
 }
 
+div.report-type {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.report-type h2 {
+  font-weight: 500;
+}
+
 /* Toast */
 .toast {
   top: 50px;
@@ -679,6 +703,10 @@ tr > td:last-child {
 .user-reports .report-card {
   flex-basis: 31%;
   margin-right: 20px;
+}
+
+.user-reports .no-reports {
+  flex-basis: 99%;
 }
 
 .report-img {
