@@ -71,7 +71,6 @@ router.patch(
   ValidateIncident.validateIncidentType,
   AuthenticateUser.verifyAdmin,
   ValidateIncident.validateIncidentId,
-  ValidateIncident.validateIncidentType,
   IncidentController.updateIncident,
 );
 

@@ -116,12 +116,12 @@ function getReports(endpoint = null, id = null) {
     .then(response => response.json())
     .then((responseObj) => {
       const report = responseObj.data;
-      if (!id) {
+      if (window.location.href.includes('admin')) {
+        report.map(reportDetails => renderReportTable(reportDetails));
+      } else if (window.location.href.includes('edit-report')) {
+        renderReportForm(report);
+      } else {
         report.map(reportDetails => renderReportCard(reportDetails));
-      }
-
-      if (window.location.href.includes('edit-report')) {
-        renderReportForm(responseObj.data);
       }
     })
     .catch(error => console.log(error));
