@@ -105,6 +105,37 @@ class ValidateIncident {
 
     return next();
   }
+
+  /**
+   * @method validateStatus
+   * @description Validates the status of a given incident report
+   * @param {object} req - The Request Object
+   * @param {object} res - The Response Object
+   * @returns {object} JSON API Response
+   */
+  static validateStatus(req, res, next) {
+    const status = ['investigating', 'resolved', 'rejected'];
+    const endpoints = ['location', 'comment'];
+    const url = req.url.split('/')[3];
+
+    if (!status.includes(req.body.status) && url === 'status') {
+      return res.status(400).json({ status: 400, error: 'You need to specify a correct status type' });
+    }
+
+    if (endpoints.includes(url)) {
+      const { id } = req.params;
+      const query = 'SELECT status FROM incidents WHERE id = $1';
+
+      return pool.query(query, [id], (err, dbRes) => {
+        console.log(dbRes.rows[0].status);
+        if (dbRes.rows[0].status !== 'drafted') {
+          return res.status(409).json({ status: 409, error: 'You cannot modify this request after its status has been updated' });
+        }
+      });
+    }
+
+    return next();
+  }
 }
 
 export default ValidateIncident;

@@ -37,8 +37,6 @@ function renderReportTable(reportObj, serial) {
   const form = document.createElement('form');
   const selectStatus = document.createElement('select');
   selectStatus.classList.add('form-element');
-  selectStatus.setAttribute('name', 'status');
-  selectStatus.setAttribute('id', id);
   const statusOptions = ['drafted', 'investigating', 'resolved', 'rejected'];
   statusOptions.map((statusOption) => {
     const option = document.createElement('option');
@@ -52,6 +50,8 @@ function renderReportTable(reportObj, serial) {
   const submitBtn = document.createElement('button');
   submitBtn.setAttribute('type', 'submit');
   submitBtn.classList.add('btn', 'btn-primary', 'update-record');
+  submitBtn.setAttribute('data-id', id);
+  submitBtn.setAttribute('data-type', type);
   submitBtn.textContent = 'Submit';
   form.append(selectStatus);
   form.append(submitBtn);
@@ -60,7 +60,7 @@ function renderReportTable(reportObj, serial) {
   document.querySelector('tbody').append(row);
 }
 
-function getReports(endpoint = null) {
+function getAllReports(endpoint = null) {
   const url = `http://localhost:3000/api/v1/${endpoint}`;
   const token = window.localStorage.getItem('token');
 
@@ -81,9 +81,45 @@ function getReports(endpoint = null) {
     .catch(error => console.log(error));
 }
 
+function updateReportStatus(endpoint, id, status) {
+  const url = `http://localhost:3000/api/v1/${endpoint}s/${id}/status`;
+  const token = window.localStorage.getItem('token');
+
+  fetch(url, {
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ status }),
+  })
+    .then(response => response.json())
+    .then((responseObj) => {
+      console.log(responseObj);
+      if (responseObj.status === 200) {
+        console.log('Report updated');
+      }
+    })
+    .catch(error => console.log(error));
+}
+
+document.body.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  const { target } = evt;
+  const classNames = Array.from(target.classList);
+  if (classNames.includes('update-record')) {
+    const status = target.previousElementSibling.value;
+    console.log(status);
+    const id = target.getAttribute('data-id');
+    const type = target.getAttribute('data-type');
+    updateReportStatus(type, id, status);
+    console.log({ type, id, status });
+  }
+});
+
 const role = localStorage.getItem('role');
 if (role !== 'admin') {
   window.location.href = './index.html';
 } else {
-  getReports('red-flags');
+  getAllReports('red-flags');
 }
