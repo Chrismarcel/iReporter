@@ -176,6 +176,7 @@ tr {
 
 td .form-element {
   margin-bottom: 0;
+  margin-right: 10px;
 }
 
 td,
@@ -184,8 +185,12 @@ th {
   border-bottom: 1px solid #dddddd;
 }
 
-td.issue {
-  width: 30px;
+td.comment {
+  width: 30%;
+}
+
+td.time, td.serial {
+  text-align: center;
 }
 
 /* Navigation */
@@ -348,14 +353,6 @@ section > .btn {
 
 .card p.report-comment {
   margin-bottom: 25px;
-}
-
-.report-user {
-  color: #0facf3;
-  text-decoration: underline;
-  display: block;
-  font-size: 1.2em;
-  margin-bottom: 15px;
 }
 
 .report-time {

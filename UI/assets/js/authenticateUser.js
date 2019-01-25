@@ -8,10 +8,19 @@ function authenticateUser(userObj, endpoint) {
     body: JSON.stringify(userObj),
   })
     .then(apiResponse => apiResponse.json())
-    .then((user) => {
-      const { token } = user.data[0];
-      localStorage.setItem('token', token);
-      window.location.href = './profile.html';
+    .then((responseObj) => {
+      if (responseObj.status === 200 || responseObj.status === 201) {
+        const { token, user } = responseObj.data[0];
+        localStorage.setItem('token', token);
+
+        if (user.isadmin === 'true') {
+          localStorage.setItem('role', 'user');
+          window.location.href = './admin.html';
+        } else {
+          localStorage.setItem('role', 'admin');
+          window.location.href = './profile.html';
+        }
+      }
     })
     .catch(error => console.log(error));
 }
