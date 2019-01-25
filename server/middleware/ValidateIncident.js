@@ -127,10 +127,11 @@ class ValidateIncident {
       const query = 'SELECT status FROM incidents WHERE id = $1';
 
       return pool.query(query, [id], (err, dbRes) => {
-        console.log(dbRes.rows[0].status);
         if (dbRes.rows[0].status !== 'drafted') {
-          return res.status(409).json({ status: 409, error: 'You cannot modify this request after its status has been updated' });
+          return res.status(409).json({ status: 409, error: 'You cannot modify this report after its status has been updated' });
         }
+
+        return next();
       });
     }
 

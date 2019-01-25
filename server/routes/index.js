@@ -83,6 +83,7 @@ router.delete(
   ValidateIncident.validateIncidentType,
   AuthenticateUser.verifyUser,
   ValidateIncident.validateIncidentId,
+  ValidateIncident.validateStatus,
   IncidentController.deleteIncident,
 );
 
