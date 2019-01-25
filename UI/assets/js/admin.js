@@ -95,9 +95,12 @@ function updateReportStatus(endpoint, id, status) {
   })
     .then(response => response.json())
     .then((responseObj) => {
-      console.log(responseObj);
       if (responseObj.status === 200) {
-        console.log('Report updated');
+        const toast = document.querySelector('.toast');
+        toast.classList.toggle('toast-show');
+        setTimeout(() => {
+          toast.classList.remove('toast-show');
+        }, 3000);
       }
     })
     .catch(error => console.log(error));
@@ -109,11 +112,9 @@ document.body.addEventListener('click', (evt) => {
   const classNames = Array.from(target.classList);
   if (classNames.includes('update-record')) {
     const status = target.previousElementSibling.value;
-    console.log(status);
     const id = target.getAttribute('data-id');
     const type = target.getAttribute('data-type');
     updateReportStatus(type, id, status);
-    console.log({ type, id, status });
   }
 });
 
