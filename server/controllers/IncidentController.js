@@ -40,13 +40,18 @@ class IncidentController {
    * @returns {object} JSON API Response
    */
   static getAnIncident(req, res) {
-    const { id } = req.user;
+    const { id, isadmin } = req.user;
     const { postId } = req;
     const { incidentType } = req.params;
     const type = incidentType.substr(0, incidentType.length - 1);
 
-    const query = 'SELECT * FROM incidents WHERE type = $1 AND id = $2 AND createdby = $3';
-    pool.query(query, [type, postId, id], (err, dbRes) => {
+    let query = 'SELECT * FROM incidents WHERE type = $1 AND id = $2';
+    let params = [type, postId];
+    if (isadmin !== 'true') {
+      query += ' AND createdby = $3';
+      params = [type, postId, id];
+    }
+    pool.query(query, params, (err, dbRes) => {
       res.status(200).json({ status: 200, data: dbRes.rows[0] });
     });
   }

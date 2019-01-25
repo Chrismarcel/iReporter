@@ -105,6 +105,16 @@ a.btn {
   margin-bottom: 15px;
 }
 
+.expand-report {
+  color: #0facf3;
+  text-decoration: underline;
+  display: inline-block;
+}
+
+.card .expand-report {
+  margin-bottom: 20px;
+}
+
 .column {
   display: flex;
   justify-content: space-between;
@@ -365,6 +375,17 @@ section > .btn {
   margin-bottom: 20px;
 }
 
+.cards-list p.report-comment {
+  height: 65px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+td.comment p {
+  height: 48px;
+  overflow: hidden;
+}
+
 .cards-list .no-reports {
   flex-basis: 99%;
   text-align: center;
@@ -476,6 +497,10 @@ footer {
   transition: opacity .5s ease-in;
 }
 
+.modal.report-modal {
+  width: 45vw;
+}
+
 .modal-toggle.modal-open {
   background: rgba(50, 41, 47, 0.76);
   position: fixed;
@@ -505,6 +530,10 @@ footer {
 
 .modal-body {
   margin-top: 20px;
+}
+
+.modal-body .report-time, .modal-body .report-location {
+  margin-bottom: 15px;
 }
 
 .modal-message {
@@ -746,6 +775,7 @@ tr > td:last-child {
   }
 
   .hamburger-menu {
+    border: 0;
     position: absolute;
     padding: 37px;
     right: 0;
@@ -844,6 +874,10 @@ tr > td:last-child {
     padding: 40px 20px;
   }
 
+  .section-title {
+    display: block;
+  }
+
   .navbar-logo {
     font-size: 1.5em;
     padding: 20px;
@@ -886,6 +920,10 @@ tr > td:last-child {
     margin-bottom: 15px;
   }
 
+  td.comment p {
+    height: 90px;
+  }
+
   .user-reports > .cards-list > .report-card {
     margin-right: 0;
   }
@@ -893,6 +931,11 @@ tr > td:last-child {
   .modal {
     width: 90%;
     padding: 10px 15px 20px;
+  } 
+
+  .toggle-reports {
+    float: left;
+    margin: 15px 0; 
   }
 
   .modal-header {
@@ -910,6 +953,10 @@ tr > td:last-child {
 
   .report-stat {
     margin-bottom: 15px;
+  }
+
+  .toast {
+    width: 75%;
   }
 }
 

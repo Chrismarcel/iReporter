@@ -16,8 +16,8 @@ function convertUTCTOLocalTime(timeString) {
 }
 
 function emptyNode(node) {
-  while (row = node.nextElementSibling) {
-    row.remove();
+  while (node.nextElementSibling) {
+    node.nextElementSibling.remove();
   }
 }
 
@@ -33,7 +33,16 @@ function renderReportTable(reportObj, serial) {
   row.append(serialNumberCell);
   const commentCell = document.createElement('td');
   commentCell.classList.add('comment');
-  commentCell.textContent = comment;
+  const commentText = document.createElement('p');
+  commentText.setAttribute('data-type', type);
+  commentText.setAttribute('data-id', id);
+  commentText.textContent = comment;
+  const expandReport = document.createElement('a');
+  expandReport.classList.add('expand-report');
+  expandReport.setAttribute('href', '#');
+  expandReport.textContent = 'View Details';
+  commentCell.append(commentText);
+  commentCell.append(expandReport);
   row.append(commentCell);
   const dateCell = document.createElement('td');
   dateCell.classList.add('time');

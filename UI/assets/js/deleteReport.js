@@ -1,4 +1,5 @@
-function displayModal(evt, id = null, type = null) {
+
+function toggleDeleteModal(evt, id = null, type = null) {
   evt.preventDefault();
   const modalToggle = document.querySelector('.modal-toggle');
   const modal = document.querySelector('.modal');
@@ -36,7 +37,7 @@ document.body.addEventListener('click', (evt) => {
   if (evt.target.id.includes('delete-')) {
     const postID = evt.target.id.split('-')[1];
     const reportType = evt.target.dataset.type;
-    displayModal(evt, postID, reportType);
+    toggleDeleteModal(evt, postID, reportType);
   }
 
   if (evt.target.id === 'delete') {
@@ -45,6 +46,11 @@ document.body.addEventListener('click', (evt) => {
     deleteReport(reportID, reportType);
     document.querySelector('.modal-group').remove();
   } else if (evt.target.id === 'cancel') {
-    displayModal(evt);
+    toggleDeleteModal(evt);
   }
 });
+
+document.querySelector('.delete-modal .modal-close')
+  .addEventListener('click', (evt) => {
+    toggleDeleteModal(evt);
+  });
