@@ -52,8 +52,14 @@ function renderReportCard(reportObj) {
   clockIcon.classList.add('icon', 'icon-blue', 'fas', 'fa-clock');
   reportTime.textContent = convertUTCTOLocalTime(createdat);
   const reportComment = document.createElement('p');
+  reportComment.setAttribute('data-type', type);
+  reportComment.setAttribute('data-id', id);
   reportComment.classList.add('report-comment');
   reportComment.textContent = comment;
+  const expandReport = document.createElement('a');
+  expandReport.classList.add('expand-report');
+  expandReport.setAttribute('href', '#');
+  expandReport.textContent = 'View Details';
   const reportLocation = document.createElement('p');
   reportLocation.classList.add('report-location');
   reportLocation.textContent = `${latitude}, ${longitude}`;
@@ -68,21 +74,15 @@ function renderReportCard(reportObj) {
   const imageIcon = document.createElement('i');
   imageIcon.classList.add('icon', 'icon-blue', 'fas', 'fa-images');
   reportImage.textContent = '2 Photos';
-  const reportVideo = document.createElement('div');
-  reportVideo.classList.add('report-video');
-  const videoIcon = document.createElement('i');
-  videoIcon.classList.add('icon', 'icon-blue', 'fas', 'fa-video');
-  reportVideo.textContent = '2 Videos';
 
   reportImage.prepend(imageIcon);
-  reportVideo.prepend(videoIcon);
   reportLocation.prepend(locationIcon);
   reportMedia.append(reportImage);
-  reportMedia.append(reportVideo);
 
   cardDiv.append(reportTime);
   cardDiv.append(reportStatus);
   cardDiv.append(reportComment);
+  cardDiv.append(expandReport);
   cardDiv.append(reportMedia);
   cardDiv.append(reportLocation);
 
@@ -167,6 +167,8 @@ toggleBtns.map((toggleBtn) => {
     const reportsList = document.querySelector('.cards-list');
     emptyNode(reportsList);
     const type = evt.target.id;
+    document.querySelector('.report-type h2').textContent = `Displaying ${type} records`;
+
     if (type === 'red-flags') {
       this.nextElementSibling.classList.remove('toggled');
     } else {

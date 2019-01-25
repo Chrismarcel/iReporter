@@ -6,16 +6,6 @@ hamburgerBtn.addEventListener('click', function toggleMenu() {
   menu.classList.toggle('menu-open');
 });
 
-// Handle modal toggle events for report deletion
-const toggleModal = (evt) => {
-  evt.preventDefault();
-  const modalToggle = document.querySelector('.modal-toggle');
-  const modal = document.querySelector('.modal');
-  document.body.classList.toggle('modal-open');
-  modalToggle.classList.toggle('modal-open');
-  modal.classList.toggle('modal-open');
-};
-
 const updateStatusBtns = Array.from(document.querySelectorAll('.update-record'));
 if (updateStatusBtns) {
   const toast = document.querySelector('.toast');
@@ -36,17 +26,3 @@ if (toastHide) {
     toast.classList.toggle('toast-show');
   });
 }
-
-const closeModal = document.querySelector('.modal-close');
-if (closeModal) {
-  closeModal.addEventListener('click', (evt) => {
-    toggleModal(evt);
-  });
-}
-
-const mediaLinks = document.querySelectorAll('.report-media');
-mediaLinks.forEach((mediaLink) => {
-  mediaLink.addEventListener('click', (evt) => {
-    toggleModal(evt);
-  });
-});
