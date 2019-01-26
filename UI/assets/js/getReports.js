@@ -113,7 +113,7 @@ function renderReportCard(reportObj) {
 function renderReportForm(reportObj) {
   const { latitude, longitude, comment } = reportObj;
   const commentField = document.getElementById('comment');
-  const locationField = document.getElementById('location');
+  const locationField = document.getElementById('coordinates');
 
   commentField.value = comment;
   locationField.value = `${latitude}, ${longitude}`;
