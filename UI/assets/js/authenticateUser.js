@@ -1,5 +1,5 @@
 function authenticateUser(userObj, endpoint) {
-  const url = `http://localhost:3000/api/v1/auth/${endpoint}`;
+  const url = `https://ireporter-api.herokuapp.com/api/v1/auth/${endpoint}`;
   fetch(url, {
     method: 'POST',
     headers: {

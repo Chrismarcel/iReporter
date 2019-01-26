@@ -22,8 +22,9 @@ function convertUTCTOLocalTime(timeString) {
 function renderEmptyReportsCard(selector) {
   const messageCard = document.createElement('div');
   const message = document.createElement('p');
+  const type = document.querySelector('.toggled').getAttribute('id');
   messageCard.classList.add('card', 'report-card', 'no-reports');
-  message.textContent = 'You have not created any records';
+  message.textContent = `You have not created any ${type} records`;
   messageCard.append(message);
   return document.querySelector(selector).append(messageCard);
 }
@@ -119,7 +120,7 @@ function renderReportForm(reportObj) {
 }
 
 function getReports(endpoint = null, id = null) {
-  let url = `http://localhost:3000/api/v1/${endpoint}`;
+  let url = `https://ireporter-api.herokuapp.com/api/v1/${endpoint}`;
   const token = window.localStorage.getItem('token');
 
   if (id) {
