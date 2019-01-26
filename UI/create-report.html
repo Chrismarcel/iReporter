@@ -37,7 +37,7 @@
       <form class="form-card" method="post">
         <label for="comment">Enter issue to be reported <span>*</span></label>
         <textarea name="comment" id="comment" class="form-element" placeholder="Enter a comment about the issue eg 'Blocked drainage system'"
-          col="10" required></textarea>
+          col="10" minlength="20" required></textarea>
         <label for="issue-type">Select Recorded type <span>*</span></label>
         <select type="text" id="issue-type" name="issue-type" class="form-element"
           required>
@@ -47,6 +47,10 @@
         </select>
         <label for="location">Enter Location <span>*</span></label>
         <input type="text" class="form-element" name="location" id="location">
+        <span class="divider">OR</span>
+        <button class="btn btn-primary-hollow form-element current-location">Select
+          current location</button>
+        <input type="hidden" id="coordinates">
         <label for="attachment">Attach Media File - Image or Video</label>
         <input type="file" accept="image/*, video/mp4" id="attachment" name="attachment"
           class="form-element" />
@@ -59,6 +63,7 @@
   </footer>
 </body>
 <script src="./assets/js/script.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIKKKyKK4f4Dr6e-H1H2YIEtzuh29uzjk&libraries=places"></script>
 <script src="./assets/js/createReport.js"></script>
 
 </html>

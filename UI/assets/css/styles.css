@@ -71,6 +71,11 @@ a.btn {
   color: #fffffa;
 }
 
+.btn-primary-hollow {
+  border: 2px solid #0facf3;
+  color: #0facf3;
+}
+
 .btn-warning {
   color: #fffffa;
   background: #ef271b;
@@ -156,9 +161,7 @@ a.btn {
   align-self: center;
 }
 
-.form-card input, 
-.form-card select, 
-.form-card textarea {
+.form-element {
   margin-bottom: 15px;
 }
 
@@ -211,6 +214,37 @@ td.time, td.serial {
 .toggle-reports button {
   border-radius: 0;
   margin-right: -4px;
+}
+
+.divider {
+  display: block;
+  height: 40px;
+  width: 40px;
+  border: 1.5px solid #0facf3;
+  color: #0facf3;
+  border-radius: 50%;
+  line-height: 37px;
+  text-align: center;
+  margin: 0 auto;
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.divider::before, .divider::after {
+  content: '';
+  position: absolute;
+  top: 18px;
+  background: #0facf3;
+  width: 200px;
+  height: 2px;
+}
+
+.divider::before {
+  left: 38px;
+}
+
+.divider::after {
+  right: 38px;
 }
 
 /* Navigation */
@@ -481,6 +515,13 @@ footer {
   flex-direction: column;
   padding: 50px 40px;
   margin-top: 25px;
+}
+
+.current-location {
+  width: 40%;
+  transform: translate(-50%);
+  left: 50%;
+  position: relative;
 }
 
 /* Modals */
