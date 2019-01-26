@@ -5,6 +5,13 @@ if (localStorage.getItem('token') && isHomePage) {
   document.getElementById('signup').remove();
 }
 
+if (!localStorage.getItem('token')) {
+  document.getElementById('admin').remove();
+  document.getElementById('create-record').remove();
+  document.getElementById('my-records').remove();
+  document.getElementById('dashboard').remove();
+}
+
 if (localStorage.getItem('role') === 'user') {
   document.getElementById('admin').remove();
 }

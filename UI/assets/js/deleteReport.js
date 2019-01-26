@@ -14,7 +14,7 @@ function toggleDeleteModal(evt, id = null, type = null) {
 }
 
 function deleteReport(id, endpoint) {
-  const url = `http://localhost:3000/api/v1/${endpoint}s/${id}`;
+  const url = `https://ireporter-api.herokuapp.com/api/v1/${endpoint}s/${id}`;
   const token = window.localStorage.getItem('token');
   fetch(url, {
     method: 'DELETE',

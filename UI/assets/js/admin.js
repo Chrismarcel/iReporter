@@ -76,7 +76,7 @@ function renderReportTable(reportObj, serial) {
 }
 
 function getAllReports(endpoint = null) {
-  const url = `http://localhost:3000/api/v1/${endpoint}`;
+  const url = `https://ireporter-api.herokuapp.com/api/v1/${endpoint}`;
   const token = window.localStorage.getItem('token');
 
   fetch(url, {
@@ -97,7 +97,7 @@ function getAllReports(endpoint = null) {
 }
 
 function updateReportStatus(endpoint, id, status) {
-  const url = `http://localhost:3000/api/v1/${endpoint}s/${id}/status`;
+  const url = `https://ireporter-api.herokuapp.com/api/v1/${endpoint}s/${id}/status`;
   const token = window.localStorage.getItem('token');
 
   fetch(url, {

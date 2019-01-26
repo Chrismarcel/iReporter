@@ -1,8 +1,9 @@
 
 function updateReport(endpoint, type, id, reportObj) {
   const token = window.localStorage.getItem('token');
+  const url = `https://ireporter-api.herokuapp.com/api/v1/${endpoint}/${id}/${type}`;
 
-  return fetch(`http://localhost:3000/api/v1/${endpoint}/${id}/${type}`, {
+  return fetch(url, {
     method: 'PATCH',
     headers: {
       Authorization: `Bearer ${token}`,

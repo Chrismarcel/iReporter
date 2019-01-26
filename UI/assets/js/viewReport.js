@@ -47,7 +47,7 @@ function renderReportDetails(reportObj) {
 
 function getSingleReport(endpoint, id) {
   const token = localStorage.getItem('token');
-  const url = `http://localhost:3000/api/v1/${endpoint}s/${id}`;
+  const url = `https://ireporter-api.herokuapp.com/api/v1/${endpoint}s/${id}`;
   fetch(url, {
     method: 'GET',
     headers: {

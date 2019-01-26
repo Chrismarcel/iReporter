@@ -1,5 +1,5 @@
 function createReport(body, endpoint, method) {
-  const url = `http://localhost:3000/api/v1/${endpoint}`;
+  const url = `https://ireporter-api.herokuapp.com/api/v1/${endpoint}`;
   const token = window.localStorage.getItem('token');
 
   fetch(url, {
