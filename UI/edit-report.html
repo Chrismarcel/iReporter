@@ -40,12 +40,13 @@
                     placeholder="Enter a brief comment about the issue eg 'Blocked drainage system'"
                     col="10" minlength="20"></textarea>
                 <label for="location">Update Location</label>
-                <input type="text" class="form-element" name="location" id="location">
-                <span class="divider">OR</span>
-                <button class="btn btn-primary-hollow form-element current-location">
-                    <i class="fas fa-map-marker"></i> Select current location
-                </button>
-                <input type="hidden" id="coordinates">
+                <div class="form-group">
+                    <input type="text" class="form-element" name="location" id="location">
+                    <span class="divider">OR</span>
+                    <button class="btn btn-primary current-location">Use
+                        current location</button>
+                </div>
+                <p id="coordinates"></p>
                 <button type="submit" id="record" class="btn btn-primary update">Update
                     Record</button>
                 <div class="message-box"></div>

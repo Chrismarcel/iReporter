@@ -22,8 +22,9 @@ function autoCompleteAddress() {
     const place = autoComplete.getPlace();
     const latitude = place.geometry.location.lat();
     const longitude = place.geometry.location.lng();
-
-    document.getElementById('coordinates').value = `${latitude}, ${longitude}`;
+    const locationText = document.getElementById('coordinates');
+    locationText.setAttribute('data-coordinates', `${latitude}, ${longitude}`);
+    locationText.textContent = `Selected location coordinates are ${latitude}, ${longitude}`;
   });
 }
 
@@ -35,7 +36,8 @@ function parseUrl(queryString) {
 document.querySelector('.form-card').addEventListener('submit', (evt) => {
   evt.preventDefault();
   const comment = document.getElementById('comment').value;
-  const location = document.getElementById('coordinates').value.split(',');
+  const locationElement = document.getElementById('coordinates');
+  const location = locationElement.getAttribute('data-coordinates').split(',');
   const latitude = location[0].trim();
   const longitude = location[1].trim();
   const commentObj = { comment };
@@ -44,7 +46,7 @@ document.querySelector('.form-card').addEventListener('submit', (evt) => {
 
   Promise.all(
     [updateReport(endpoint[0], 'location', endpoint[1], locationObj),
-    updateReport(endpoint[0], 'comment', endpoint[1], commentObj)],
+      updateReport(endpoint[0], 'comment', endpoint[1], commentObj)],
   ).then((response) => {
     const locationResponse = response[0];
     const commentResponse = response[1];
@@ -56,7 +58,9 @@ document.querySelector('.form-card').addEventListener('submit', (evt) => {
 
 function positionSuccess(position) {
   const { latitude, longitude } = position.coords;
-  document.getElementById('coordinates').value = `${latitude}, ${longitude}`;
+  const locationText = document.getElementById('coordinates');
+  locationText.setAttribute('data-coordinates', `${latitude}, ${longitude}`);
+  locationText.textContent = `Selected location coordinates are ${latitude}, ${longitude}`;
 }
 
 function positionFails() {
@@ -70,6 +74,22 @@ document.querySelector('.current-location').addEventListener('click', (evt) => {
   } else {
     alert('Sorry, your browser does not support this feature');
   }
+});
+
+const uploadWidget = cloudinary.createUploadWidget({
+  cloudName: 'myopinion-ng',
+  uploadPreset: 'nkztoivt',
+}, (error, result) => {
+  if (error) {
+    alert('Sorry, media file cannot be uploaded at this time.');
+  } else {
+    console.log(result);
+  }
+});
+
+document.getElementById('attachment').addEventListener('click', (evt) => {
+  evt.preventDefault();
+  uploadWidget.open();
 });
 
 autoCompleteAddress();

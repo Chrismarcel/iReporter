@@ -18,6 +18,7 @@ router.post(
   ValidateIncident.validateIncidentType,
   ValidateIncident.validateCoordinates,
   ValidateIncident.validateComment,
+  ValidateIncident.validateImages,
   AuthenticateUser.verifyUser,
   IncidentController.createIncident,
 );
