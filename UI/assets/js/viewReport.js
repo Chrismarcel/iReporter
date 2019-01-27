@@ -20,10 +20,19 @@ function emptyNode(node) {
 
 function renderReportDetails(reportObj) {
   const {
-    latitude, longitude, comment, createdat,
+    latitude, longitude, comment, createdat, images,
   } = reportObj;
 
   const modalBody = document.querySelector('.report-modal .modal-body');
+
+  if (images.length > 0) {
+    const baseUrl = 'https://res.cloudinary.com/myopinion-ng/image/upload/v1548601936/iReporter/';
+    images.map((image) => {
+      const img = document.createElement('img');
+      img.setAttribute('src', `${baseUrl}${image}`);
+      document.querySelector('.modal-images').append(img);
+    });
+  }
   const reportComment = document.createElement('p');
 
   reportComment.textContent = comment;

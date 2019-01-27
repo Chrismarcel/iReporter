@@ -217,7 +217,7 @@ td.time, td.serial {
 }
 
 .divider {
-  display: block;
+  display: inline-block;
   height: 40px;
   width: 40px;
   border: 1.5px solid #0facf3;
@@ -227,7 +227,7 @@ td.time, td.serial {
   text-align: center;
   margin: 0 auto;
   position: relative;
-  margin-bottom: 15px;
+  margin: 0 5px
 }
 
 .divider::before, .divider::after {
@@ -235,7 +235,7 @@ td.time, td.serial {
   position: absolute;
   top: 18px;
   background: #0facf3;
-  width: 200px;
+  width: 10px;
   height: 2px;
 }
 
@@ -517,11 +517,20 @@ footer {
   margin-top: 25px;
 }
 
-.current-location {
+.form-group input {
+  width: 55%
+}
+
+.form-group button {
+  width: 33%;
+}
+
+#coordinates {
+  margin-bottom: 15px;
+}
+
+#attachment {
   width: 40%;
-  transform: translate(-50%);
-  left: 50%;
-  position: relative;
 }
 
 /* Modals */

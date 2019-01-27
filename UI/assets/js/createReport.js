@@ -12,7 +12,7 @@ function createReport(body, endpoint) {
   })
     .then(response => response.json())
     .then((responseObj) => {
-      if (responseObj.status === 200) {
+      if (responseObj.status === 201) {
         window.location.href = './view-reports.html';
       }
     })
@@ -26,8 +26,9 @@ function autoCompleteAddress() {
     const place = autoComplete.getPlace();
     const latitude = place.geometry.location.lat();
     const longitude = place.geometry.location.lng();
-
-    document.getElementById('coordinates').value = `${latitude}, ${longitude}`;
+    const locationText = document.getElementById('coordinates');
+    locationText.setAttribute('data-coordinates', `${latitude}, ${longitude}`);
+    locationText.textContent = `Selected location coordinates are ${latitude}, ${longitude}`;
   });
 }
 
@@ -35,12 +36,14 @@ document.querySelector('.form-card').addEventListener('submit', (evt) => {
   evt.preventDefault();
   const comment = document.getElementById('comment').value;
   const reportType = document.getElementById('issue-type').value;
-  const location = document.getElementById('coordinates').value.split(',');
+  const locationElement = document.getElementById('coordinates');
+  const location = locationElement.getAttribute('data-coordinates').split(',');
   const latitude = location[0].trim();
   const longitude = location[1].trim();
+  const images = JSON.parse(document.getElementById('report-media').value);
 
   const reportObj = {
-    latitude, longitude, comment,
+    latitude, longitude, comment, images,
   };
 
   createReport(reportObj, reportType);
@@ -48,7 +51,9 @@ document.querySelector('.form-card').addEventListener('submit', (evt) => {
 
 function positionSuccess(position) {
   const { latitude, longitude } = position.coords;
-  document.getElementById('coordinates').value = `${latitude}, ${longitude}`;
+  const locationText = document.getElementById('coordinates');
+  locationText.setAttribute('data-coordinates', `${latitude}, ${longitude}`);
+  locationText.textContent = `Selected location coordinates are ${latitude}, ${longitude}`;
 }
 
 function positionFails() {
@@ -62,6 +67,34 @@ document.querySelector('.current-location').addEventListener('click', (evt) => {
   } else {
     alert('Sorry, your browser does not support this feature');
   }
+});
+
+const uploadWidget = cloudinary.createUploadWidget({
+  cloudName: 'myopinion-ng',
+  uploadPreset: 'nkztoivt',
+  maxFiles: 3,
+  clientAllowedFormats: ['png', 'jpg', 'jpeg'],
+  maxFileSize: 2000000,
+  maxImageWidth: 245,
+  fieldName: '.form-card',
+}, (error, result) => {
+  if (error) {
+    alert('Sorry, media file cannot be uploaded at this time.');
+  } else {
+    const mediaNames = document.getElementById('report-media');
+    const mediaList = JSON.parse(mediaNames.value);
+    if (result && result.event === 'success') {
+      const { path } = result.info;
+      const mediaName = path.split('/')[2];
+      mediaList.push(mediaName);
+      mediaNames.value = JSON.stringify(mediaList);
+    }
+  }
+});
+
+document.getElementById('attachment').addEventListener('click', (evt) => {
+  evt.preventDefault();
+  uploadWidget.open();
 });
 
 autoCompleteAddress();
