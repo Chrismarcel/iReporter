@@ -26,6 +26,10 @@ describe('POST red-flags requests', () => {
       latitude: '6.5951139',
       longitude: '3.3429975',
       comment: 'Extortion at the embassy',
+      images: [
+        'cjrmc1llraa9hpwk16lr.jpg',
+        'attdkzknpxnmumgptmyt.jpg',
+      ],
     };
     chai
       .request(app)
@@ -205,6 +209,56 @@ describe('POST red-flags requests', () => {
         expect(res.body.status).to.equal(400);
         expect(res.body.error).to.equal(
           'A comment narrating the incident must be specified',
+        );
+        done(err);
+      });
+  });
+
+  it('should return an error if an image format is invalid', (done) => {
+    chai
+      .request(app)
+      .post('/api/v1/red-flags')
+      .set('authorization', `Bearer ${userToken}`)
+      .send({
+        type: 'red-flag',
+        latitude: '6.5951139',
+        longitude: '3.3429975',
+        comment: 'Extortion at the embassy',
+        images: ['a-file-name.shji', 'yada-yada.kjgh'],
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(415);
+        expect(res.body.status).to.equal(415);
+        expect(res.body.error).to.equal(
+          'Sorry, the format you specified is incorrect. Only .jpeg, .jpg, .png formats are accepted',
+        );
+        done(err);
+      });
+  });
+
+  it('should return an error if there are more than 3 attachments', (done) => {
+    chai
+      .request(app)
+      .post('/api/v1/red-flags')
+      .set('authorization', `Bearer ${userToken}`)
+      .send({
+        type: 'red-flag',
+        latitude: '6.5951139',
+        longitude: '3.3429975',
+        comment: 'Extortion at the embassy',
+        images: [
+          'a-file-name.png',
+          'yada-yada.jpg',
+          'cjrmc1llraa9hpwk16lr.jpg',
+          'attdkzknpxnmumgptmyt.jpg',
+          'vfumizsoepdpqvyrwel2.jpg',
+        ],
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(413);
+        expect(res.body.status).to.equal(413);
+        expect(res.body.error).to.equal(
+          'You can only upload a maximum of 3 images',
         );
         done(err);
       });

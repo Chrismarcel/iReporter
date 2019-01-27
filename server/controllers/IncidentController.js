@@ -68,13 +68,13 @@ class IncidentController {
     const { incidentType } = req.params;
     const type = incidentType.substr(0, incidentType.length - 1);
     const {
-      comment, latitude, longitude,
+      comment, latitude, longitude, images,
     } = req.body;
 
     const query = `
-    INSERT INTO incidents(createdby, type, comment, latitude, longitude) VALUES($1, $2, $3, $4, $5) RETURNING id`;
+    INSERT INTO incidents(createdby, type, comment, latitude, longitude, images) VALUES($1, $2, $3, $4, $5, $6) RETURNING id`;
 
-    pool.query(query, [id, type, comment, latitude, longitude], (err, dbRes) => {
+    pool.query(query, [id, type, comment, latitude, longitude, images], (err, dbRes) => {
       const postId = dbRes.rows[0].id;
       return res.status(201).json({
         status: 201,
@@ -82,7 +82,7 @@ class IncidentController {
           id: postId,
           message: `Created ${type} record`,
           incident: {
-            type, comment, latitude, longitude,
+            type, comment, latitude, longitude, images,
           },
         }],
       });

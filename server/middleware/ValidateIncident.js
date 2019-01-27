@@ -137,6 +137,38 @@ class ValidateIncident {
 
     return next();
   }
+
+  /**
+   * @method validateImages
+   * @description Validates the image attachment of a given incident report
+   * @param {object} req - The Request Object
+   * @param {object} res - The Response Object
+   * @returns {object} JSON API Response
+   */
+  static validateImages(req, res, next) {
+    if (req.body.images) {
+      const supportedMedia = ['jpg', 'jpeg', 'png'];
+      const { images } = req.body;
+
+      if (images.length > 3) {
+        return res.status(413).json({ status: 413, error: 'You can only upload a maximum of 3 images' });
+      }
+
+      for (let i = 0; i < images.length; i++) {
+        const format = images[i].split('.')[1];
+        if (!supportedMedia.includes(format)) {
+          return res.status(415).json({
+            status: 415,
+            error: 'Sorry, the format you specified is incorrect. Only .jpeg, .jpg, .png formats are accepted',
+          });
+        }
+        return next();
+      }
+    }
+
+    req.body.images = [];
+    return next();
+  }
 }
 
 export default ValidateIncident;
