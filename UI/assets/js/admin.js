@@ -1,3 +1,24 @@
+function toggleSpinner(selector, text, showSpinner = true) {
+  let spinner = '';
+  if (showSpinner) {
+    spinner = '<i class="fas fa-circle-notch fa-spin"></i>';
+  }
+  selector.innerHTML = `${spinner} ${text}`;
+}
+
+function displayToast(message, show = true, className = 'primary') {
+  const toast = document.querySelector('.toast');
+
+  if (!show) {
+    toast.classList.remove('toast-show', `toast-${className}`);
+  } else {
+    toast.classList.add(`toast-${className}`);
+    const toastMessage = document.querySelector('.toast-message');
+    toastMessage.textContent = message;
+    toast.classList.toggle('toast-show');
+  }
+}
+
 function capitalizeFirstLetter(str) {
   return str[0].toUpperCase() + str.substr(1);
 }
@@ -67,7 +88,7 @@ function renderReportTable(reportObj, serial) {
   submitBtn.classList.add('btn', 'btn-primary', 'update-record');
   submitBtn.setAttribute('data-id', id);
   submitBtn.setAttribute('data-type', type);
-  submitBtn.textContent = 'Submit';
+  submitBtn.textContent = 'Update';
   form.append(selectStatus);
   form.append(submitBtn);
   statusCell.append(form);
@@ -78,6 +99,8 @@ function renderReportTable(reportObj, serial) {
 function getAllReports(endpoint = null) {
   const url = `https://ireporter-api.herokuapp.com/api/v1/${endpoint}`;
   const token = window.localStorage.getItem('token');
+  const toggleContainer = document.querySelector('.toggle');
+  toggleSpinner(toggleContainer, 'Retrieving posts...');
 
   fetch(url, {
     method: 'GET',
@@ -88,6 +111,8 @@ function getAllReports(endpoint = null) {
   })
     .then(response => response.json())
     .then((responseObj) => {
+      toggleContainer.firstChild.nextSibling.remove();
+      toggleContainer.firstChild.remove();
       const report = responseObj.data;
       if (window.location.href.includes('admin')) {
         report.map((reportDetails, serial) => renderReportTable(reportDetails, serial + 1));
@@ -111,25 +136,36 @@ function updateReportStatus(endpoint, id, status) {
     .then(response => response.json())
     .then((responseObj) => {
       if (responseObj.status === 200) {
-        const toast = document.querySelector('.toast');
-        toast.classList.toggle('toast-show');
+        displayToast('Record status updated successfully', true);
         setTimeout(() => {
-          toast.classList.remove('toast-show');
+          displayToast('', false);
+        }, 3000);
+      } else {
+        const { error } = responseObj;
+        displayToast(error, true, 'warning');
+        setTimeout(() => {
+          displayToast('', false);
         }, 3000);
       }
     })
-    .catch(error => console.log(error));
+    .catch((error) => {
+      console.log(error);
+    });
 }
 
 document.body.addEventListener('click', (evt) => {
   evt.preventDefault();
+  const element = document.querySelector('button[type="submit"]');
+  const defaultText = element.textContent;
   const { target } = evt;
   const classNames = Array.from(target.classList);
   if (classNames.includes('update-record')) {
+    toggleSpinner(evt.target, 'Updating Record');
     const status = target.previousElementSibling.value;
     const id = target.getAttribute('data-id');
     const type = target.getAttribute('data-type');
     updateReportStatus(type, id, status);
+    toggleSpinner(evt.target, defaultText, false);
   }
 });
 
@@ -146,6 +182,8 @@ toggleBtns.map((toggleBtn) => {
     const reportsList = document.querySelector('tbody tr:first-child');
     emptyNode(reportsList);
     const type = evt.target.id;
+    document.querySelector('.report-type h2').textContent = `Displaying ${type} records`;
+
     if (type === 'red-flags') {
       this.nextElementSibling.classList.remove('toggled');
     } else {

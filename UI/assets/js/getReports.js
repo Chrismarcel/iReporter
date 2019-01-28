@@ -2,6 +2,14 @@ if (!localStorage.getItem('token')) {
   window.location.href = './';
 }
 
+function toggleSpinner(selector, text, showSpinner = true) {
+  let spinner = '';
+  if (showSpinner) {
+    spinner = '<i class="fas fa-circle-notch fa-spin"></i>';
+  }
+  selector.innerHTML = `${spinner} ${text}`;
+}
+
 function capitalizeFirstLetter(str) {
   return str[0].toUpperCase() + str.substr(1);
 }
@@ -37,7 +45,7 @@ function emptyNode(node) {
 
 function renderReportCard(reportObj) {
   const {
-    id, type, status, latitude, longitude, comment, createdat,
+    id, type, status, latitude, longitude, comment, createdat, images
   } = reportObj;
 
   const reportsGrid = document.querySelector('.cards-list');
@@ -74,7 +82,7 @@ function renderReportCard(reportObj) {
   reportImage.classList.add('report-image');
   const imageIcon = document.createElement('i');
   imageIcon.classList.add('icon', 'icon-blue', 'fas', 'fa-images');
-  reportImage.textContent = '2 Photos';
+  reportImage.textContent = `${images.length} Photos`;
 
   reportImage.prepend(imageIcon);
   reportLocation.prepend(locationIcon);
@@ -113,16 +121,19 @@ function renderReportCard(reportObj) {
 function renderReportForm(reportObj) {
   const { latitude, longitude, comment } = reportObj;
   const commentField = document.getElementById('comment');
-  const locationField = document.getElementById('coordinates');
+  const locationText = document.getElementById('coordinates');
+  locationText.setAttribute('data-coordinates', `${latitude}, ${longitude}`);
+  locationText.textContent = `Selected location coordinates are ${latitude}, ${longitude}`;
 
   commentField.value = comment;
-  locationField.value = `${latitude}, ${longitude}`;
 }
 
 function getReports(endpoint = null, id = null) {
   let url = `https://ireporter-api.herokuapp.com/api/v1/${endpoint}`;
   const token = window.localStorage.getItem('token');
-
+  const reportsGrid = document.querySelector('.cards-list');
+  reportsGrid.style.display = 'block';
+  toggleSpinner(reportsGrid, 'Retrieving posts...');
   if (id) {
     url = `${url}/${id}`;
   }
@@ -137,6 +148,10 @@ function getReports(endpoint = null, id = null) {
     .then(response => response.json())
     .then((responseObj) => {
       const report = responseObj.data;
+      reportsGrid.firstChild.nextSibling.remove();
+      reportsGrid.firstChild.remove();
+      reportsGrid.style.display = 'flex';
+
       if (report.length < 1) {
         return renderEmptyReportsCard('.cards-list');
       }

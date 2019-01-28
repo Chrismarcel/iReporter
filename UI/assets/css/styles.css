@@ -24,6 +24,10 @@ a {
   text-decoration: none;
 }
 
+li {
+  list-style: none;
+}
+
 input,
 select,
 textarea,
@@ -76,7 +80,7 @@ a.btn {
   color: #0facf3;
 }
 
-.btn-warning {
+.btn-warning, {
   color: #fffffa;
   background: #ef271b;
   border: 2px solid #ef271b;
@@ -407,6 +411,7 @@ section > .btn {
   flex-basis: 23.5%;
   background: #fffffa;
   margin-bottom: 20px;
+  margin-right: 20px;
 }
 
 .cards-list p.report-comment {
@@ -531,6 +536,14 @@ footer {
 
 #attachment {
   width: 40%;
+}
+
+#file-list {
+  margin-bottom: 10px;
+}
+
+#file-list li i {
+  margin-left: 5px;
 }
 
 /* Modals */
@@ -698,6 +711,14 @@ div.report-type {
   z-index: -1;
 }
 
+.toast-warning {
+  background: #ef271b;
+}
+
+.toast-primary {
+  background: #0facf3;
+}
+
 .toast-show {
   opacity: 1;
   transition: opacity 0.5s ease-in-out;
@@ -777,7 +798,7 @@ tr > td:last-child {
   flex-basis: 73%;
 }
 
-.user-reports > .cards-list {
+.cards-list {
   justify-content: flex-start;
 }
 

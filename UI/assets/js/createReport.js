@@ -1,6 +1,17 @@
+function toggleSpinner(selector, text, showSpinner = true) {
+  let spinner = '';
+  if (showSpinner) {
+    spinner = '<i class="fas fa-circle-notch fa-spin"></i>';
+  }
+  selector.innerHTML = `${spinner} ${text}`;
+}
+
 function createReport(body, endpoint) {
   const url = `https://ireporter-api.herokuapp.com/api/v1/${endpoint}`;
   const token = window.localStorage.getItem('token');
+  const element = document.querySelector('button[type="submit"]');
+  const defaultText = element.textContent;
+  toggleSpinner(element, 'Creating Record');
 
   fetch(url, {
     method: 'POST',
@@ -14,9 +25,14 @@ function createReport(body, endpoint) {
     .then((responseObj) => {
       if (responseObj.status === 201) {
         window.location.href = './view-reports.html';
+      } else {
+        toggleSpinner(element, defaultText, false);
       }
     })
-    .catch(error => console.log(error));
+    .catch((error) => {
+      toggleSpinner(element, defaultText, false);
+      console.log(error);
+    });
 }
 
 function autoCompleteAddress() {
@@ -53,11 +69,14 @@ function positionSuccess(position) {
   const { latitude, longitude } = position.coords;
   const locationText = document.getElementById('coordinates');
   locationText.setAttribute('data-coordinates', `${latitude}, ${longitude}`);
+  toggleSpinner(locationText, 'Getting current position');
   locationText.textContent = `Selected location coordinates are ${latitude}, ${longitude}`;
 }
 
 function positionFails() {
-  alert('Sorry, could not retrieve location, try again later');
+  const locationText = document.getElementById('coordinates');
+  const text = 'Sorry, could not retrieve location, try again later';
+  toggleSpinner(locationText, text, false);
 }
 
 document.querySelector('.current-location').addEventListener('click', (evt) => {
@@ -65,7 +84,9 @@ document.querySelector('.current-location').addEventListener('click', (evt) => {
   if ('geolocation' in navigator) {
     navigator.geolocation.getCurrentPosition(positionSuccess, positionFails);
   } else {
-    alert('Sorry, your browser does not support this feature');
+    const locationText = document.getElementById('coordinates');
+    const text = 'Sorry, your browser does not support this feature';
+    toggleSpinner(locationText, text, false);
   }
 });
 
@@ -84,7 +105,14 @@ const uploadWidget = cloudinary.createUploadWidget({
     const mediaNames = document.getElementById('report-media');
     const mediaList = JSON.parse(mediaNames.value);
     if (result && result.event === 'success') {
-      const { path } = result.info;
+      const { path, original_filename } = result.info;
+      const fileList = document.getElementById('file-list');
+      const fileListItem = document.createElement('li');
+      const fileListIcon = document.createElement('i');
+      fileListItem.textContent = original_filename;
+      fileListIcon.classList.add('fas', 'fa-check');
+      fileListItem.append(fileListIcon);
+      fileList.append(fileListItem);
       const mediaName = path.split('/')[2];
       mediaList.push(mediaName);
       mediaNames.value = JSON.stringify(mediaList);

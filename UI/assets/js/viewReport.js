@@ -1,3 +1,11 @@
+function toggleSpinner(selector, text, showSpinner = true) {
+  let spinner = '';
+  if (showSpinner) {
+    spinner = '<i class="fas fa-circle-notch fa-spin"></i>';
+  }
+  selector.innerHTML = `${spinner} ${text}`;
+}
+
 function convertUTCTOLocalTime(timeString) {
   const dateObj = new Date(timeString);
   const formattedDate = new Intl.DateTimeFormat('en-GB', {
@@ -57,6 +65,9 @@ function renderReportDetails(reportObj) {
 function getSingleReport(endpoint, id) {
   const token = localStorage.getItem('token');
   const url = `https://ireporter-api.herokuapp.com/api/v1/${endpoint}s/${id}`;
+  const reportToggle = document.querySelector('.report-toggle');
+  toggleSpinner(reportToggle, 'Retrieving posts...');
+
   fetch(url, {
     method: 'GET',
     headers: {
@@ -66,8 +77,10 @@ function getSingleReport(endpoint, id) {
   })
     .then(report => report.json())
     .then((reportObj) => {
-      const reportItemNode = document.querySelector('.modal-comment');
-      emptyNode(reportItemNode);
+      reportToggle.firstChild.nextSibling.remove();
+      reportToggle.firstChild.remove();
+      const commentNode = document.querySelector('.modal-comment');
+      emptyNode(commentNode);
       renderReportDetails(reportObj.data);
     });
 }
@@ -94,5 +107,7 @@ document.body.addEventListener('click', (evt) => {
 
 document.querySelector('.report-modal .modal-close')
   .addEventListener('click', (evt) => {
+    const mediaNode = document.querySelector('.modal-images');
+    mediaNode.innerHTML = '';
     toggleReportModal(evt);
   });

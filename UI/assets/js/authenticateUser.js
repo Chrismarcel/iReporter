@@ -1,5 +1,20 @@
+
+function toggleSpinner(selector, text, showSpinner = true) {
+  let spinner = '';
+  if (showSpinner) {
+    spinner = '<i class="fas fa-circle-notch fa-spin"></i>';
+  }
+  selector.innerHTML = `${spinner} ${text}`;
+}
+
 function authenticateUser(userObj, endpoint) {
   const url = `https://ireporter-api.herokuapp.com/api/v1/auth/${endpoint}`;
+  const element = document.querySelector('button[type="submit"]');
+  const defaultText = element.textContent;
+  let defaultRole = 'user';
+  let defaultPage = './index.html';
+  toggleSpinner(element, 'Loading');
+
   fetch(url, {
     method: 'POST',
     headers: {
@@ -12,17 +27,20 @@ function authenticateUser(userObj, endpoint) {
       if (responseObj.status === 200 || responseObj.status === 201) {
         const { token, user } = responseObj.data[0];
         localStorage.setItem('token', token);
-
         if (user.isadmin === 'true') {
-          localStorage.setItem('role', 'admin');
-          window.location.href = './admin.html';
-        } else {
-          localStorage.setItem('role', 'user');
-          window.location.href = './dashboard.html';
+          defaultRole = 'admin';
+          defaultPage = './admin.html';
         }
+        localStorage.setItem('role', defaultRole);
+        window.location.href = defaultPage;
+      } else {
+        toggleSpinner(element, defaultText, false);
       }
     })
-    .catch(error => console.log(error));
+    .catch((error) => {
+      toggleSpinner(element, defaultText, false);
+      console.log(error);
+    });
 }
 
 document.querySelector('.form-card').addEventListener('submit', (evt) => {
