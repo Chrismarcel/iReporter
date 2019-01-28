@@ -52,26 +52,22 @@
       <div class="report-type">
         <h2>Displaying all red-flags records</h2>
       </div>
-      <p class="toggle"></p>
+      <p class="stat-toggle"></p>
       <div class="admin-report">
         <div class="report-stat">
-          <p>150</p>
+          <p id="total"></p>
           <span>Total records</span>
         </div>
         <div class="report-stat">
-          <p>50</p>
-          <span>Drafted</span>
+          <p id="pending"></p>
+          <span>Pending</span>
         </div>
         <div class="report-stat">
-          <p>30</p>
-          <span>Under Investigation</span>
-        </div>
-        <div class="report-stat">
-          <p>30</p>
+          <p id="resolved"></p>
           <span>Resolved</span>
         </div>
         <div class="report-stat">
-          <p>10</p>
+          <p id="rejected"></p>
           <span>Rejected</span>
         </div>
       </div>
@@ -89,6 +85,7 @@
           </table>
         </div>
       </div>
+      <p class="toggle"></p>
       <div class="toast">
         <p class="toast-message"></p>
         <span class="toast-hide">×</span>
@@ -113,5 +110,6 @@
 <script src="./assets/js/script.js"></script>
 <script src="./assets/js/admin.js"></script>
 <script src="./assets/js/viewReport.js"></script>
+<script src="./assets/js/statistics.js"></script>
 
 </html>

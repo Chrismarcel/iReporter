@@ -80,7 +80,7 @@ a.btn {
   color: #0facf3;
 }
 
-.btn-warning, {
+.btn-warning {
   color: #fffffa;
   background: #ef271b;
   border: 2px solid #ef271b;
@@ -158,6 +158,7 @@ a.btn {
   background: #dfe0e2;
   padding: 50px 40px 130px;
   position: relative;
+  min-height: 80vh;
 }
 
 .form-container > .section-title,
@@ -414,6 +415,10 @@ section > .btn {
   margin-right: 20px;
 }
 
+.cards-list .report-card:nth-child(4n){
+  margin-right: 0;
+}
+
 .cards-list p.report-comment {
   height: 65px;
   overflow: hidden;
@@ -664,6 +669,7 @@ footer {
   display: flex;
   width: 100%;
   justify-content: space-between;
+  display: none;
 }
 
 .stats {
@@ -751,6 +757,7 @@ div.report-type {
 
 .admin-table {
   flex-basis: 100%;
+  margin-bottom: 20px;
 }
 
 .admin-table > .stats-table {
@@ -758,7 +765,7 @@ div.report-type {
 }
 
 .admin-report {
-  display: flex;
+  display: none;
   justify-content: space-between;
   background: #fffffa;
   padding: 25px;

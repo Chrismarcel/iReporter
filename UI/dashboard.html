@@ -53,19 +53,21 @@
       <div class="profile">
         <div class="card profile-card">
           <img class="profile-image" src="./assets/img/profile-pic.jpg" alt="Profile Image" />
-          <p class="profile-name">James Chrismarcel</p>
+          <p class="profile profile-name fullname"></p>
+          <p class="profile username"></p>
           <p>Records Statistics</p>
+          <p class="stat-toggle"></p>
           <div class="profile-stats">
             <div class="stats">
-              <p class="stat-value">4</p>
+              <p class="stat-value" id="resolved"></p>
               <span class="stat-type">Resolved</span>
             </div>
             <div class="stats">
-              <p class="stat-value">3</p>
+              <p class="stat-value" id="pending"></p>
               <span class="stat-type">Pending</span>
             </div>
             <div class="stats">
-              <p class="stat-value">1</p>
+              <p class="stat-value" id="rejected"></p>
               <span class="stat-type">Rejected</span>
             </div>
           </div>
@@ -110,5 +112,6 @@
 <script src="./assets/js/getReports.js"></script>
 <script src="./assets/js/viewReport.js"></script>
 <script src="./assets/js/deleteReport.js"></script>
+<script src="./assets/js/statistics.js"></script>
 
 </html>
