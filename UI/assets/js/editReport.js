@@ -78,7 +78,10 @@ document.querySelector('.form-card').addEventListener('submit', (evt) => {
 function positionSuccess(position) {
   const { latitude, longitude } = position.coords;
   const locationText = document.getElementById('coordinates');
+  const locationField = document.getElementById('location');
   locationText.setAttribute('data-coordinates', `${latitude}, ${longitude}`);
+  locationText.setAttribute('data-coordinates', `${latitude}, ${longitude}`);
+  locationField.removeAttribute('required');
   toggleSpinner(locationText, 'Getting current position');
   locationText.textContent = `Selected location coordinates are ${latitude}, ${longitude}`;
 }
