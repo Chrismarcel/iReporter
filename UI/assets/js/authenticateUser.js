@@ -27,6 +27,8 @@ function authenticateUser(userObj, endpoint) {
       if (responseObj.status === 200 || responseObj.status === 201) {
         const { token, user } = responseObj.data[0];
         localStorage.setItem('token', token);
+        localStorage.setItem('fullname', `${user.firstname} ${user.lastname}`);
+        localStorage.setItem('username', `${user.username}`);
         if (user.isadmin === 'true') {
           defaultRole = 'admin';
           defaultPage = './admin.html';
