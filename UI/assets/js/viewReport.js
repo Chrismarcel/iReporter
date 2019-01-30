@@ -79,6 +79,8 @@ function getSingleReport(endpoint, id) {
     .then((reportObj) => {
       reportToggle.firstChild.nextSibling.remove();
       reportToggle.firstChild.remove();
+      const commentNode = document.querySelector('.modal-comment');
+      emptyNode(commentNode);
       renderReportDetails(reportObj.data);
     });
 }
@@ -105,8 +107,6 @@ document.body.addEventListener('click', (evt) => {
 
 document.querySelector('.report-modal .modal-close')
   .addEventListener('click', (evt) => {
-    const commentNode = document.querySelector('.modal-comment');
-    emptyNode(commentNode);
     const mediaNode = document.querySelector('.modal-images');
     mediaNode.innerHTML = '';
     toggleReportModal(evt);

@@ -930,10 +930,8 @@ tr > td:last-child {
   }
 
   .hero {
-    padding: 65px 25px;
-    height: calc(100vh - 73px);
-    display: flex;
-    justify-content: space-evenly;
+    padding: 40px 25px;
+    height: auto;
   }
 
   .hero-title {
@@ -947,7 +945,7 @@ tr > td:last-child {
   }
 
   .hero-cta {
-    width: 55%;
+    width: 45%;
   }
 
   .hero-cta > a:first-child {
@@ -979,14 +977,10 @@ tr > td:last-child {
     padding: 20px;
   }
 
-  .features {
+  .featured {
     margin-top: -40px;
     clip-path: polygon(0 8%, 100% 0, 100% 100%, 0% 100%);
-    padding-top: 60px;
-  }
-
-  .features.section-dark {
-    padding-top: 115px;
+    padding-top: 150px;
   }
 
   .report-card:last-child {
@@ -996,16 +990,6 @@ tr > td:last-child {
   .form-card {
     width: 90%;
     padding: 50px 25px;
-  }
-
-  .divider {
-    display: block;
-    margin: 0 auto;
-    margin-bottom: 15px;
-  }
-
-  .form-group input, #attachment, .form-group button {
-    width: 100%
   }
 
   .profile-card {
@@ -1030,7 +1014,7 @@ tr > td:last-child {
     height: 90px;
   }
 
-  .cards-list > .report-card {
+  .user-reports > .cards-list > .report-card {
     margin-right: 0;
   }
 
