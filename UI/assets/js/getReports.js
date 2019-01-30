@@ -68,7 +68,7 @@ function renderReportCard(reportObj) {
   const expandReport = document.createElement('a');
   expandReport.classList.add('expand-report');
   expandReport.setAttribute('href', '#');
-  expandReport.textContent = 'View Details';
+  expandReport.textContent = 'See more details';
   const reportLocation = document.createElement('p');
   reportLocation.classList.add('report-location');
   reportLocation.textContent = `${latitude}, ${longitude}`;

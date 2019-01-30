@@ -10,6 +10,12 @@
   </title>
   <link rel="stylesheet" href="./assets/css/styles.css" />
   <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/solid.css"
+    integrity="sha384-+0VIRx+yz1WBcCTXBkVQYIBVNEFH1eP6Zknm16roZCyeNg2maWEpk/l/KsyFKs7G"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/fontawesome.css"
+    integrity="sha384-jLuaxTTBR42U2qJ/pm4JRouHkEDHkVqH0T1nyQXn1mZ7Snycpf6Rl25VBNthU4z0"
+    crossorigin="anonymous">
 </head>
 
 <body>
@@ -46,8 +52,8 @@
         reports and interventions created by other users.
       </p>
       <div class="hero-cta">
-        <a href="./create-report.html" class="btn btn-white">Create Records</a>
-        <a href="./view-reports.html" class="btn btn-hollow">View Records</a>
+        <a href="./create-report.html" class="btn btn-white">Get Started <i
+            class="fas fa-arrow-right"></i></a>
       </div>
     </section>
     <!-- End Hero Section -->
@@ -58,22 +64,22 @@
         In 3 easy steps you can easily report corruption cases and seek
         government intervention.
       </p>
-      <div class="steps">
-        <div class="column step">
+      <div class="features">
+        <div class="column feature-item">
           <span class="circle-icon">1</span>
           <p class="section-text">
             Create and submit a red flag or intervention record. Set a title,
             attach images/videos and input your location.
           </p>
         </div>
-        <div class="column step">
+        <div class="column feature-item">
           <span class="circle-icon">2</span>
           <p class="section-text">
             Your record gets submitted to the appropriate authority and
             process is put in place to start reviewing your record.
           </p>
         </div>
-        <div class="column step">
+        <div class="column feature-item">
           <span class="circle-icon">3</span>
           <p class="section-text">
             Your record gets reviewed and you get a real time email feedback
@@ -83,73 +89,35 @@
       </div>
     </section>
     <!-- End How It Works Section -->
-    <!-- Begin Featured Reports Section -->
-    <section class="featured">
-      <h2 class="section-title">Featured records</h2>
-      <div class="column cards-list">
-        <div class="card report-card">
-          <div class="report-status resolved">Resolved</div>
-          <a href="./user-reports.html" class="report-user"><strong>Seni</strong></a>
-          <strong>Report date: </strong>
-          <p class="report-time">21st Nov. 2018 10:00 am</p>
-          <strong>Issue:</strong>
-          <p class="report-title">Poor waste management and disposal</p>
-          <strong>Location:</strong>
-          <p class="report-location">3 Chris Street, Surulere</p>
-          <a href="#" class="report-media">2 Media</a>
-        </div>
-        <div class="card report-card">
-          <div class="report-status resolved">Resolved</div>
-          <a href="./user-reports.html" class="report-user"><strong>Christina</strong></a>
-          <strong>Report date: </strong>
-          <p class="report-time">21st Nov. 2018 10:00 am</p>
-          <strong>Issue:</strong>
-          <p class="report-title">Collapse of bridge</p>
-          <strong>Location:</strong>
-          <p class="report-location">18 Adekunle Street, Berger</p>
-          <a href="#" class="report-media">1 Media</a>
-        </div>
-        <div class="card report-card">
-          <div class="report-status investigating">Investigating</div>
-          <a href="./user-reports.html" class="report-user"><strong>Nadayar</strong></a>
-          <strong>Report date: </strong>
-          <p class="report-time">24th Nov. 2018 10:00 am</p>
-          <strong>Issue:</strong>
-          <p class="report-title">
-            Containers parked on the highway causing traffic gridlock
+    <!-- Begin Top Features Section -->
+    <section class="features section-dark">
+      <h2 class="section-title">Top Features</h2>
+      <div class="features">
+        <div class="column feature-item">
+          <p class="circle-icon"><i class="fas fa-bell"></i></p>
+          <p class="section-text">
+            Receive real time email and SMS notifications immediately your
+            report has been resolved. You get updated as soon as your report
+            has been reviewed and attended to.
           </p>
-          <strong>Location:</strong>
-          <p class="report-location">23 John Street, Yaba</p>
-          <a href="#" class="report-media">2 Media</a>
         </div>
-        <div class="card report-card">
-          <div class="report-status rejected">Rejected</div>
-          <a href="./user-reports.html" class="report-user"><strong>Jeremy</strong></a>
-          <strong>Report date: </strong>
-          <p class="report-time">23rd Nov. 2018 10:00 am</p>
-          <strong>Issue:</strong>
-          <p class="report-title">Blocked drainage systems</p>
-          <strong>Location:</strong>
-          <p class="report-location">23 James Street, Surulere</p>
+        <div class="column feature-item">
+          <p class="circle-icon"><i class="fas fa-map-marked-alt"></i></p>
+          <p class="section-text">
+            Set the location you are reporting from. You can either choose to
+            enter an address or select you current location.
+          </p>
+        </div>
+        <div class="column feature-item">
+          <p class="circle-icon"><i class="fas fa-images"></i></p>
+          <p class="section-text">
+            Ability to add media (photos and videos) attachments to help
+            validate your report.
+          </p>
         </div>
       </div>
-      <a href="./view-reports.html" class="btn btn-primary">View More Reports</a>
     </section>
-    <div class="modal">
-      <div class="modal-header">
-        <p class="modal-title">Report media</p>
-        <span class="modal-close">X</span>
-      </div>
-      <div class="modal-body">
-        <div class="modal-group modal-images">
-          <img src="./assets/img/demo-image1.jpg" alt="Police brutalizing a citizen"
-            class="report-img">
-          <img src="./assets/img/demo-image2.jpg" alt="A case of corporate bribery"
-            class="report-img">
-        </div>
-      </div>
-    </div>
-    <!-- End Featured Reports Section -->
+    <!-- End Top Features Section -->
   </main>
   <!-- Begin Footer -->
   <footer>
