@@ -1,15 +1,13 @@
 const isHomePage = window.location.pathname === '/' || window.location.href.includes('index');
+const authPages = ['/login.html', '/signup.html', '/', '/index.html'];
+
+if (!localStorage.getItem('token') && !authPages.includes(window.location.pathname)) {
+  window.location.href = './login.html';
+}
 
 if (localStorage.getItem('token') && isHomePage) {
   document.getElementById('login').remove();
   document.getElementById('signup').remove();
-}
-
-if (!localStorage.getItem('token')) {
-  document.getElementById('admin').remove();
-  document.getElementById('create-record').remove();
-  document.getElementById('my-records').remove();
-  document.getElementById('dashboard').remove();
 }
 
 if (localStorage.getItem('role') === 'user') {

@@ -339,7 +339,6 @@ main {
 
 .hero-cta {
   display: flex;
-  width: 26%;
   justify-content: space-between;
 }
 
@@ -359,15 +358,16 @@ section > .btn {
   align-self: center;
 }
 
-.steps {
+.features {
   display: flex;
   justify-content: space-between;
 }
 
-.column.step {
+.feature-item {
   flex-basis: 50%;
   flex-direction: column;
   padding: 20px 50px;
+  justify-content: start;
 }
 
 .column .circle-icon {
@@ -400,6 +400,15 @@ section > .btn {
   background: #dfe0e2;
   clip-path: polygon(0 13%, 100% 0, 100% 100%, 0% 100%);
   padding-top: 110px;
+}
+
+.section-dark {
+  background: #3c1642;
+}
+
+.section-dark .section-title, 
+.section-dark .section-text {
+  color: #fffffa;
 }
 
 .cards-list {
@@ -913,6 +922,7 @@ tr > td:last-child {
 
   .container {
     padding: 40px 20px;
+    min-height: 85vh;
   }
 
   .form-container {
@@ -935,7 +945,7 @@ tr > td:last-child {
   }
 
   .hero-cta {
-    width: 65%;
+    width: 45%;
   }
 
   .hero-cta > a:first-child {
@@ -944,7 +954,7 @@ tr > td:last-child {
   }
 
   .hero-cta,
-  .steps,
+  .features,
   .cards-list,
   .profile {
     flex-direction: column;
@@ -963,7 +973,7 @@ tr > td:last-child {
     padding: 20px;
   }
 
-  .column.step {
+  .column.feature-item {
     padding: 20px;
   }
 
