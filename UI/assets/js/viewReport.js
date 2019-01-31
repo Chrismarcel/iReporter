@@ -60,6 +60,7 @@ function renderReportDetails(reportObj) {
 
   modalBody.insertBefore(reportTime, document.querySelector('.map-container'));
   modalBody.insertBefore(reportLocation, document.querySelector('.map-container'));
+  initMap(Number(latitude), Number(longitude));
 }
 
 function getSingleReport(endpoint, id) {
@@ -92,11 +93,7 @@ function toggleReportModal(evt) {
   modal.classList.toggle('modal-open');
 }
 
-function initMap() {
-  const locationElement = document.querySelector('.report-location');
-  const locationString = locationElement.textContent.split(',');
-  const lat = Number(locationString[0].trim());
-  const lng = Number(locationString[1].trim());
+function initMap(lat, lng) {
   const coordinates = {
     lat, lng,
   };
@@ -116,7 +113,6 @@ document.body.addEventListener('click', (evt) => {
     const type = previousElement.getAttribute('data-type');
     const id = previousElement.getAttribute('data-id');
     getSingleReport(type, id);
-    initMap();
   }
 });
 
