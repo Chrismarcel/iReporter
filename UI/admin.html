@@ -23,7 +23,9 @@
   <!-- Begin Header -->
   <header>
     <nav class="navbar">
-      <a href="./" class="navbar-logo">iReporter</a>
+      <a href="./" class="navbar-logo">
+        <img class="logo" src="./assets/img/logo.png">
+      </a>
       <button class="hamburger-menu"><a class="hamburger"></a></button>
       <ul class="navbar-menu">
         <li class="navbar-link">
@@ -99,6 +101,9 @@
           <p class="report-toggle"></p>
           <div class="modal-group modal-images"></div>
           <div class="modal-comment"></div>
+          <div class="map-container">
+            <div id="map"></div>
+          </div>
         </div>
       </div>
     </section>
@@ -111,5 +116,6 @@
 <script src="./assets/js/admin.js"></script>
 <script src="./assets/js/viewReport.js"></script>
 <script src="./assets/js/statistics.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIKKKyKK4f4Dr6e-H1H2YIEtzuh29uzjk"></script>
 
 </html>

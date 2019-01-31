@@ -20,6 +20,10 @@ body.modal-open {
 }
 
 /* Global/Custom Components */
+.logo {
+  height: 40px;
+}
+
 a {
   text-decoration: none;
 }
@@ -266,12 +270,7 @@ header {
 }
 
 .navbar-logo {
-  font-weight: 600;
-  font-size: 2em;
   padding: 15px 40px;
-  text-decoration: none;
-  color: #0facf3;
-  letter-spacing: 0.07em;
 }
 
 .navbar-menu {
@@ -396,7 +395,7 @@ section > .btn {
 
 /* Featured Reports */
 .featured {
-  margin-top: -35px;
+  margin-top: -50px;
   background: #dfe0e2;
   clip-path: polygon(0 13%, 100% 0, 100% 100%, 0% 100%);
   padding-top: 110px;
@@ -832,6 +831,25 @@ tr > td:last-child {
   height: auto;
 }
 
+.map-container {
+  width: 100%;
+  height: 400px;
+  position: relative;
+}
+
+#map {
+  position: static !important;
+}
+
+#map > div {
+  overflow: hidden;
+}
+
+.modal-comment > p {
+  border-left: 3px solid #0facf3;
+  padding: 10px;
+}
+
 /* For smartphones (<768px) */
 @media screen and (max-width: 768px) {
   .navbar-menu {
@@ -930,7 +948,7 @@ tr > td:last-child {
   }
 
   .hero {
-    padding: 40px 25px;
+    padding: 65px 25px;
     height: auto;
   }
 
@@ -964,17 +982,21 @@ tr > td:last-child {
     padding: 40px 20px;
   }
 
+  .featured {
+    padding-top: 150px;
+  }
+
   .section-title {
     display: block;
   }
 
   .navbar-logo {
     font-size: 1.5em;
-    padding: 20px;
+    padding: 15px;
   }
 
   .column.feature-item {
-    padding: 20px;
+    padding: 15px;
   }
 
   .featured {

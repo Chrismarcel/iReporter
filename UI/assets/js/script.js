@@ -1,7 +1,11 @@
 const isHomePage = window.location.pathname === '/' || window.location.href.includes('index');
-const authPages = ['/login.html', '/signup.html', '/', '/index.html'];
+const noAuthPages = ['login.html', 'signup.html', '', 'index.html'];
 
-if (!localStorage.getItem('token') && !authPages.includes(window.location.pathname)) {
+// Check if page is being served locally or from github pages
+const baseUrlLength = window.location.pathname.includes('iReporter') ? 14 : 1;
+const pageName = window.location.pathname.substr(baseUrlLength);
+
+if (!localStorage.getItem('token') && !noAuthPages.includes(pageName)) {
   window.location.href = './login.html';
 }
 
@@ -10,8 +14,14 @@ if (localStorage.getItem('token') && isHomePage) {
   document.getElementById('signup').remove();
 }
 
-if (localStorage.getItem('role') === 'user') {
+if (localStorage.getItem('role') !== 'admin') {
   document.getElementById('admin').remove();
+}
+
+if (localStorage.getItem('role') !== 'user') {
+  document.getElementById('dashboard').remove();
+  document.getElementById('my-records').remove();
+  document.getElementById('create-record').remove();
 }
 
 // Event handler for toggling menu of mobile devices

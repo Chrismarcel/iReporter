@@ -58,8 +58,9 @@ function renderReportDetails(reportObj) {
   reportTime.prepend(clockIcon);
   reportLocation.prepend(locationIcon);
 
-  modalBody.append(reportTime);
-  modalBody.append(reportLocation);
+  modalBody.insertBefore(reportTime, document.querySelector('.map-container'));
+  modalBody.insertBefore(reportLocation, document.querySelector('.map-container'));
+  initMap(Number(latitude), Number(longitude));
 }
 
 function getSingleReport(endpoint, id) {
@@ -94,6 +95,18 @@ function toggleReportModal(evt) {
   modal.classList.toggle('modal-open');
 }
 
+function initMap(lat, lng) {
+  const coordinates = {
+    lat, lng,
+  };
+  // The map, centered at Uluru
+  const map = new google.maps.Map(
+    document.getElementById('map'), { zoom: 17, center: coordinates },
+  );
+  // The marker, positioned at Uluru
+  const marker = new google.maps.Marker({ position: coordinates, map });
+}
+
 document.body.addEventListener('click', (evt) => {
   const classNames = Array.from(evt.target.classList);
   if (classNames.includes('expand-report')) {
@@ -107,7 +120,11 @@ document.body.addEventListener('click', (evt) => {
 
 document.querySelector('.report-modal .modal-close')
   .addEventListener('click', (evt) => {
-    const mediaNode = document.querySelector('.modal-images');
-    mediaNode.innerHTML = '';
+    document.querySelector('.modal-comment').innerHTML = '';
+    document.querySelector('.modal-images').innerHTML = '';
+    const reportTime = document.querySelector('.modal-body .report-time');
+    reportTime.parentNode.removeChild(reportTime);
+    const reportLocation = document.querySelector('.modal-body .report-location');
+    reportLocation.parentNode.removeChild(reportLocation);
     toggleReportModal(evt);
   });
