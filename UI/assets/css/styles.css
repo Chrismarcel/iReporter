@@ -831,6 +831,25 @@ tr > td:last-child {
   height: auto;
 }
 
+.map-container {
+  width: 100%;
+  height: 400px;
+  position: relative;
+}
+
+#map {
+  position: static !important;
+}
+
+#map > div {
+  overflow: hidden;
+}
+
+.modal-comment > p {
+  border-left: 3px solid #0facf3;
+  padding: 10px;
+}
+
 /* For smartphones (<768px) */
 @media screen and (max-width: 768px) {
   .navbar-menu {
