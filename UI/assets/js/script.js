@@ -1,29 +1,3 @@
-const isHomePage = window.location.pathname === '/' || window.location.href.includes('index');
-const noAuthPages = ['login.html', 'signup.html', '', 'index.html'];
-
-// Check if page is being served locally or from github pages
-const baseUrlLength = window.location.pathname.includes('iReporter') ? 14 : 1;
-const pageName = window.location.pathname.substr(baseUrlLength);
-
-if (!localStorage.getItem('token') && !noAuthPages.includes(pageName)) {
-  window.location.href = './login.html';
-}
-
-if (localStorage.getItem('token') && isHomePage) {
-  document.getElementById('login').remove();
-  document.getElementById('signup').remove();
-}
-
-if (localStorage.getItem('role') !== 'admin') {
-  document.getElementById('admin').remove();
-}
-
-if (localStorage.getItem('role') !== 'user') {
-  document.getElementById('dashboard').remove();
-  document.getElementById('my-records').remove();
-  document.getElementById('create-record').remove();
-}
-
 // Event handler for toggling menu of mobile devices
 const hamburgerBtn = document.querySelector('.hamburger-menu');
 hamburgerBtn.addEventListener('click', function toggleMenu() {
@@ -50,5 +24,44 @@ if (toastHide) {
   toastHide.addEventListener('click', (evt) => {
     evt.preventDefault();
     toast.classList.toggle('toast-show');
+  });
+}
+
+const isHomePage = window.location.pathname === '/' || window.location.href.includes('index');
+const noAuthPages = ['login.html', 'signup.html', '', 'index.html'];
+
+// Check if page is being served locally or from github pages
+const baseUrlLength = window.location.pathname.includes('iReporter') ? 14 : 1;
+const pageName = window.location.pathname.substr(baseUrlLength);
+
+if (!localStorage.getItem('token') && !noAuthPages.includes(pageName)) {
+  window.location.href = './login.html';
+}
+
+if (localStorage.getItem('token') && isHomePage) {
+  document.getElementById('login').remove();
+  document.getElementById('signup').remove();
+}
+
+if (localStorage.getItem('role') !== 'admin') {
+  document.getElementById('admin').remove();
+}
+
+if (localStorage.getItem('role') !== 'user') {
+  document.getElementById('dashboard').remove();
+  document.getElementById('my-records').remove();
+  document.getElementById('create-record').remove();
+}
+
+if (!localStorage.getItem('token')) {
+  document.getElementById('logout').remove();
+}
+
+// Handle logout event
+if (localStorage.getItem('token')) {
+  document.getElementById('logout').addEventListener('click', (evt) => {
+    evt.preventDefault();
+    localStorage.clear();
+    window.location.href = './';
   });
 }
