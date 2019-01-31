@@ -45,7 +45,7 @@ function emptyNode(node) {
 
 function renderReportCard(reportObj) {
   const {
-    id, type, status, latitude, longitude, comment, createdat, images
+    id, type, status, latitude, longitude, comment, createdat, images,
   } = reportObj;
 
   const reportsGrid = document.querySelector('.cards-list');
@@ -131,9 +131,14 @@ function renderReportForm(reportObj) {
 function getReports(endpoint = null, id = null) {
   let url = `https://ireporter-api.herokuapp.com/api/v1/${endpoint}`;
   const token = window.localStorage.getItem('token');
-  const reportsGrid = document.querySelector('.cards-list');
-  reportsGrid.style.display = 'block';
-  toggleSpinner(reportsGrid, 'Retrieving posts...');
+  const editPage = window.location.href.includes('edit-report') || false;
+  let reportsGrid;
+  if (!editPage) {
+    reportsGrid = document.querySelector('.cards-list');
+    reportsGrid.style.display = 'block';
+    toggleSpinner(reportsGrid, 'Retrieving posts...');
+  }
+
   if (id) {
     url = `${url}/${id}`;
   }
@@ -148,9 +153,11 @@ function getReports(endpoint = null, id = null) {
     .then(response => response.json())
     .then((responseObj) => {
       const report = responseObj.data;
-      reportsGrid.firstChild.nextSibling.remove();
-      reportsGrid.firstChild.remove();
-      reportsGrid.style.display = 'flex';
+      if (!editPage) {
+        reportsGrid.firstChild.nextSibling.remove();
+        reportsGrid.firstChild.remove();
+        reportsGrid.style.display = 'flex';
+      }
 
       if (report.length < 1) {
         return renderEmptyReportsCard('.cards-list');
