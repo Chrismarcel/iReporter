@@ -58,8 +58,8 @@ function renderReportDetails(reportObj) {
   reportTime.prepend(clockIcon);
   reportLocation.prepend(locationIcon);
 
-  modalBody.append(reportTime);
-  modalBody.append(reportLocation);
+  modalBody.insertBefore(reportTime, document.querySelector('.map-container'));
+  modalBody.insertBefore(reportLocation, document.querySelector('.map-container'));
 }
 
 function getSingleReport(endpoint, id) {
@@ -92,6 +92,22 @@ function toggleReportModal(evt) {
   modal.classList.toggle('modal-open');
 }
 
+function initMap() {
+  const locationElement = document.querySelector('.report-location');
+  const locationString = locationElement.textContent.split(',');
+  const lat = Number(locationString[0].trim());
+  const lng = Number(locationString[1].trim());
+  const coordinates = {
+    lat, lng,
+  };
+  // The map, centered at Uluru
+  const map = new google.maps.Map(
+    document.getElementById('map'), { zoom: 17, center: coordinates },
+  );
+  // The marker, positioned at Uluru
+  const marker = new google.maps.Marker({ position: coordinates, map });
+}
+
 document.body.addEventListener('click', (evt) => {
   const classNames = Array.from(evt.target.classList);
   if (classNames.includes('expand-report')) {
@@ -100,14 +116,18 @@ document.body.addEventListener('click', (evt) => {
     const type = previousElement.getAttribute('data-type');
     const id = previousElement.getAttribute('data-id');
     getSingleReport(type, id);
+    initMap();
   }
 });
 
 document.querySelector('.report-modal .modal-close')
   .addEventListener('click', (evt) => {
-    const commentNode = document.querySelector('.modal-comment');
-    emptyNode(commentNode);
-    const mediaNode = document.querySelector('.modal-images');
-    mediaNode.innerHTML = '';
+    document.querySelector('.modal-comment').innerHTML = '';
+    document.querySelector('.modal-images').innerHTML = '';
+    const reportTime = document.querySelector('.modal-body .report-time');
+    reportTime.parentNode.removeChild(reportTime);
+    const reportLocation = document.querySelector('.modal-body .report-location');
+    reportLocation.parentNode.removeChild(reportLocation);
+
     toggleReportModal(evt);
   });
