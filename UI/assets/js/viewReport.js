@@ -80,6 +80,8 @@ function getSingleReport(endpoint, id) {
     .then((reportObj) => {
       reportToggle.firstChild.nextSibling.remove();
       reportToggle.firstChild.remove();
+      const commentNode = document.querySelector('.modal-comment');
+      emptyNode(commentNode);
       renderReportDetails(reportObj.data);
     });
 }
@@ -124,6 +126,5 @@ document.querySelector('.report-modal .modal-close')
     reportTime.parentNode.removeChild(reportTime);
     const reportLocation = document.querySelector('.modal-body .report-location');
     reportLocation.parentNode.removeChild(reportLocation);
-
     toggleReportModal(evt);
   });
