@@ -9,12 +9,12 @@ import pool from '../models/dbconnection';
 
 class UserController {
   /**
-  * @method registerUser
-  * @description Registers a user if details are correct
-  * @param {object} req - The Request Object
-  * @param {object} res - The Response Object
-  * @returns {object} JSON API Response
-  */
+   * @method registerUser
+   * @description Registers a user if details are correct
+   * @param {object} req - The Request Object
+   * @param {object} res - The Response Object
+   * @returns {object} JSON API Response
+   */
   static registerUser(req, res) {
     const {
       firstname, lastname, othernames, email, phonenumber, password, username,
@@ -39,20 +39,22 @@ class UserController {
       const token = HelperUtils.generateToken({ id, email, isadmin });
       return res.status(201).json({
         status: 201,
-        data: [{
-          message: 'Registration Successful!',
-          token,
-          user: {
-            id,
-            email,
-            firstname,
-            lastname,
-            username,
-            othernames,
-            phonenumber,
-            isadmin,
+        data: [
+          {
+            message: 'Registration Successful!',
+            token,
+            user: {
+              id,
+              email,
+              firstname,
+              lastname,
+              username,
+              othernames,
+              phonenumber,
+              isadmin,
+            },
           },
-        }],
+        ],
       });
     });
   }
@@ -69,19 +71,21 @@ class UserController {
 
     res.status(200).json({
       status: 200,
-      data: [{
-        message: 'Login Successful!',
-        token,
-        user: {
-          id: req.user.id,
-          email: req.user.email,
-          firstname: req.user.firstname,
-          lastname: req.user.lastname,
-          username: req.user.username,
-          phonenumber: req.user.phonenumber,
-          isadmin: req.user.isadmin,
+      data: [
+        {
+          message: 'Login Successful!',
+          token,
+          user: {
+            id: req.user.id,
+            email: req.user.email,
+            firstname: req.user.firstname,
+            lastname: req.user.lastname,
+            username: req.user.username,
+            phonenumber: req.user.phonenumber,
+            isadmin: req.user.isadmin,
+          },
         },
-      }],
+      ],
     });
   }
 }

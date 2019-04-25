@@ -94,7 +94,7 @@ class ValidateUser {
           email: userReq.email,
           isadmin: userReq.isadmin,
           firstname: userReq.firstname,
-          lastname: userReq.firstname,
+          lastname: userReq.lastname,
           phonenumber: userReq.phonenumber,
           username: userReq.username,
           createdon: userReq.registered,
