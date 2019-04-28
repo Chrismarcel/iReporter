@@ -26,10 +26,22 @@ class IncidentController {
       params = [type, id];
     }
 
-    pool.query(query, params, (err, dbRes) => res.status(200).json({
-      status: 200,
-      data: dbRes.rows,
-    }));
+    pool.query(`${query} ORDER BY id DESC`, params, (err, dbRes) => {
+      const resolved = dbRes.rows.filter(report => report.status === 'resolved').length;
+      const pending = dbRes.rows.filter(
+        report => report.status === 'drafted' || report.status === 'investigating',
+      ).length;
+      const rejected = dbRes.rows.filter(report => report.status === 'rejected').length;
+      res.status(200).json({
+        status: 200,
+        data: dbRes.rows,
+        reportStats: {
+          resolved,
+          pending,
+          rejected,
+        },
+      });
+    });
   }
 
   /**
@@ -78,13 +90,19 @@ class IncidentController {
       const postId = dbRes.rows[0].id;
       return res.status(201).json({
         status: 201,
-        data: [{
-          id: postId,
-          message: `Created ${type} record`,
-          incident: {
-            type, comment, latitude, longitude, images,
+        data: [
+          {
+            id: postId,
+            message: `Created ${type} record`,
+            incident: {
+              type,
+              comment,
+              latitude,
+              longitude,
+              images,
+            },
           },
-        }],
+        ],
       });
     });
   }
@@ -110,11 +128,13 @@ class IncidentController {
       return pool.query(query, [status, postId], (err, dbRes) => {
         res.status(200).json({
           status: 200,
-          data: [{
-            id: postId,
-            message: 'Record has been successfully changed',
-            incidentStatus: status,
-          }],
+          data: [
+            {
+              id: postId,
+              message: 'Record has been successfully changed',
+              incidentStatus: status,
+            },
+          ],
         });
       });
     }
