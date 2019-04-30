@@ -9,12 +9,12 @@ import pool from '../models/dbconnection';
 
 class ValidateIncident {
   /**
-  * @method validateCoordinates
-  * @description Validates the set of co-ordinates passed in the request body
-  * @param {object} req - The Request Object
-  * @param {object} res - The Response Object
-  * @returns {object} JSON API Response
-  */
+   * @method validateCoordinates
+   * @description Validates the set of co-ordinates passed in the request body
+   * @param {object} req - The Request Object
+   * @param {object} res - The Response Object
+   * @returns {object} JSON API Response
+   */
   static validateCoordinates(req, res, next) {
     const validate = HelperUtils.validate();
     let error = '';
@@ -35,7 +35,8 @@ class ValidateIncident {
 
     if (error) {
       return res.status(400).json({
-        status: 400, error,
+        status: 400,
+        error,
       });
     }
 
@@ -114,12 +115,14 @@ class ValidateIncident {
    * @returns {object} JSON API Response
    */
   static validateStatus(req, res, next) {
-    const status = ['investigating', 'resolved', 'rejected'];
+    const status = ['drafted', 'investigating', 'resolved', 'rejected'];
     const endpoints = ['location', 'comment'];
     const url = req.url.split('/')[3];
 
     if (!status.includes(req.body.status) && url === 'status') {
-      return res.status(400).json({ status: 400, error: 'You need to specify a correct status type' });
+      return res
+        .status(400)
+        .json({ status: 400, error: 'You need to specify a correct status type' });
     }
 
     if (endpoints.includes(url)) {
@@ -128,7 +131,10 @@ class ValidateIncident {
 
       return pool.query(query, [id], (err, dbRes) => {
         if (dbRes.rows[0].status !== 'drafted') {
-          return res.status(409).json({ status: 409, error: 'You cannot modify this report after its status has been updated' });
+          return res.status(409).json({
+            status: 409,
+            error: 'You cannot modify this report after its status has been updated',
+          });
         }
 
         return next();
@@ -151,7 +157,9 @@ class ValidateIncident {
       const { images } = req.body;
 
       if (images.length > 3) {
-        return res.status(413).json({ status: 413, error: 'You can only upload a maximum of 3 images' });
+        return res
+          .status(413)
+          .json({ status: 413, error: 'You can only upload a maximum of 3 images' });
       }
 
       for (let i = 0; i < images.length; i++) {
@@ -159,7 +167,8 @@ class ValidateIncident {
         if (!supportedMedia.includes(format)) {
           return res.status(415).json({
             status: 415,
-            error: 'Sorry, the format you specified is incorrect. Only .jpeg, .jpg, .png formats are accepted',
+            error:
+              'Sorry, the format you specified is incorrect. Only .jpeg, .jpg, .png formats are accepted',
           });
         }
         return next();
